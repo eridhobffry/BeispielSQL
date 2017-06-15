@@ -8,17 +8,35 @@ package com.example.eridhobufferyrollian.beispielsql;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
 public class MainActivity extends AppCompatActivity {
 
+
+    //------------------------------------Test Dummies----------------------------------------------
+    public static final String LOG_TAG = MainActivity.class.getSimpleName();
+
+    private DateiMemoDbSource dataSource;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DateiMemo testMemo = new DateiMemo("Wittman", "muster123", 1);
+        Log.d(LOG_TAG, "Inhalt der Testmemo: " + testMemo.toString());
+
+        dataSource = new DateiMemoDbSource(this);
     }
+    //----------------------------------------------------------------------------------------------
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
