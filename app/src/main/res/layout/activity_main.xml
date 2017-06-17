@@ -20,7 +20,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/editText_hint_quantity"
+            android:hint="NID"
             android:inputType="number"
             android:id="@+id/editText_quantity"
             android:layout_weight="1" />
@@ -28,14 +28,14 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/editText_hint_product"
+            android:hint="Username"
             android:id="@+id/editText_username"
             android:layout_weight="4" />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/editText_hint_product"
+            android:hint="Password"
             android:id="@+id/editText_password"
             android:layout_weight="4" />
 
