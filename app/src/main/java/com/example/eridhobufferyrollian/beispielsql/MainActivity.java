@@ -16,20 +16,36 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
 
-    //------------------------------------Test Dummies----------------------------------------------
+
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private DateiMemoDbSource dataSource;
 
+
+
+    //----------------  Man verbindet von hier zu der DBSource  -----------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //------------------------------------Test Dummies------------------------------------
         DateiMemo testMemo = new DateiMemo("Wittman", "muster123", 1);
         Log.d(LOG_TAG, "Inhalt der Testmemo: " + testMemo.toString());
+        //------------------------------------Test Dummies------------------------------------
+
+
 
         dataSource = new DateiMemoDbSource(this);
+
+        //anfangen, um zu verbinden
+        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
+        dataSource.open();
+
+        //schliessen
+        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
+        dataSource.close();
     }
     //----------------------------------------------------------------------------------------------
 //    @Override
