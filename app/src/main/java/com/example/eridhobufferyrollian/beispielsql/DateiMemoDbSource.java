@@ -46,6 +46,8 @@ public class DateiMemoDbSource {
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
+
+    //Seharusnya parameternya cuman 2
     public DateiMemo createDateiMemo(String username, String password, long nid) {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, username);

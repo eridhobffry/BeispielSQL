@@ -13,6 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import java.util.List;
+
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -43,6 +49,14 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
         dataSource.open();
 
+
+        DateiMemo DateiMemo = dataSource.createDateiMemo("TestUser", "123123", 2);
+        Log.d(LOG_TAG, "Es wurde der folgende Eintrag in die Datenbank geschrieben:");
+        Log.d(LOG_TAG, "ID: " + DateiMemo.getNid() + ", Inhalt: " + DateiMemo.toString());
+
+        Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
+        showAllListEntries();
+
         //schliessen
         Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
         dataSource.close();
@@ -53,6 +67,21 @@ public class MainActivity extends AppCompatActivity {
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
 //    }
+
+
+    private void showAllListEntries () {
+        List<DateiMemo> DateiMemoList = dataSource.getAllDateiMemos();
+
+        ArrayAdapter<DateiMemo> DateiMemoArrayAdapter = new ArrayAdapter<> (
+                this,
+                android.R.layout.simple_list_item_multiple_choice,
+                DateiMemoList);
+
+        ListView DateiMemosListView = (ListView) findViewById(R.id.listview_shopping_memos);
+        DateiMemosListView.setAdapter(DateiMemoArrayAdapter);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
