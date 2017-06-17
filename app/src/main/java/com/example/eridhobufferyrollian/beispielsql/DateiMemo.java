@@ -8,13 +8,13 @@ public class DateiMemo {
 
     private String username;
     private String password;
-    private long id;
+    private long nid;
 
 
-    public DateiMemo(String username, String password, long id) {
+    public DateiMemo(String username, String password, long nid) {
         this.username = username;
         this.password = password;
-        this.id = id;
+        this.nid = nid;
     }
 
 
@@ -36,18 +36,18 @@ public class DateiMemo {
     }
 
 
-    public long getId() {
-        return id;
+    public long getNid() {
+        return nid;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setNid(long nid) {
+        this.nid = nid;
     }
 
 
     @Override
     public String toString() {
-        String output = id + " -- " + username;
+        String output = nid + " -- " + username;
 
         return output;
     }
