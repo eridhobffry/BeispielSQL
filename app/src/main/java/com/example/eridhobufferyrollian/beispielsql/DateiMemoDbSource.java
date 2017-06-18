@@ -14,6 +14,7 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DateiMemoDbSource {
 
     private static final String LOG_TAG = DateiMemoDbSource.class.getSimpleName();
@@ -67,6 +68,16 @@ public class DateiMemoDbSource {
         cursor.close();
 
         return DateiMemo;
+    }
+
+    public void deleteShoppingMemo(DateiMemo shoppingMemo) {
+        long id = shoppingMemo.getNid();
+
+        database.delete(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                DateiMemoDbHelper.COLUMN_NID + "=" + id,
+                null);
+
+        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + shoppingMemo.toString());
     }
 
     private DateiMemo cursorToDateiMemo(Cursor cursor) {

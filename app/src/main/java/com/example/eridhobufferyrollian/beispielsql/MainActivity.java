@@ -27,6 +27,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
+import android.widget.AbsListView;
+
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         dataSource = new DateiMemoDbSource(this);
 
         activateAddButton();
-
+        initializeContextualActionBar();
 
 //        //------------------------------------Test Dummies------------------------------------
 //
@@ -78,6 +83,59 @@ public class MainActivity extends AppCompatActivity {
 //        //schliessen
 //        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
 //        dataSource.close();
+    }
+
+    private void initializeContextualActionBar() {
+        final ListView dateiMemosListView = (ListView) findViewById(R.id.listview_shopping_memos);
+        dateiMemosListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+        dateiMemosListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long nid, boolean checked) {
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                getMenuInflater().inflate(R.menu.menu_contextual_action_bar, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+
+                    case R.id.cab_delete:
+                        SparseBooleanArray touchedShoppingMemosPositions = dateiMemosListView.getCheckedItemPositions();
+                        for (int i=0; i < touchedShoppingMemosPositions.size(); i++) {
+                            boolean isChecked = touchedShoppingMemosPositions.valueAt(i);
+                            if(isChecked) {
+                                int postitionInListView = touchedShoppingMemosPositions.keyAt(i);
+                                DateiMemo shoppingMemo = (DateiMemo) dateiMemosListView.getItemAtPosition(postitionInListView);
+                                Log.d(LOG_TAG, "Position im ListView: " + postitionInListView + " Inhalt: " + shoppingMemo.toString());
+                                dataSource.deleteShoppingMemo(shoppingMemo);
+                            }
+                        }
+                        showAllListEntries();
+                        mode.finish();
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        });
     }
 
     @Override
