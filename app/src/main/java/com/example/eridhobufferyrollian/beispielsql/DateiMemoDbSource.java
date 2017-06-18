@@ -48,12 +48,14 @@ public class DateiMemoDbSource {
 
 
     //Seharusnya parameternya cuman 2
-    public DateiMemo createDateiMemo(String username, String password, long nid) {
+    public DateiMemo createDateiMemo(String username, String password) {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, username);
         values.put(DateiMemoDbHelper.COLUMN_PASSWORD, password);
         //values.put(DateiMemoDbHelper.COLUMN_NID, nid);
 
+
+        //Erstmal gibt man die Velues ein, dann würde es die ID kriegen
         long insertId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
