@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeContextualActionBar() {
-        final ListView dateiMemosListView = (ListView) findViewById(R.id.listview_shopping_memos);
+        final ListView dateiMemosListView = (ListView) findViewById(R.id.listview_datei_memos);
         dateiMemosListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
         dateiMemosListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
@@ -112,14 +112,14 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.cab_delete:
-                        SparseBooleanArray touchedShoppingMemosPositions = dateiMemosListView.getCheckedItemPositions();
-                        for (int i=0; i < touchedShoppingMemosPositions.size(); i++) {
-                            boolean isChecked = touchedShoppingMemosPositions.valueAt(i);
+                        SparseBooleanArray touchedDateiMemosPositions = dateiMemosListView.getCheckedItemPositions();
+                        for (int i=0; i < touchedDateiMemosPositions.size(); i++) {
+                            boolean isChecked = touchedDateiMemosPositions.valueAt(i);
                             if(isChecked) {
-                                int postitionInListView = touchedShoppingMemosPositions.keyAt(i);
-                                DateiMemo shoppingMemo = (DateiMemo) dateiMemosListView.getItemAtPosition(postitionInListView);
-                                Log.d(LOG_TAG, "Position im ListView: " + postitionInListView + " Inhalt: " + shoppingMemo.toString());
-                                dataSource.deleteShoppingMemo(shoppingMemo);
+                                int postitionInListView = touchedDateiMemosPositions.keyAt(i);
+                                DateiMemo dateiMemo = (DateiMemo) dateiMemosListView.getItemAtPosition(postitionInListView);
+                                Log.d(LOG_TAG, "Position im ListView: " + postitionInListView + " Inhalt: " + dateiMemo.toString());
+                                dataSource.deleteDateiMemo(dateiMemo);
                             }
                         }
                         showAllListEntries();
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_multiple_choice,
                 DateiMemoList);
 
-        ListView DateiMemosListView = (ListView) findViewById(R.id.listview_shopping_memos);
+        ListView DateiMemosListView = (ListView) findViewById(R.id.listview_datei_memos);
         DateiMemosListView.setAdapter(DateiMemoArrayAdapter);
     }
 

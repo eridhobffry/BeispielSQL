@@ -25,17 +25,21 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
 
     //------------------------- neue tabelle    -------------------------------------
-    public static final String TABLE_DATEI_LIST  = "shopping_list";
+    public static final String TABLE_DATEI_LIST  = "datei_list";
 
     public static final String COLUMN_NID = "_nid";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_PASSWORD = "password";
+    public static final String COLUMN_PEERID = "peerId";
+    public static final String COLUMN_NEIGHID = "neighId";
 
     public static final String SQL_CREATE =
             "CREATE TABLE " + TABLE_DATEI_LIST +
                     "(" + COLUMN_NID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_USERNAME + " TEXT NOT NULL, " +
-                    COLUMN_PASSWORD + " TEXT NOT NULL);";
+                    COLUMN_PASSWORD + " TEXT NOT NULL);" +
+                    COLUMN_PEERID + " INTEGER NOT NULL" +
+                    COLUMN_NEIGHID + " INTEGER NOT NULL";
     //-------------------------------------------------------------------------------
 
 

@@ -9,12 +9,16 @@ public class DateiMemo {
     private String username;
     private String password;
     private long nid;
+    private long peerId;
+    private long neighId;
 
 
-    public DateiMemo(String username, String password, long nid) {
+    public DateiMemo(String username, String password, long nid, long peerId, long neighId) {
         this.username = username;
         this.password = password;
         this.nid = nid;
+        this.peerId = peerId;
+        this.neighId = neighId;
     }
 
 
@@ -42,6 +46,22 @@ public class DateiMemo {
 
     public void setNid(long nid) {
         this.nid = nid;
+    }
+
+    public long getPeerId() {
+        return peerId;
+    }
+
+    public void setPeerId(long peerId){
+        this.peerId = peerId;
+    }
+
+    public long getNeighId(){
+        return neighId;
+    }
+
+    public void setNeighId(long neighId) {
+        this.neighId = neighId;
     }
 
 

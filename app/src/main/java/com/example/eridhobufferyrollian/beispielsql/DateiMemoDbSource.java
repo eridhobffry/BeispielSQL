@@ -26,7 +26,9 @@ public class DateiMemoDbSource {
     private String[] columns = {
             DateiMemoDbHelper.COLUMN_NID,
             DateiMemoDbHelper.COLUMN_USERNAME,
-            DateiMemoDbHelper.COLUMN_PASSWORD
+            DateiMemoDbHelper.COLUMN_PASSWORD,
+            DateiMemoDbHelper.COLUMN_PEERID,
+            DateiMemoDbHelper.COLUMN_NEIGHID
     };
 
 
@@ -58,9 +60,11 @@ public class DateiMemoDbSource {
 
         //Erstmal gibt man die Velues ein, dann würde es die ID kriegen
         long insertId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
+        long insertPeerId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
+        long insertNeighId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_NID + "=" + insertId,
+                columns, DateiMemoDbHelper.COLUMN_NID + "=" + insertId + insertPeerId + insertNeighId,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -70,26 +74,30 @@ public class DateiMemoDbSource {
         return DateiMemo;
     }
 
-    public void deleteShoppingMemo(DateiMemo shoppingMemo) {
-        long id = shoppingMemo.getNid();
+    public void deleteDateiMemo(DateiMemo dateiMemo) {
+        long id = dateiMemo.getNid();
 
         database.delete(DateiMemoDbHelper.TABLE_DATEI_LIST,
                 DateiMemoDbHelper.COLUMN_NID + "=" + id,
                 null);
 
-        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + shoppingMemo.toString());
+        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + dateiMemo.toString());
     }
 
     private DateiMemo cursorToDateiMemo(Cursor cursor) {
         int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_NID);
         int idUsername = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_USERNAME);
         int idPassword = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PASSWORD);
+        int idPeer = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERID);
+        int idNeigh = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_NEIGHID);
 
         String username = cursor.getString(idUsername);
         String password = cursor.getString(idPassword);
         long nid = cursor.getLong(idIndex);
+        long peerId = cursor.getLong(idPeer);
+        long neighId = cursor.getLong(idNeigh);
 
-        DateiMemo DateiMemo = new DateiMemo(username, password, nid);
+        DateiMemo DateiMemo = new DateiMemo(username, password, nid, peerId, neighId);
 
         return DateiMemo;
     }
