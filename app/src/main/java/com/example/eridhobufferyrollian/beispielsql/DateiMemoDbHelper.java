@@ -56,6 +56,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         try {
             Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE + " angelegt.");
+            //Erstellung eine Datenbank mit String "SQL_CREATE" als Parameter
             db.execSQL(SQL_CREATE);
         }
         catch (Exception ex) {
@@ -63,6 +64,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
         }
     }
 
+    //wird zur Aktualisierung einer bereits bestehenden Datenbank benutzt
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

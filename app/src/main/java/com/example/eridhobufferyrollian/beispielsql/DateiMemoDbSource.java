@@ -50,7 +50,7 @@ public class DateiMemoDbSource {
     }
 
 
-    //Seharusnya parameternya cuman 2
+    //Es muss noch zusätzlich getPeerId(), getEckPunkt(), getNachbarId(), getIP()
     public DateiMemo createDateiMemo(String username, String password) {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, username);
@@ -59,12 +59,13 @@ public class DateiMemoDbSource {
 
 
         //Erstmal gibt man die Velues ein, dann würde es die ID kriegen
+        //insert Peer Id und insertNeighId muss noch überlegt werden, da die von der NodeList gekriegt wird
         long insertId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
-        long insertPeerId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
-        long insertNeighId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
+//        long insertPeerId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
+//        long insertNeighId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_NID + "=" + insertId + insertPeerId + insertNeighId,
+                columns, DateiMemoDbHelper.COLUMN_NID + "=" + insertId ,
                 null, null, null, null);
 
         cursor.moveToFirst();
