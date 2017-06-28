@@ -85,6 +85,28 @@ public class DateiMemoDbSource {
         Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + dateiMemo.toString());
     }
 
+    //Wir muessen noch ueberlegen, wie machen wir die Update-Methode fur die PeerID, NachbarID und Eckpunt
+    public DateiMemo updateDateiMemo(long id, String newName, String newPassword) {
+        ContentValues values = new ContentValues();
+        values.put(DateiMemoDbHelper.COLUMN_USERNAME, newName);
+        values.put(DateiMemoDbHelper.COLUMN_PASSWORD, newPassword);
+
+        database.update(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                values,
+                DateiMemoDbHelper.COLUMN_NID + "=" + id,
+                null);
+
+        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                columns, DateiMemoDbHelper.COLUMN_NID + "=" + id,
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        DateiMemo dateiMemo = cursorToDateiMemo(cursor);
+        cursor.close();
+
+        return dateiMemo;
+    }
+
     private DateiMemo cursorToDateiMemo(Cursor cursor) {
         int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_NID);
         int idUsername = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_USERNAME);

@@ -43,7 +43,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     //-------------------------------------------------------------------------------
 
 
-
+    //Konstruktor
     //SUPER verwendet man, weil unsere "helper" ist eine Ableitung von SQLiteOpenHelper
     public DateiMemoDbHelper(Context context) {
         //super(context, "PLATZHALTER_DATENBANKNAME", null, 1); ----- ursprüngliche CODE
