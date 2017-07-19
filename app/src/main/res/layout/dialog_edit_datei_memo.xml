@@ -47,4 +47,86 @@
             android:id="@+id/editText_new_name" />
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Uip"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:layout_marginRight="5sp"
+            android:layout_marginEnd="5sp" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:layout_weight="3"
+            android:id="@+id/editText_new_uip" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="PeerId"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:layout_marginRight="5sp"
+            android:layout_marginEnd="5sp" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:layout_weight="3"
+            android:id="@+id/editText_new_peerid" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="FileId"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:layout_marginRight="5sp"
+            android:layout_marginEnd="5sp" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:layout_weight="3"
+            android:id="@+id/editText_new_fileid" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="FotoId"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:layout_marginRight="5sp"
+            android:layout_marginEnd="5sp" />
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:layout_weight="3"
+            android:id="@+id/editText_new_fotoid" />
+    </LinearLayout>
+
+
+
 </LinearLayout>

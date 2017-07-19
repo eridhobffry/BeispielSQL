@@ -8,19 +8,15 @@ public class DateiMemo {
 
     private String username;
     private String password;
-    private long nid;
-    private long peerId;
-    private long neighId;
+    private long uid;
+    private boolean checked;
 
-
-    public DateiMemo(String username, String password, long nid, long peerId, long neighId) {
+    public DateiMemo(String username, String password, long uid, boolean checked) {
         this.username = username;
         this.password = password;
-        this.nid = nid;
-        this.peerId = peerId;
-        this.neighId = neighId;
+        this.uid = uid;
+        this.checked = checked;
     }
-
 
     public String getUsername() {
         return username;
@@ -40,35 +36,25 @@ public class DateiMemo {
     }
 
 
-    public long getNid() {
-        return nid;
+    public long getUid() {
+        return uid;
     }
 
-    public void setNid(long nid) {
-        this.nid = nid;
+    public void setUid(long uid) {
+        this.uid = uid;
     }
 
-    public long getPeerId() {
-        return peerId;
+    public boolean isChecked() {
+        return checked;
     }
 
-    public void setPeerId(long peerId){
-        this.peerId = peerId;
+    public void setChecked (boolean checked) {
+        this.checked = checked;
     }
-
-    public long getNeighId(){
-        return neighId;
-    }
-
-    public void setNeighId(long neighId) {
-        this.neighId = neighId;
-    }
-
 
     @Override
     public String toString() {
-        String output = nid + " -- " + username;
-
+        String output = uid + " -- " + username;
         return output;
     }
 }

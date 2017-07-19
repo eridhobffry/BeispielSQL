@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.security.PublicKey;
+
 public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
     private static final String LOG_TAG = DateiMemoDbHelper.class.getSimpleName();
@@ -19,27 +21,78 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
     //######################    neue Database   #######################################
     public static final String DB_NAME = "datei_list_db";
-    public static final int DB_VERSION = 1;
+    public static final int DB_VERSION = 2;
     //##################################################################################
 
 
 
     //------------------------- neue tabelle    -------------------------------------
     public static final String TABLE_DATEI_LIST  = "datei_list";
+    public static final String TABLE_PEER_LIST = "peer_list";
+    public static final String TABLE_NEIGHBOR_LIST = "neighbor_list";
+    public static final String TABLE_OWNDATA_LIST = "owndata_list";
+    public static final String TABLE_FOREIGNDATA_LIST = "foreigndata_list";
 
-    public static final String COLUMN_NID = "_nid";
+    public static final String COLUMN_UID = "_uid";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_PASSWORD = "password";
-    public static final String COLUMN_PEERID = "peerId";
-    public static final String COLUMN_NEIGHID = "neighId";
 
-    public static final String SQL_CREATE =
+    public static final String COLUMN_PEERID = "peerId";
+    public static final String COLUMN_PEERIP = "peerIp";
+
+    public static final String COLUMN_UIP = "uip";
+    public static final String COLUMN_CORNERV = "cornerV";
+    public static final String COLUMN_CORNERW = "cornerW";
+    public static final String COLUMN_CORNERX = "cornerX";
+    public static final String COLUMN_CORNERY = "cornerY";
+    public static final String COLUMN_RTT = "rtt";
+
+    public static final String COLUMN_FOTOID = "fotoId";
+    public static final String COLUMN_FILEID = "fileId";
+
+    public static final String COLUMN_CHECKED = "checked";
+
+    public static final String SQL_CREATE_TABLE_DATEI =
             "CREATE TABLE " + TABLE_DATEI_LIST +
-                    "(" + COLUMN_NID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "(" + COLUMN_UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_USERNAME + " TEXT NOT NULL, " +
-                    COLUMN_PASSWORD + " TEXT NOT NULL);" +
-                    COLUMN_PEERID + " INTEGER NOT NULL" +
-                    COLUMN_NEIGHID + " INTEGER NOT NULL";
+                    COLUMN_PASSWORD + " TEXT NOT NULL, " +
+                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" ;
+
+    public static final String SQL_CREATE_TABLE_PEERS =
+            "CREATE TABLE " + TABLE_PEER_LIST +
+                    "(" + COLUMN_PEERIP + " STRING PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_PEERID + " INTEGER NOT NULL, " +
+                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" ;
+
+    public static final String SQL_CREATE_TABLE_NEIGBHORS =
+            "CREATE TABLE " + TABLE_NEIGHBOR_LIST +
+                    "(" + COLUMN_UIP + " STRING PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_CORNERV + " INTEGER NOT NULL, " +
+                    COLUMN_CORNERW + " INTEGER NOT NULL, " +
+                    COLUMN_CORNERX + " INTEGER NOT NULL, " +
+                    COLUMN_CORNERY + " INTEGER NOT NULL, " +
+                    COLUMN_RTT + " INTEGER NOT NULL, " +
+                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" ;
+
+    public static final String SQL_CREATE_TABLE_OWNDATAS =
+            "CREATE TABLE " + TABLE_OWNDATA_LIST +
+                    "(" + COLUMN_UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_FILEID + " INTEGER NOT NULL, " +
+                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" ;
+
+    public static final String SQL_CREATE_TABLE_FOREIGNDATAS =
+            "CREATE TABLE " + TABLE_FOREIGNDATA_LIST +
+                    "(" + COLUMN_UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_FOTOID + " INTEGER NOT NULL, " +
+                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" ;
+
+    public static final String SQL_DROP_DATEI = "DROP TABLE IF EXISTS " + TABLE_DATEI_LIST;
+    public static final String SQL_DROP_PEERS = "DROP TABLE IF EXISTS " + TABLE_PEER_LIST;
+    public static final String SQL_DROP_NEIGHBORS = "DROP TABLE IF EXISTS" + TABLE_NEIGHBOR_LIST;
+    public static final String SQL_DROP_OWNDATAS = "DROP TABLE IF EXISTS " + TABLE_OWNDATA_LIST;
+    public static final String SQL_DROP_FOREIGNDATAS = "DROP TABLE IF EXISTS " + TABLE_FOREIGNDATA_LIST;
+
     //-------------------------------------------------------------------------------
 
 
@@ -55,9 +108,14 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE + " angelegt.");
+            Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_TABLE_DATEI + SQL_CREATE_TABLE_PEERS
+                    + SQL_CREATE_TABLE_NEIGBHORS + SQL_CREATE_TABLE_OWNDATAS + SQL_CREATE_TABLE_FOREIGNDATAS + " angelegt.");
             //Erstellung eine Datenbank mit String "SQL_CREATE" als Parameter
-            db.execSQL(SQL_CREATE);
+            db.execSQL(SQL_CREATE_TABLE_DATEI);
+            db.execSQL(SQL_CREATE_TABLE_PEERS);
+            db.execSQL(SQL_CREATE_TABLE_NEIGBHORS);
+            db.execSQL(SQL_CREATE_TABLE_OWNDATAS);
+            db.execSQL(SQL_CREATE_TABLE_FOREIGNDATAS);
         }
         catch (Exception ex) {
             Log.e(LOG_TAG, "Fehler beim Anlegen der Tabelle: " + ex.getMessage());
@@ -65,8 +123,16 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     }
 
     //wird zur Aktualisierung einer bereits bestehenden Datenbank benutzt
+    // Die onUpgrade-Methode wird aufgerufen, sobald die neue Versionsnummer höher
+    // als die alte Versionsnummer ist und somit ein Upgrade notwendig wird
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        Log.d(LOG_TAG, "Die Tabelle mit Versionsnummer " + oldVersion + " wird entfernt.");
+        db.execSQL(SQL_DROP_DATEI);
+        db.execSQL(SQL_DROP_PEERS);
+        db.execSQL(SQL_DROP_NEIGHBORS);
+        db.execSQL(SQL_DROP_OWNDATAS);
+        db.execSQL(SQL_DROP_FOREIGNDATAS);
+        onCreate(db);
     }
 }

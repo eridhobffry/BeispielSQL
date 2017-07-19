@@ -12,20 +12,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
-
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import java.util.ArrayList;
 import java.util.List;
-
-
 
 import android.view.inputmethod.InputMethodManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -35,19 +31,19 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.widget.TextView;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 public class MainActivity extends AppCompatActivity {
-
-
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private DateiMemoDbSource dataSource;
 
-
-
-
-
+    private ListView mDateiMemosListView;
     //----------------  Man verbindet von hier zu der DBSource  -----------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(LOG_TAG, "Das Datenquellen-Objekt wird angelegt.");
         dataSource = new DateiMemoDbSource(this);
+
+        initializeDateiMemosListView();
 
         activateAddButton();
         initializeContextualActionBar();
@@ -89,6 +87,58 @@ public class MainActivity extends AppCompatActivity {
 //        dataSource.close();
     }
 
+    private void initializeDateiMemosListView() {
+        List<DateiMemo> emptyListForInitialization = new ArrayList<>();
+
+        mDateiMemosListView = (ListView) findViewById(R.id.listview_datei_memos);
+
+        // Erstellen des ArrayAdapters für unseren ListView
+        ArrayAdapter<DateiMemo> DateiMemoArrayAdapter = new ArrayAdapter<DateiMemo> (
+                this,
+                android.R.layout.simple_list_item_multiple_choice,
+                emptyListForInitialization) {
+
+            // Wird immer dann aufgerufen, wenn der übergeordnete ListView die Zeile neu zeichnen muss
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                View view =  super.getView(position, convertView, parent);
+                TextView textView = (TextView) view;
+
+                DateiMemo memo = (DateiMemo) mDateiMemosListView.getItemAtPosition(position);
+
+                // Hier prüfen, ob Eintrag abgehakt ist. Falls ja, Text durchstreichen
+                if (memo.isChecked()) {
+                    textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    textView.setTextColor(Color.rgb(175,175,175));
+                }
+                else {
+                    textView.setPaintFlags( textView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                    textView.setTextColor(Color.DKGRAY);
+                }
+
+                return view;
+            }
+        };
+
+        mDateiMemosListView.setAdapter(DateiMemoArrayAdapter);
+
+        mDateiMemosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                DateiMemo memo = (DateiMemo) adapterView.getItemAtPosition(position);
+
+                // Hier den checked-Wert des Memo-Objekts umkehren, bspw. von true auf false
+                // Dann ListView neu zeichnen mit showAllListEntries()
+                DateiMemo updatedDateiMemo = dataSource.updateDateiMemo(memo.getUid(), memo.getUsername(), memo.getPassword(), (!memo.isChecked()));
+                Log.d(LOG_TAG, "Checked-Status von Eintrag: " + updatedDateiMemo.toString() + " ist: " + updatedDateiMemo.isChecked());
+                showAllListEntries();
+            }
+        });
+
+    }
+
+
     private void initializeContextualActionBar() {
         final ListView dateiMemosListView = (ListView) findViewById(R.id.listview_datei_memos);
         dateiMemosListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -100,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             // In dieser Callback-Methode zählen wir die ausgewählen Listeneinträge mit
             // und fordern ein Aktualisieren der Contextual Action Bar mit invalidate() an
             @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position, long nid, boolean checked) {
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long uid, boolean checked) {
                 if (checked) {
                     selCount++;
                 } else {
@@ -163,8 +213,8 @@ public class MainActivity extends AppCompatActivity {
                                 DateiMemo dateiMemo = (DateiMemo) dateiMemosListView.getItemAtPosition(postitionInListView);
                                 Log.d(LOG_TAG, "Position im ListView: " + postitionInListView + " Inhalt: " + dateiMemo.toString());
 
-                                AlertDialog editShoppingMemoDialog = createEditDateiMemoDialog(dateiMemo);
-                                editShoppingMemoDialog.show();
+                                AlertDialog editDateiMemoDialog = createEditDateiMemoDialog(dateiMemo);
+                                editDateiMemoDialog.show();
                             }
                         }
 
@@ -200,31 +250,47 @@ public class MainActivity extends AppCompatActivity {
         final EditText editTextNewName = (EditText) dialogsView.findViewById(R.id.editText_new_name);
         editTextNewName.setText(dateiMemo.getUsername());
 
+        //final EditText editTextNewUip = (EditText) dialogsView.findViewById(R.id.editText_new_uip);
+        //editTextNewUip.setText(dateiMemo.getUip());
+
+        //final EditText editTextNewPeerId = (EditText) dialogsView.findViewById(R.id.editText_new_peerid);
+        //editTextNewPeerId.setText(dateiMemo.getPeerId());
+
+        //final EditText editTextNewFileId = (EditText) dialogsView.findViewById(R.id.editText_new_fileid);
+        //editTextNewFileId.setText(dateiMemo.getFileId());
+
+        //final EditText editTextNewFotoId = (EditText) dialogsView.findViewById(R.id.editText_new_fotoid);
+        //editTextNewFotoId.setText(dateiMemo.getFotoId());
+
         builder.setView(dialogsView)
                 .setTitle(R.string.dialog_title)
                 .setPositiveButton(R.string.dialog_button_positive, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int nid) {
+                    public void onClick(DialogInterface dialog, int uid) {
                         String password = editTextNewPassword.getText().toString();
-                        String name = editTextNewName.getText().toString();
+                        String username = editTextNewName.getText().toString();
+                        //long uip = editTextNewUip.getText().toString();
+                        //long peerId = editTextNewPeerId.getText().toString();
+                        //long fileId = editTextNewFileId.getText().toString();
+                        //long fotoId = editTextNewFotoId.getText().toString();
 
-                        if ((TextUtils.isEmpty(password)) || (TextUtils.isEmpty(name))) {
+                        if ((TextUtils.isEmpty(password)) || (TextUtils.isEmpty(username))) {
                             Log.d(LOG_TAG, "Ein Eintrag enthielt keinen Text. Daher Abbruch der Änderung.");
                             return;
                         }
 
                         // An dieser Stelle schreiben wir die geänderten Daten in die SQLite Datenbank
-                        DateiMemo updatedDateiMemo = dataSource.updateDateiMemo(dateiMemo.getNid(), name, password);
+                        DateiMemo updatedDateiMemo = dataSource.updateDateiMemo(dateiMemo.getUid(), username, password/*, uip, peerId, fileId, fotoId*/, dateiMemo.isChecked());
 
-                        Log.d(LOG_TAG, "Alter Eintrag - ID: " + dateiMemo.getNid() + " Inhalt: " + dateiMemo.toString());
-                        Log.d(LOG_TAG, "Neuer Eintrag - ID: " + updatedDateiMemo.getNid() + " Inhalt: " + updatedDateiMemo.toString());
+                        Log.d(LOG_TAG, "Alter Eintrag - ID: " + dateiMemo.getUid() + " Inhalt: " + dateiMemo.toString());
+                        Log.d(LOG_TAG, "Neuer Eintrag - ID: " + updatedDateiMemo.getUid() + " Inhalt: " + updatedDateiMemo.toString());
 
                         showAllListEntries();
                         dialog.dismiss();
                     }
                 })
                 .setNegativeButton(R.string.dialog_button_negative, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int nid) {
+                    public void onClick(DialogInterface dialog, int uid) {
                         dialog.cancel();
                     }
                 });
@@ -301,13 +367,11 @@ public class MainActivity extends AppCompatActivity {
     private void showAllListEntries () {
         List<DateiMemo> DateiMemoList = dataSource.getAllDateiMemos();
 
-        ArrayAdapter<DateiMemo> DateiMemoArrayAdapter = new ArrayAdapter<> (
-                this,
-                android.R.layout.simple_list_item_multiple_choice,
-                DateiMemoList);
+        ArrayAdapter<DateiMemo> adapter = (ArrayAdapter<DateiMemo>) mDateiMemosListView.getAdapter();
 
-        ListView DateiMemosListView = (ListView) findViewById(R.id.listview_datei_memos);
-        DateiMemosListView.setAdapter(DateiMemoArrayAdapter);
+        adapter.clear();
+        adapter.addAll(DateiMemoList);
+        adapter.notifyDataSetChanged();
     }
 
 

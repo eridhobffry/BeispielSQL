@@ -24,11 +24,15 @@ public class DateiMemoDbSource {
 
     //neue Aray String
     private String[] columns = {
-            DateiMemoDbHelper.COLUMN_NID,
+            DateiMemoDbHelper.COLUMN_UID,
             DateiMemoDbHelper.COLUMN_USERNAME,
             DateiMemoDbHelper.COLUMN_PASSWORD,
+            DateiMemoDbHelper.COLUMN_UIP,
             DateiMemoDbHelper.COLUMN_PEERID,
-            DateiMemoDbHelper.COLUMN_NEIGHID
+            DateiMemoDbHelper.COLUMN_FILEID,
+            DateiMemoDbHelper.COLUMN_FOTOID,
+            DateiMemoDbHelper.COLUMN_CHECKED
+
     };
 
 
@@ -65,7 +69,7 @@ public class DateiMemoDbSource {
 //        long insertNeighId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_NID + "=" + insertId ,
+                columns, DateiMemoDbHelper.COLUMN_UID + "=" + insertId ,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -76,28 +80,31 @@ public class DateiMemoDbSource {
     }
 
     public void deleteDateiMemo(DateiMemo dateiMemo) {
-        long id = dateiMemo.getNid();
+        long id = dateiMemo.getUid();
 
         database.delete(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                DateiMemoDbHelper.COLUMN_NID + "=" + id,
+                DateiMemoDbHelper.COLUMN_UID + "=" + id,
                 null);
 
         Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + dateiMemo.toString());
     }
 
-    //Wir muessen noch ueberlegen, wie machen wir die Update-Methode fur die PeerID, NachbarID und Eckpunt
-    public DateiMemo updateDateiMemo(long id, String newName, String newPassword) {
+    //Wir muessen noch ueberlegen, wie machen wir die Update-Methode fur die PeerID, NachbarID und Eckpunkt
+    public DateiMemo updateDateiMemo(long id, String newName, String newPassword, boolean newChecked) {
+        int intValueChecked = (newChecked)? 1 : 0;
+
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, newName);
         values.put(DateiMemoDbHelper.COLUMN_PASSWORD, newPassword);
+        values.put(DateiMemoDbHelper.COLUMN_CHECKED, intValueChecked);
 
         database.update(DateiMemoDbHelper.TABLE_DATEI_LIST,
                 values,
-                DateiMemoDbHelper.COLUMN_NID + "=" + id,
+                DateiMemoDbHelper.COLUMN_UID + "=" + id,
                 null);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_NID + "=" + id,
+                columns, DateiMemoDbHelper.COLUMN_UID + "=" + id,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -108,19 +115,20 @@ public class DateiMemoDbSource {
     }
 
     private DateiMemo cursorToDateiMemo(Cursor cursor) {
-        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_NID);
+        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
         int idUsername = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_USERNAME);
         int idPassword = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PASSWORD);
-        int idPeer = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERID);
-        int idNeigh = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_NEIGHID);
+        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
 
         String username = cursor.getString(idUsername);
         String password = cursor.getString(idPassword);
-        long nid = cursor.getLong(idIndex);
-        long peerId = cursor.getLong(idPeer);
-        long neighId = cursor.getLong(idNeigh);
+        long uid = cursor.getLong(idIndex);
+        int intValueChecked = cursor.getInt(idChecked);
 
-        DateiMemo DateiMemo = new DateiMemo(username, password, nid, peerId, neighId);
+        boolean isChecked = (intValueChecked != 0);
+
+
+        DateiMemo DateiMemo = new DateiMemo(username, password, uid, isChecked);
 
         return DateiMemo;
     }
@@ -137,7 +145,7 @@ public class DateiMemoDbSource {
         while(!cursor.isAfterLast()) {
             DateiMemo = cursorToDateiMemo(cursor);
             DateiMemoList.add(DateiMemo);
-            Log.d(LOG_TAG, "ID: " + DateiMemo.getNid() + ", Inhalt: " + DateiMemo.toString());
+            Log.d(LOG_TAG, "ID: " + DateiMemo.getUid() + ", Inhalt: " + DateiMemo.toString());
             cursor.moveToNext();
         }
 
