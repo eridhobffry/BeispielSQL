@@ -33,45 +33,70 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     public static final String TABLE_OWNDATA_LIST = "owndata_list";
     public static final String TABLE_FOREIGNDATA_LIST = "foreigndata_list";
 
+
+
     public static final String COLUMN_UID = "_uid";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_PASSWORD = "password";
+    public static final String COLUMN_IP = "IP";
+    public static final String COLUMN_COUNTPEERS = "CountPeers";
+
+
 
     public static final String COLUMN_PEERID = "peerId";
     public static final String COLUMN_PEERIP = "peerIp";
 
+
+
     public static final String COLUMN_UIP = "uip";
-    public static final String COLUMN_CORNERV = "cornerV";
-    public static final String COLUMN_CORNERW = "cornerW";
-    public static final String COLUMN_CORNERX = "cornerX";
-    public static final String COLUMN_CORNERY = "cornerY";
+    public static final String COLUMN_CORNERTOPRIGHT = "cornerTopRight";
+    public static final String COLUMN_CORNERTOPLEFT = "cornerTopLeft";
+    public static final String COLUMN_CORNERBOTTOMRIGHT = "cornerBottomRight";
+    public static final String COLUMN_CORNERBOTTOMLEFT = "cornerBottomLeft";
+    public static final String COLUMN_PUNKTX = "punktX";
+    public static final String COLUMN_PUNKTY = "punktY";
     public static final String COLUMN_RTT = "rtt";
+
+
 
     public static final String COLUMN_FOTOID = "fotoId";
     public static final String COLUMN_FILEID = "fileId";
 
+
+
     public static final String COLUMN_CHECKED = "checked";
+
+
 
     public static final String SQL_CREATE_TABLE_DATEI =
             "CREATE TABLE " + TABLE_DATEI_LIST +
                     "(" + COLUMN_UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_USERNAME + " TEXT NOT NULL, " +
                     COLUMN_PASSWORD + " TEXT NOT NULL, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" ;
+                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" +
+                    COLUMN_CORNERTOPRIGHT + " INTEGER NOT NULL, " +
+                    COLUMN_CORNERTOPLEFT + " INTEGER NOT NULL, " +
+                    COLUMN_CORNERBOTTOMRIGHT + " INTEGER NOT NULL, " +
+                    COLUMN_CORNERBOTTOMLEFT + " INTEGER NOT NULL, " +
+                    COLUMN_PUNKTX + "INTEGER NOT NULL" +
+                    COLUMN_PUNKTY + "INTEGER NOT NULL" +
+                    COLUMN_IP + "INTEGER NOT NULL" +
+                    COLUMN_COUNTPEERS + "INTEGER NOT NULL" +;
 
     public static final String SQL_CREATE_TABLE_PEERS =
             "CREATE TABLE " + TABLE_PEER_LIST +
                     "(" + COLUMN_PEERIP + " STRING PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_PEERID + " INTEGER NOT NULL, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" ;
+                    COLUMN_PEERID + " INTEGER NOT NULL, " ;
 
     public static final String SQL_CREATE_TABLE_NEIGBHORS =
             "CREATE TABLE " + TABLE_NEIGHBOR_LIST +
                     "(" + COLUMN_UIP + " STRING PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CORNERV + " INTEGER NOT NULL, " +
-                    COLUMN_CORNERW + " INTEGER NOT NULL, " +
-                    COLUMN_CORNERX + " INTEGER NOT NULL, " +
-                    COLUMN_CORNERY + " INTEGER NOT NULL, " +
+                    COLUMN_CORNERTOPRIGHT + " INTEGER NOT NULL, " +
+                    COLUMN_CORNERTOPLEFT + " INTEGER NOT NULL, " +
+                    COLUMN_CORNERBOTTOMRIGHT + " INTEGER NOT NULL, " +
+                    COLUMN_CORNERBOTTOMLEFT + " INTEGER NOT NULL, " +
+                    COLUMN_PUNKTX + "INTEGER NOT NULL" +
+                    COLUMN_PUNKTY + "INTEGER NOT NULL" +
                     COLUMN_RTT + " INTEGER NOT NULL, " +
                     COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" ;
 
