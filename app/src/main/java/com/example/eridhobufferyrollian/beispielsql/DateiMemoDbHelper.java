@@ -81,7 +81,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
                     COLUMN_PUNKTX + "INTEGER NOT NULL" +
                     COLUMN_PUNKTY + "INTEGER NOT NULL" +
                     COLUMN_IP + "INTEGER NOT NULL" +
-                    COLUMN_COUNTPEERS + "INTEGER NOT NULL" +;
+                    COLUMN_COUNTPEERS + "INTEGER NOT NULL" ;
 
     public static final String SQL_CREATE_TABLE_PEERS =
             "CREATE TABLE " + TABLE_PEER_LIST +
