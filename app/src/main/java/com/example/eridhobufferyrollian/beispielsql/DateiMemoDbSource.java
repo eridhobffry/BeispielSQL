@@ -1,8 +1,6 @@
 package com.example.eridhobufferyrollian.beispielsql;
 
-/**
- * Created by en on 15.06.17.
- */
+
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,11 +25,15 @@ public class DateiMemoDbSource {
             DateiMemoDbHelper.COLUMN_UID,
             DateiMemoDbHelper.COLUMN_USERNAME,
             DateiMemoDbHelper.COLUMN_PASSWORD,
+            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT,
+            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT,
+            DateiMemoDbHelper.COLUMN_COUNTPEERS,
             DateiMemoDbHelper.COLUMN_UIP,
             DateiMemoDbHelper.COLUMN_PEERID,
             DateiMemoDbHelper.COLUMN_FILEID,
             DateiMemoDbHelper.COLUMN_FOTOID,
             DateiMemoDbHelper.COLUMN_CHECKED
+
 
     };
 
@@ -55,11 +57,16 @@ public class DateiMemoDbSource {
 
 
     //Es muss noch zusätzlich getPeerId(), getEckPunkt(), getNachbarId(), getIP()
-    public DateiMemo createDateiMemo(String username, String password) {
+    public DateiMemo createDateiMemo(String username, String password, long uid, boolean checked, double cornerTopRight, double cornerTopLeft, double cornerBottomRight, double cornerBottomLeft, double punktX, double punktY, double IP, int countPeers) {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, username);
         values.put(DateiMemoDbHelper.COLUMN_PASSWORD, password);
-        //values.put(DateiMemoDbHelper.COLUMN_NID, nid);
+        values.put(DateiMemoDbHelper.COLUMN_UID, uid);
+        values.put(DateiMemoDbHelper.COLUMN_CHECKED, checked);
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT, cornerBottomRight);
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT, cornerBottomLeft);
+        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT, cornerTopLeft);
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT, cornerTopRight);
 
 
         //Erstmal gibt man die Velues ein, dann würde es die ID kriegen
@@ -92,7 +99,6 @@ public class DateiMemoDbSource {
     //Wir muessen noch ueberlegen, wie machen wir die Update-Methode fur die PeerID, NachbarID und Eckpunkt
     public DateiMemo updateDateiMemo(long id, String newName, String newPassword, boolean newChecked) {
         int intValueChecked = (newChecked)? 1 : 0;
-
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, newName);
         values.put(DateiMemoDbHelper.COLUMN_PASSWORD, newPassword);
