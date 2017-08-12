@@ -3,25 +3,24 @@ package com.example.eridhobufferyrollian.beispielsql;
 
 
 public class PeerMemo {
+    DateiMemo dateiMemo;
 
-    private long uip;
+    private long uid;
     public int peerId;
+    public double peerIp;
     private boolean checked;
 
 
 
-    public PeerMemo(long uip, int peerId, boolean checked) {
-        this.uip = uip;
+    public PeerMemo(long uid, int peerId, double peerIp, boolean checked) {
+        this.uid = uid;
         this.peerId = peerId;
+        this.peerIp = peerIp;
         this.checked = checked;
     }
 
-    public long getUip() {
-        return uip;
-    }
-
-    public void setUip(long uip) {
-        this.uip = uip;
+    public long getUid() {
+        return dateiMemo.getUid();
     }
 
     public int getPeerId() {
@@ -39,6 +38,16 @@ public class PeerMemo {
     public void setChecked (boolean checked) {
         this.checked = checked;
     }
+
+
+    public double getPeerIp() {
+        return peerIp;
+    }
+
+    public void setPeerIp(double peerIp) {
+        this.peerIp = peerIp;
+    }
+
 
     public int getLength(int zahl){
         String s = String.valueOf(zahl);
@@ -67,7 +76,7 @@ public class PeerMemo {
 
     @Override
     public String toString() {
-        String output = uip + " -- " + peerId;
+        String output = uid + " -- " + peerId;
         return output;
     }
 }

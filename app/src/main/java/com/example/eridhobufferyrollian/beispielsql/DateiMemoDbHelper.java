@@ -86,7 +86,9 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     public static final String SQL_CREATE_TABLE_PEERS =
             "CREATE TABLE " + TABLE_PEER_LIST +
                     "(" + COLUMN_PEERIP + " STRING PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_PEERID + " INTEGER NOT NULL, " ;
+                    COLUMN_PEERID + " INTEGER NOT NULL, " +
+                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0), " +
+                    COLUMN_UID + " INTEGER NOT NULL, " + " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
 
     public static final String SQL_CREATE_TABLE_NEIGBHORS =
             "CREATE TABLE " + TABLE_NEIGHBOR_LIST +
@@ -98,7 +100,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
                     COLUMN_PUNKTX + "INTEGER NOT NULL" +
                     COLUMN_PUNKTY + "INTEGER NOT NULL" +
                     COLUMN_RTT + " INTEGER NOT NULL, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" +
+                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0), " +
                     COLUMN_UID + " INTEGER NOT NULL, " + " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
 
     public static final String SQL_CREATE_TABLE_OWNDATAS =
