@@ -5,12 +5,12 @@ package com.example.eridhobufferyrollian.beispielsql;
 public class PeerMemo {
 
     private long uip;
-    private long peerId;
+    public int peerId;
     private boolean checked;
 
 
 
-    public PeerMemo(long uip, long peerId, boolean checked) {
+    public PeerMemo(long uip, int peerId, boolean checked) {
         this.uip = uip;
         this.peerId = peerId;
         this.checked = checked;
@@ -24,11 +24,11 @@ public class PeerMemo {
         this.uip = uip;
     }
 
-    public long getPeerId() {
+    public int getPeerId() {
         return peerId;
     }
 
-    public void setPeerId(long peerId) {
+    public void setPeerId(int peerId) {
         this.peerId = peerId;
     }
 
@@ -40,9 +40,14 @@ public class PeerMemo {
         this.checked = checked;
     }
 
-    int length = length(Integer.toString(peerId));
+    public int getLength(int zahl){
+        String s = String.valueOf(zahl);
+        return s.length();
+    }
+
 
     public int getPeerCount () {
+        int length = getLength(peerId);
         int i = 0;
         while (i<length){
             i = i+1;
