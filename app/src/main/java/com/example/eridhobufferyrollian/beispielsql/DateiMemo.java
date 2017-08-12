@@ -9,12 +9,7 @@ public class DateiMemo {
 
     private String username;
     private String password;
-
-
     private long uid;
-
-
-
     public double cornerTopRight;
     public double cornerTopLeft;
     public double cornerBottomRight;
