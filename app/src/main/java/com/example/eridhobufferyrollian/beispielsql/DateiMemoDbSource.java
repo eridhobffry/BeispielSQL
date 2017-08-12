@@ -22,17 +22,26 @@ public class DateiMemoDbSource {
 
     //neue Aray String
     private String[] columns = {
-            DateiMemoDbHelper.COLUMN_UID,
+            DateiMemoDbHelper.COLUMN_UID, //------------------------ Table Datei
             DateiMemoDbHelper.COLUMN_USERNAME,
             DateiMemoDbHelper.COLUMN_PASSWORD,
             DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT,
             DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT,
+            DateiMemoDbHelper.COLUMN_CORNERTOPLEFT,
+            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT,
+            DateiMemoDbHelper.COLUMN_PUNKTX,
+            DateiMemoDbHelper.COLUMN_PUNKTY,
+            DateiMemoDbHelper.COLUMN_IP
             DateiMemoDbHelper.COLUMN_COUNTPEERS,
-            DateiMemoDbHelper.COLUMN_UIP,
+            DateiMemoDbHelper.COLUMN_CHECKED, //----------------------- Table Peer
             DateiMemoDbHelper.COLUMN_PEERID,
-            DateiMemoDbHelper.COLUMN_FILEID,
+            DateiMemoDbHelper.COLUMN_PEERIP, //------------------------ Table Neighbor
+            DateiMemoDbHelper.COLUMN_UIP,
+            DateiMemoDbHelper.COLUMN_RTT, //------------------------- Table OwnData
+            DateiMemoDbHelper.COLUMN_FILEID, //------------------------ Table ForeignData
             DateiMemoDbHelper.COLUMN_FOTOID,
-            DateiMemoDbHelper.COLUMN_CHECKED
+
+
 
 
     };
