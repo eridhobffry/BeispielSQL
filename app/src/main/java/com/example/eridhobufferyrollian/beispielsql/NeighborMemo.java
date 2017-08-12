@@ -105,4 +105,10 @@ public class NeighborMemo {
     public long getUid() {
         return dateiMemo.getUid();
     }
+
+    @Override
+    public String toString() {
+        String output = uid + " -- " + UIP;
+        return output;
+    }
 }
