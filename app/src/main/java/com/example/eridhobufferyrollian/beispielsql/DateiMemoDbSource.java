@@ -20,7 +20,7 @@ public class DateiMemoDbSource {
     private SQLiteDatabase database;
     private DateiMemoDbHelper dbHelper;
 
-    //neue Aray String
+    //neue Array String für Datei
     private String[] columns = {
             DateiMemoDbHelper.COLUMN_UID, //------------------------ Table Datei
             DateiMemoDbHelper.COLUMN_USERNAME,
@@ -31,21 +31,47 @@ public class DateiMemoDbSource {
             DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT,
             DateiMemoDbHelper.COLUMN_PUNKTX,
             DateiMemoDbHelper.COLUMN_PUNKTY,
-            DateiMemoDbHelper.COLUMN_IP
+            DateiMemoDbHelper.COLUMN_IP,
             DateiMemoDbHelper.COLUMN_COUNTPEERS,
-            DateiMemoDbHelper.COLUMN_CHECKED, //----------------------- Table Peer
-            DateiMemoDbHelper.COLUMN_PEERID,
-            DateiMemoDbHelper.COLUMN_PEERIP, //------------------------ Table Neighbor
-            DateiMemoDbHelper.COLUMN_UIP,
-            DateiMemoDbHelper.COLUMN_RTT, //------------------------- Table OwnData
-            DateiMemoDbHelper.COLUMN_FILEID, //------------------------ Table ForeignData
-            DateiMemoDbHelper.COLUMN_FOTOID,
-
-
-
-
+            DateiMemoDbHelper.COLUMN_CHECKED
     };
 
+    //neue Array String für Neighbor
+    private String[] columns_Neighbor = {
+            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT,
+            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT,
+            DateiMemoDbHelper.COLUMN_CORNERTOPLEFT,
+            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT,
+            DateiMemoDbHelper.COLUMN_PUNKTX,
+            DateiMemoDbHelper.COLUMN_PUNKTY,
+            DateiMemoDbHelper.COLUMN_UIP,
+            DateiMemoDbHelper.COLUMN_RTT,
+            DateiMemoDbHelper.COLUMN_UID,
+            DateiMemoDbHelper.COLUMN_CHECKED
+    };
+
+
+    //neue Array String für Peer
+    private String[] columns_Peer = {
+            DateiMemoDbHelper.COLUMN_PEERID,
+            DateiMemoDbHelper.COLUMN_PEERIP,
+            DateiMemoDbHelper.COLUMN_UID,
+            DateiMemoDbHelper.COLUMN_CHECKED
+    };
+
+    //neue Array String für Peer
+    private String[] columns_OwnData = {
+            DateiMemoDbHelper.COLUMN_FILEID,
+            DateiMemoDbHelper.COLUMN_UID,
+            DateiMemoDbHelper.COLUMN_CHECKED
+    };
+
+    //neue Array String für Peer
+    private String[] columns_ForeignData = {
+            DateiMemoDbHelper.COLUMN_FOTOID,
+            DateiMemoDbHelper.COLUMN_UID,
+            DateiMemoDbHelper.COLUMN_CHECKED
+    };
 
     public DateiMemoDbSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
@@ -65,7 +91,7 @@ public class DateiMemoDbSource {
     }
 
 
-    //Es muss noch zusätzlich getPeerId(), getEckPunkt(), getNachbarId(), getIP()
+    //----------------------------- Insert, delete, update values in Table ---------------------------------
     public DateiMemo createDateiMemo(String username, String password, long uid, boolean checked, double cornerTopRight, double cornerTopLeft, double cornerBottomRight, double cornerBottomLeft, double punktX, double punktY, double IP, int countPeers) {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, username);
@@ -76,14 +102,14 @@ public class DateiMemoDbSource {
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT, cornerBottomLeft);
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT, cornerTopLeft);
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT, cornerTopRight);
-
+        values.put(DateiMemoDbHelper.COLUMN_PUNKTX, punktX);
+        values.put(DateiMemoDbHelper.COLUMN_PUNKTY, punktY);
+        values.put(DateiMemoDbHelper.COLUMN_IP, IP);
+        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, countPeers);
 
         //Erstmal gibt man die Velues ein, dann würde es die ID kriegen
         //insert Peer Id und insertNeighId muss noch überlegt werden, da die von der NodeList gekriegt wird
         long insertId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
-//        long insertPeerId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
-//        long insertNeighId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
-
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
                 columns, DateiMemoDbHelper.COLUMN_UID + "=" + insertId ,
                 null, null, null, null);

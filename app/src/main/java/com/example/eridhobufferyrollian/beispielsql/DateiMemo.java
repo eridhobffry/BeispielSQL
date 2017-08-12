@@ -133,7 +133,7 @@ public class DateiMemo {
 
     @Override
     public String toString() {
-        String output = uid + " -- " + username;
+        String output = uid + " -- " + username + " Und andere Information.";
         return output;
     }
 }
