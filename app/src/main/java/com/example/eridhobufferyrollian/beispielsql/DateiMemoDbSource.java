@@ -10,7 +10,7 @@ import android.util.Log;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.eridhobufferyrollian.beispielsql.Model.DateiMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 
 import java.util.ArrayList;
 import java.util.List;

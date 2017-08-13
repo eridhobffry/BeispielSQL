@@ -1,24 +1,22 @@
-package com.example.eridhobufferyrollian.beispielsql.Model;
-
-import com.example.eridhobufferyrollian.beispielsql.Model.DateiMemo;
+package com.example.eridhobufferyrollian.beispielsql.model;
 
 /**
  * Created by eridhobufferyrollian on 12.08.17.
  */
 
-public class ForeignData {
+public class OwnDataMemo {
     DateiMemo dateiMemo;
 
     public long uid;
     public boolean checked;
-    public int fotoId;
+    public int fileId;
 
 
 
-    public ForeignData(long uid, boolean checked, int fotoId){
+    public OwnDataMemo(long uid, boolean checked, int fileId){
         this.uid = uid;
         this.checked = checked;
-        this.fotoId = fotoId;
+        this.fileId = fileId;
     }
 
     public long getUid() {
@@ -33,17 +31,17 @@ public class ForeignData {
         this.checked = checked;
     }
 
-    public int getFotoId() {
-        return fotoId;
+    public int getFileId() {
+        return fileId;
     }
 
-    public void setFotoId(int fotoId) {
-        this.fotoId = fotoId;
+    public void setFileId(int fileId) {
+        this.fileId = fileId;
     }
 
     @Override
     public String toString() {
-        String output = uid + " -- " + fotoId;
+        String output = uid + " -- " + fileId;
         return output;
     }
 }

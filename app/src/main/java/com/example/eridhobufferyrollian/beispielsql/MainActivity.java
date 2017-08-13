@@ -37,7 +37,7 @@ import android.widget.TextView;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.example.eridhobufferyrollian.beispielsql.Model.DateiMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 
 public class MainActivity extends AppCompatActivity {
 

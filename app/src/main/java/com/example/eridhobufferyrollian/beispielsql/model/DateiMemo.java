@@ -1,4 +1,4 @@
-package com.example.eridhobufferyrollian.beispielsql.Model;
+package com.example.eridhobufferyrollian.beispielsql.model;
 
 /**
  * Created by en on 15.06.17.

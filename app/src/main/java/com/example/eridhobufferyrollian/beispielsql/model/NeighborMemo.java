@@ -1,7 +1,5 @@
-package com.example.eridhobufferyrollian.beispielsql.Model;
+package com.example.eridhobufferyrollian.beispielsql.model;
 
-
-import com.example.eridhobufferyrollian.beispielsql.Model.DateiMemo;
 
 public class NeighborMemo {
 
