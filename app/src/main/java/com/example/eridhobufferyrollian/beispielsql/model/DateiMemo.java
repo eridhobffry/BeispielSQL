@@ -130,6 +130,9 @@ public class DateiMemo {
     public int getCountPeers() {
         return peerMemo.getPeerCount();
     }
+    public void setCountPeers(int countPeers) {
+        this.countPeers = countPeers;
+    }
 
     @Override
     public String toString() {

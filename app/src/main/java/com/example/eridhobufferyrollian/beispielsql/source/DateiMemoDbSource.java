@@ -14,6 +14,7 @@ import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -40,9 +41,6 @@ public class DateiMemoDbSource {
             DateiMemoDbHelper.COLUMN_COUNTPEERS,
             DateiMemoDbHelper.COLUMN_CHECKED
     };
-//    //neue Array String für Peer
-
-//    //neue Array String für Peer
 
 
     public DateiMemoDbSource(Context context) {
@@ -64,13 +62,21 @@ public class DateiMemoDbSource {
 
 
     //
-    //String username, String password, long uid, boolean checked,
+    // String username, String password, long uid, boolean checked,
     // double cornerTopRight, double cornerTopLeft, double cornerBottomRight,
     // double cornerBottomLeft, double punktX, double punktY, double IP, int countPeers
     //
     //----------------------------- Insert, delete, update, get values in Table ---------------------------------
     //
     //
+
+
+    /*
+    *
+    *                                             Insert Data
+    *
+    *
+    * */
     public DateiMemo createDateiMemo(DateiMemo dateiMemo) {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, dateiMemo.getUsername());
@@ -100,12 +106,22 @@ public class DateiMemoDbSource {
                         null, null, null, null);
 
         cursor.moveToFirst();
-        DateiMemo DateiMemo = cursorToDateiMemo(cursor);
+        dateiMemo = cursorToDateiMemo(cursor);
         cursor.close();
 
-        return DateiMemo;
+        return dateiMemo;
     }
 
+
+
+    /*
+    *
+    *
+    *                                           Delete data
+    *
+    *
+    *
+    * */
     public void deleteDateiMemo(DateiMemo dateiMemo) {
         long id = dateiMemo.getUid();
 
@@ -116,7 +132,16 @@ public class DateiMemoDbSource {
         Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + dateiMemo.toString());
     }
 
-    //Wir muessen noch ueberlegen, wie machen wir die Update-Methode fur die PeerID, NachbarID und Eckpunkt
+
+
+    /*
+    *                                           update data
+    *
+    *
+    *
+    *
+    * */
+
     public DateiMemo updateDateiMemo(String newUsername, String newPassword, long uid, boolean newChecked,
                                      double newCornerTopRight, double newCornerTopLeft, double newCornerBottomRight,
                                      double newCornerBottomLeft, double newPunktX, double newPunktY, double newIP, int newCountPeers) {
@@ -185,11 +210,13 @@ public class DateiMemoDbSource {
         int countPeers = cursor.getInt(idCountPeers);
 
 
-        DateiMemo DateiMemo = new DateiMemo(username, password, uid, isChecked, cornerTopRight,
+        DateiMemo dateiMemo = new DateiMemo(username, password, uid, isChecked, cornerTopRight,
                 cornerTopLeft, cornerBottomRight, cornerBottomLeft, punktX, punktY, IP, countPeers);
 
-        return DateiMemo;
+        return dateiMemo;
     }
+
+
 
     public List<DateiMemo> getAllDateiMemos() {
         List<DateiMemo> DateiMemoList = new ArrayList<>();
@@ -210,5 +237,82 @@ public class DateiMemoDbSource {
         cursor.close();
 
         return DateiMemoList;
+    }
+
+    /*
+    *
+    *
+    *                               Get einzelne Data
+    *
+    *
+    *
+    * */
+    public DateiMemo getDataEinzelneRow(long dateiMemo_Id) {
+
+
+
+        String selectQuery = "SELECT  * FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST + " WHERE "
+                + DateiMemoDbHelper.COLUMN_UID + " = " + dateiMemo_Id;
+
+        Log.e(LOG_TAG, selectQuery);
+
+        Cursor c = database.rawQuery(selectQuery, null);
+        int idChecked = c.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+        int intValueChecked = c.getInt(idChecked);
+        boolean isChecked = (intValueChecked > 0);
+        if (c != null)
+            c.moveToFirst();
+
+        DateiMemo dateiMemo = new DateiMemo();
+        dateiMemo.setUid(c.getLong(c.getColumnIndex(DateiMemoDbHelper.COLUMN_UID)));
+        dateiMemo.setUsername((c.getString(c.getColumnIndex(DateiMemoDbHelper.COLUMN_USERNAME))));
+        dateiMemo.setPassword(c.getString(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PASSWORD)));
+        dateiMemo.setChecked(c.getWantsAllOnMoveCalls(isChecked));
+        dateiMemo.setCornerBottomLeft(c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT)));
+        dateiMemo.setCornerBottomRight(c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT)));
+        dateiMemo.setCornerTopLeft(c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT)));
+        dateiMemo.setCornerTopRight(c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT)));
+        dateiMemo.setPunktX(c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX)));
+        dateiMemo.setPunktY(c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY)));
+        dateiMemo.setIP(c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_IP)));
+        dateiMemo.setCountPeers(c.getInt(c.getColumnIndex(DateiMemoDbHelper.COLUMN_COUNTPEERS)));
+
+        c.close();
+
+        return dateiMemo;
+    }
+
+    public Cursor getUid() {
+
+
+
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_UID + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
+
+        Log.e(LOG_TAG, selectQuery);
+
+        Cursor c = database.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+        c.close();
+
+        return c;
+    }
+
+    public Cursor getPunktX(long dateiMemo_Id) {
+
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_PUNKTX +" FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST + " WHERE "
+                + DateiMemoDbHelper.COLUMN_UID + " = " + dateiMemo_Id;
+
+        Log.e(LOG_TAG, selectQuery);
+
+        Cursor c = database.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+
+
+        return c;
     }
 }
