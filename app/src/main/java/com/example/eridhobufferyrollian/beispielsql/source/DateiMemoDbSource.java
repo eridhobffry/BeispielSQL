@@ -132,10 +132,15 @@ public class DateiMemoDbSource {
         Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + dateiMemo.toString());
     }
 
+    /*
+    *
+    * ==================================================================================================================
+    * */
+
 
 
     /*
-    *                                           update data
+    *  ----------------------------------              update data        ----------------------------------------------------------------
     *
     *
     *
@@ -178,29 +183,92 @@ public class DateiMemoDbSource {
     }
 
 
-    public double updateCorner(double newCornerTopRight, double newCornerTopLeft, double newCornerBottomRight,
-                               double newCornerBottomLeft) {
+    public double updateCornerTopRight(double newCornerTopRight) {
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT, newCornerBottomRight);
-        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT, newCornerBottomLeft);
-        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT, newCornerTopLeft);
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT, newCornerTopRight);
 
         database.update(DateiMemoDbHelper.TABLE_DATEI_LIST,
                 values,
-                DateiMemoDbHelper.COLUMN_UID + "=" + uid,
+                DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT + "=" + newCornerTopRight,
                 null);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_UID + "=" + uid,
+                columns, DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT + "=" + newCornerTopRight,
                 null, null, null, null);
 
         cursor.moveToFirst();
-        DateiMemo dateiMemo = cursorToDateiMemo(cursor);
+        double cornerTopRight = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT));
         cursor.close();
 
-        return dateiMemo;
+        return cornerTopRight;
     }
+
+    public double updateCornerTopLeft(double newCornerTopLeft) {
+        ContentValues values = new ContentValues();
+        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT, newCornerTopLeft);
+
+        database.update(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                values,
+                DateiMemoDbHelper.COLUMN_CORNERTOPLEFT + "=" + newCornerTopLeft,
+                null);
+
+        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                columns, DateiMemoDbHelper.COLUMN_CORNERTOPLEFT + "=" + newCornerTopLeft,
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        double cornerTopLeft = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT));
+        cursor.close();
+
+        return cornerTopLeft;
+    }
+
+    public double updateCornerBottomRight(double newCornerBottomRight) {
+        ContentValues values = new ContentValues();
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT, newCornerBottomRight);
+
+        database.update(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                values,
+                DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT + "=" + newCornerBottomRight,
+                null);
+
+        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                columns, DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT + "=" + newCornerBottomRight,
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        double cornerBottomRight = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT));
+        cursor.close();
+
+        return cornerBottomRight;
+    }
+
+    public double updateCornerBottomLeft(double newCornerBottomLeft) {
+        ContentValues values = new ContentValues();
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT, newCornerBottomLeft);
+
+        database.update(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                values,
+                DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT + "=" + newCornerBottomLeft,
+                null);
+
+        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                columns, DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT + "=" + newCornerBottomLeft,
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        double cornerBottomLeft = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT));
+        cursor.close();
+
+        return cornerBottomLeft;
+    }
+
+
+
+    /*
+    *  ================================================================================================================================
+    */
+
 
 
 
@@ -245,7 +313,7 @@ public class DateiMemoDbSource {
 
 
     /*
-    *
+    *           Get
     *
     *
     *           All Data
@@ -276,7 +344,7 @@ public class DateiMemoDbSource {
 
 
     /*
-    *
+    *           Get
     *
     *
     *           Corner Bottom Right
@@ -307,7 +375,7 @@ public class DateiMemoDbSource {
 
 
     /*
-    *
+    *           Get
     *
     *
     *           Corner Bottom Left
@@ -338,7 +406,7 @@ public class DateiMemoDbSource {
 
 
     /*
-    *
+    *           Get
     *
     *
     *           Corner Top Right
@@ -368,7 +436,7 @@ public class DateiMemoDbSource {
 
 
     /*
-    *
+    *           Get
     *
     *
     *           Corner Top Left
@@ -399,7 +467,7 @@ public class DateiMemoDbSource {
 
 
     /*
-    *
+    *           Get
     *
     *
     *           UID
@@ -426,7 +494,7 @@ public class DateiMemoDbSource {
 
 
     /*
-    *
+    *           Get
     *
     *
     *           Punkt X
@@ -452,7 +520,7 @@ public class DateiMemoDbSource {
 
 
     /*
-    *
+    *           Get
     *
     *
     *           Punkt Y
