@@ -23,6 +23,7 @@ public class DateiMemoDbSource {
 
     private SQLiteDatabase database;
     private DateiMemoDbHelper dbHelper;
+    private PeerDbSource peerDbSource;
 
     //neue Array String für Datei
     private String[] columns = {
@@ -39,43 +40,10 @@ public class DateiMemoDbSource {
             DateiMemoDbHelper.COLUMN_COUNTPEERS,
             DateiMemoDbHelper.COLUMN_CHECKED
     };
-//
-//    //neue Array String für Neighbor
-//    private String[] columns_Neighbor = {
-//            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT,
-//            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT,
-//            DateiMemoDbHelper.COLUMN_CORNERTOPLEFT,
-//            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT,
-//            DateiMemoDbHelper.COLUMN_PUNKTX,
-//            DateiMemoDbHelper.COLUMN_PUNKTY,
-//            DateiMemoDbHelper.COLUMN_UIP,
-//            DateiMemoDbHelper.COLUMN_RTT,
-//            DateiMemoDbHelper.COLUMN_UID,
-//            DateiMemoDbHelper.COLUMN_CHECKED
-//    };
-//
-//
 //    //neue Array String für Peer
-//    private String[] columns_Peer = {
-//            DateiMemoDbHelper.COLUMN_PEERID,
-//            DateiMemoDbHelper.COLUMN_PEERIP,
-//            DateiMemoDbHelper.COLUMN_UID,
-//            DateiMemoDbHelper.COLUMN_CHECKED
-//    };
-//
+
 //    //neue Array String für Peer
-//    private String[] columns_OwnData = {
-//            DateiMemoDbHelper.COLUMN_FILEID,
-//            DateiMemoDbHelper.COLUMN_UID,
-//            DateiMemoDbHelper.COLUMN_CHECKED
-//    };
-//
-//    //neue Array String für Peer
-//    private String[] columns_ForeignData = {
-//            DateiMemoDbHelper.COLUMN_FOTOID,
-//            DateiMemoDbHelper.COLUMN_UID,
-//            DateiMemoDbHelper.COLUMN_CHECKED
-//    };
+
 
     public DateiMemoDbSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
@@ -116,7 +84,7 @@ public class DateiMemoDbSource {
         values.put(DateiMemoDbHelper.COLUMN_PUNKTX, dateiMemo.getPunktX());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTY, dateiMemo.getPunktY());
         values.put(DateiMemoDbHelper.COLUMN_IP, dateiMemo.getIP());
-        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, countPeers);
+        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, peerDbSource.getCountPeers());
 
         //
         //insert row

@@ -19,4 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ForeignDataDbSource {
+    private static final String LOG_TAG = ForeignDataDbSource.class.getSimpleName();
+
+    private SQLiteDatabase database;
+    private DateiMemoDbHelper dbHelper;
+
+    //Array
+    private String[] columns_ForeignData = {
+            DateiMemoDbHelper.COLUMN_FOTOID,
+            DateiMemoDbHelper.COLUMN_UID,
+            DateiMemoDbHelper.COLUMN_CHECKED
+    };
 }

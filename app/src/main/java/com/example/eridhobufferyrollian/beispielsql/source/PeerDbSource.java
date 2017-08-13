@@ -19,4 +19,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PeerDbSource {
+    private static final String LOG_TAG = PeerDbSource.class.getSimpleName();
+
+    private SQLiteDatabase database;
+    private DateiMemoDbHelper dbHelper;
+
+
+
+    //neue Array String für Peer
+    private String[] columns_Peer = {
+            DateiMemoDbHelper.COLUMN_PEERID,
+            DateiMemoDbHelper.COLUMN_PEERIP,
+            DateiMemoDbHelper.COLUMN_UID,
+            DateiMemoDbHelper.COLUMN_CHECKED
+    };
+
 }
