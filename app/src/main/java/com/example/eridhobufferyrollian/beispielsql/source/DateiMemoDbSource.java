@@ -69,8 +69,6 @@ public class DateiMemoDbSource {
     //----------------------------- Insert, delete, update, get values in Table ---------------------------------
     //
     //
-
-
     /*
     *
     *                                             Insert Data
@@ -131,7 +129,6 @@ public class DateiMemoDbSource {
 
         Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + dateiMemo.toString());
     }
-
     /*
     *
     * ==================================================================================================================
@@ -466,30 +463,25 @@ public class DateiMemoDbSource {
 
 
 
-    /*
-    *           Get
-    *
-    *
-    *           UID
-    *
-    *
-    * */
-    public Cursor getUid() {
-
-
-
+    public List<Integer> getUid() {
+        List<Double> UidList = new ArrayList<>();
         String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_UID + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
 
-        Log.e(LOG_TAG, selectQuery);
+        Cursor cursor = database.rawQuery(selectQuery, null);
 
-        Cursor c = database.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        int UID;
 
-        if (c != null)
-            c.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            UID = cursor.getInt(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID));
+            UidList.add(UID);
+            Log.d(LOG_TAG, selectQuery);
+            cursor.moveToNext();
+        }
 
-        c.close();
+        cursor.close();
 
-        return c;
+        return UidList;
     }
 
 
