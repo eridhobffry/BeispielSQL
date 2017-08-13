@@ -84,7 +84,7 @@ public class DateiMemoDbSource {
         values.put(DateiMemoDbHelper.COLUMN_PUNKTX, dateiMemo.getPunktX());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTY, dateiMemo.getPunktY());
         values.put(DateiMemoDbHelper.COLUMN_IP, dateiMemo.getIP());
-        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, peerDbSource.getCountPeers());
+        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, peerDbSource.getData());
 
         //
         //insert row
@@ -113,20 +113,32 @@ public class DateiMemoDbSource {
     }
 
     //Wir muessen noch ueberlegen, wie machen wir die Update-Methode fur die PeerID, NachbarID und Eckpunkt
-    public DateiMemo updateDateiMemo(long id, String newName, String newPassword, boolean newChecked) {
+    public DateiMemo updateDateiMemo(String newUsername, String newPassword, long uid, boolean newChecked,
+                                     double newCornerTopRight, double newCornerTopLeft, double newCornerBottomRight,
+                                     double newCornerBottomLeft, double newPunktX, double newPunktY, double newIP, int newCountPeers) {
         int intValueChecked = (newChecked)? 1 : 0;
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_USERNAME, newName);
+        values.put(DateiMemoDbHelper.COLUMN_USERNAME, newUsername);
         values.put(DateiMemoDbHelper.COLUMN_PASSWORD, newPassword);
         values.put(DateiMemoDbHelper.COLUMN_CHECKED, intValueChecked);
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT, newCornerBottomRight);
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT, newCornerBottomLeft);
+        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT, newCornerTopLeft);
+        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT, newCornerTopRight);
+        values.put(DateiMemoDbHelper.COLUMN_PUNKTX, newPunktX);
+        values.put(DateiMemoDbHelper.COLUMN_PUNKTY, newPunktY);
+        values.put(DateiMemoDbHelper.COLUMN_IP, newIP);
+        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, peerDbSource.getData());
+        values.put(DateiMemoDbHelper.COLUMN_UID, uid);
+
 
         database.update(DateiMemoDbHelper.TABLE_DATEI_LIST,
                 values,
-                DateiMemoDbHelper.COLUMN_UID + "=" + id,
+                DateiMemoDbHelper.COLUMN_UID + "=" + uid,
                 null);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_UID + "=" + id,
+                columns, DateiMemoDbHelper.COLUMN_UID + "=" + uid,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -141,16 +153,36 @@ public class DateiMemoDbSource {
         int idUsername = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_USERNAME);
         int idPassword = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PASSWORD);
         int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+        int idTopRight = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT);
+        int idTopLeft = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT);
+        int idBottomRight = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT);
+        int idBottomLeft = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT);
+        int idPunktX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX);
+        int idPunktY = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY);
+        int idIP = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_IP);
+        int idCountPeers = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_COUNTPEERS);
+
 
         String username = cursor.getString(idUsername);
         String password = cursor.getString(idPassword);
         long uid = cursor.getLong(idIndex);
-        int intValueChecked = cursor.getInt(idChecked);
 
+        int intValueChecked = cursor.getInt(idChecked);
         boolean isChecked = (intValueChecked != 0);
 
+        double cornerTopRight = cursor.getDouble(idTopRight);
+        double cornerTopLeft = cursor.getDouble(idTopLeft);
+        double cornerBottomRight = cursor.getDouble(idBottomRight);
+        double cornerBottomLeft = cursor.getDouble(idBottomLeft);
+        double punktX = cursor.getDouble(idPunktX);
+        double punktY = cursor.getDouble(idPunktY);
+        double IP = cursor.getDouble(idIP);
 
-        DateiMemo DateiMemo = new DateiMemo(username, password, uid, isChecked);
+        int countPeers = cursor.getInt(idCountPeers);
+
+
+        DateiMemo DateiMemo = new DateiMemo(username, password, uid, isChecked, cornerTopRight,
+                cornerTopLeft, cornerBottomRight, cornerBottomLeft, punktX, punktY, IP, countPeers);
 
         return DateiMemo;
     }
