@@ -9,10 +9,11 @@ import android.util.Log;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+
+import com.example.eridhobufferyrollian.beispielsql.Model.DateiMemo;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.attr.checked;
 
 
 public class DateiMemoDbSource {
@@ -22,21 +23,21 @@ public class DateiMemoDbSource {
     private SQLiteDatabase database;
     private DateiMemoDbHelper dbHelper;
 
-//    //neue Array String für Datei
-//    private String[] columns = {
-//            DateiMemoDbHelper.COLUMN_UID, //------------------------ Table Datei
-//            DateiMemoDbHelper.COLUMN_USERNAME,
-//            DateiMemoDbHelper.COLUMN_PASSWORD,
-//            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT,
-//            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT,
-//            DateiMemoDbHelper.COLUMN_CORNERTOPLEFT,
-//            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT,
-//            DateiMemoDbHelper.COLUMN_PUNKTX,
-//            DateiMemoDbHelper.COLUMN_PUNKTY,
-//            DateiMemoDbHelper.COLUMN_IP,
-//            DateiMemoDbHelper.COLUMN_COUNTPEERS,
-//            DateiMemoDbHelper.COLUMN_CHECKED
-//    };
+    //neue Array String für Datei
+    private String[] columns = {
+            DateiMemoDbHelper.COLUMN_UID, //------------------------ Table Datei
+            DateiMemoDbHelper.COLUMN_USERNAME,
+            DateiMemoDbHelper.COLUMN_PASSWORD,
+            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT,
+            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT,
+            DateiMemoDbHelper.COLUMN_CORNERTOPLEFT,
+            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT,
+            DateiMemoDbHelper.COLUMN_PUNKTX,
+            DateiMemoDbHelper.COLUMN_PUNKTY,
+            DateiMemoDbHelper.COLUMN_IP,
+            DateiMemoDbHelper.COLUMN_COUNTPEERS,
+            DateiMemoDbHelper.COLUMN_CHECKED
+    };
 //
 //    //neue Array String für Neighbor
 //    private String[] columns_Neighbor = {
@@ -101,7 +102,7 @@ public class DateiMemoDbSource {
     //----------------------------- Insert, delete, update, get values in Table ---------------------------------
     //
     //
-    public long createDateiMemo(DateiMemo dateiMemo, long[] arrayData_id) {
+    public DateiMemo createDateiMemo(DateiMemo dateiMemo) {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, dateiMemo.getUsername());
         values.put(DateiMemoDbHelper.COLUMN_PASSWORD, dateiMemo.getPassword());
@@ -129,14 +130,14 @@ public class DateiMemoDbSource {
 //        }
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                arrayData_id, DateiMemoDbHelper.COLUMN_UID + "=" + data_Id ,
+                columns, DateiMemoDbHelper.COLUMN_UID + "=" + data_Id ,
                 null, null, null, null);
 
         cursor.moveToFirst();
         DateiMemo DateiMemo = cursorToDateiMemo(cursor);
         cursor.close();
 
-        return data_Id;
+        return DateiMemo;
     }
 
     public void deleteDateiMemo(DateiMemo dateiMemo) {

@@ -1,28 +1,24 @@
-package com.example.eridhobufferyrollian.beispielsql;
+package com.example.eridhobufferyrollian.beispielsql.Model;
 
-/**
- * Created by en on 15.06.17.
- */
 
-public class DateiMemo {
-    PeerMemo peerMemo;
+import com.example.eridhobufferyrollian.beispielsql.Model.DateiMemo;
 
-    private String username;
-    private String password;
-    private long uid;
+public class NeighborMemo {
+
+    DateiMemo dateiMemo;
+
     public double cornerTopRight;
     public double cornerTopLeft;
     public double cornerBottomRight;
     public double cornerBottomLeft;
     public double punktX;
     public double punktY;
-    public double IP;
-    public int countPeers;
-    private boolean checked;
+    public double UIP;
+    public double RTT;
+    public boolean checked;
+    public int uid;
 
-    public DateiMemo(String username, String password, long uid, boolean checked, double cornerTopRight, double cornerTopLeft, double cornerBottomRight, double cornerBottomLeft, double punktX, double punktY, double IP, int countPeers) {
-        this.username = username;
-        this.password = password;
+    public NeighborMemo(int uid, boolean checked, double cornerTopRight, double cornerTopLeft, double cornerBottomRight, double cornerBottomLeft, double punktX, double punktY, double UIP, double RTT) {
         this.uid = uid;
         this.checked = checked;
         this.cornerTopRight = cornerTopRight;
@@ -31,44 +27,8 @@ public class DateiMemo {
         this.cornerBottomLeft = cornerBottomLeft;
         this.punktX = punktX;
         this.punktY = punktY;
-        this.IP = IP;
-        this.countPeers = countPeers;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-    public long getUid() {
-        return uid;
-    }
-
-    public void setUid(long uid) {
-        this.uid = uid;
-    }
-
-
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked (boolean checked) {
-        this.checked = checked;
+        this.UIP = UIP;
+        this.RTT = RTT;
     }
 
     public double getCornerTopRight() {
@@ -119,21 +79,37 @@ public class DateiMemo {
         this.punktY = punktY;
     }
 
-    public double getIP() {
-        return IP;
+    public double getUIP() {
+        return UIP;
     }
 
-    public void setIP(double IP) {
-        this.IP = IP;
+    public void setUIP(double UIP) {
+        this.UIP = UIP;
     }
 
-    public int getCountPeers() {
-        return peerMemo.getPeerCount();
+    public double getRTT() {
+        return RTT;
+    }
+
+    public void setRTT(double RTT) {
+        this.RTT = RTT;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public long getUid() {
+        return dateiMemo.getUid();
     }
 
     @Override
     public String toString() {
-        String output = uid + " -- " + username + " Und andere Information.";
+        String output = uid + " -- " + UIP;
         return output;
     }
 }

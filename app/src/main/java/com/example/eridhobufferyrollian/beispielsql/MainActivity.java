@@ -37,6 +37,8 @@ import android.widget.TextView;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.example.eridhobufferyrollian.beispielsql.Model.DateiMemo;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();

@@ -1,6 +1,7 @@
-package com.example.eridhobufferyrollian.beispielsql;
+package com.example.eridhobufferyrollian.beispielsql.Model;
 
 
+import com.example.eridhobufferyrollian.beispielsql.Model.DateiMemo;
 
 public class PeerMemo {
     DateiMemo dateiMemo;

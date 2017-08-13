@@ -1,4 +1,6 @@
-package com.example.eridhobufferyrollian.beispielsql;
+package com.example.eridhobufferyrollian.beispielsql.Model;
+
+import com.example.eridhobufferyrollian.beispielsql.Model.DateiMemo;
 
 /**
  * Created by eridhobufferyrollian on 12.08.17.
