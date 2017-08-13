@@ -101,7 +101,7 @@ public class DateiMemoDbSource {
     //----------------------------- Insert, delete, update, get values in Table ---------------------------------
     //
     //
-    public long createDateiMemo(DateiMemo dateiMemo, long[] datei_id) {
+    public long createDateiMemo(DateiMemo dateiMemo, long[] arrayData_id) {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, dateiMemo.getUsername());
         values.put(DateiMemoDbHelper.COLUMN_PASSWORD, dateiMemo.getPassword());
@@ -116,20 +116,27 @@ public class DateiMemoDbSource {
         values.put(DateiMemoDbHelper.COLUMN_IP, dateiMemo.getIP());
         values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, countPeers);
 
-        //Erstmal gibt man die Velues ein, dann würde es die ID kriegen
-        //insert Peer Id und insertNeighId muss noch überlegt werden, da die von der NodeList gekriegt wird
-        long data_ID = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
+        //
+        //insert row
+        //
+        long data_Id = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
 
+//        //
+//        //insert arrayData_id
+//        //
+//        for (data_Id : arrayData_id) {
+//            createDateiMemo(data_Id, data_Id);
+//        }
 
-//        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-//                columns, DateiMemoDbHelper.COLUMN_UID + "=" + data_ID ,
-//                null, null, null, null);
-//
-//        cursor.moveToFirst();
-//        DateiMemo DateiMemo = cursorToDateiMemo(cursor);
-//        cursor.close();
+        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                arrayData_id, DateiMemoDbHelper.COLUMN_UID + "=" + data_Id ,
+                null, null, null, null);
 
-        return DateiMemo;
+        cursor.moveToFirst();
+        DateiMemo DateiMemo = cursorToDateiMemo(cursor);
+        cursor.close();
+
+        return data_Id;
     }
 
     public void deleteDateiMemo(DateiMemo dateiMemo) {
