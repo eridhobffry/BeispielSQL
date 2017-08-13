@@ -1,4 +1,4 @@
-package com.example.eridhobufferyrollian.beispielsql;
+package com.example.eridhobufferyrollian.beispielsql.source;
 
 
 
@@ -10,6 +10,7 @@ import android.util.Log;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 
 import java.util.ArrayList;
@@ -102,7 +103,7 @@ public class DateiMemoDbSource {
     //----------------------------- Insert, delete, update, get values in Table ---------------------------------
     //
     //
-    public DateiMemo createDateiMemo(DateiMemo dateiMemo) {
+    public long createDateiMemo(DateiMemo dateiMemo) {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, dateiMemo.getUsername());
         values.put(DateiMemoDbHelper.COLUMN_PASSWORD, dateiMemo.getPassword());
@@ -122,22 +123,15 @@ public class DateiMemoDbSource {
         //
         long data_Id = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
 
-//        //
-//        //insert arrayData_id
-//        //
-//        for (data_Id : arrayData_id) {
-//            createDateiMemo(data_Id, data_Id);
-//        }
+        //        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
+        //                columns, DateiMemoDbHelper.COLUMN_UID + "=" + data_Id ,
+        //                null, null, null, null);
+        //
+        //        cursor.moveToFirst();
+        //        DateiMemo DateiMemo = cursorToDateiMemo(cursor);
+        //        cursor.close();
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_UID + "=" + data_Id ,
-                null, null, null, null);
-
-        cursor.moveToFirst();
-        DateiMemo DateiMemo = cursorToDateiMemo(cursor);
-        cursor.close();
-
-        return DateiMemo;
+        return data_Id;
     }
 
     public void deleteDateiMemo(DateiMemo dateiMemo) {
