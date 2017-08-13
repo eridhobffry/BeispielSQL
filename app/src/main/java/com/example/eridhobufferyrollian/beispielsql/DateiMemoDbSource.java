@@ -12,6 +12,8 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.checked;
+
 
 public class DateiMemoDbSource {
 
@@ -20,58 +22,58 @@ public class DateiMemoDbSource {
     private SQLiteDatabase database;
     private DateiMemoDbHelper dbHelper;
 
-    //neue Array String für Datei
-    private String[] columns = {
-            DateiMemoDbHelper.COLUMN_UID, //------------------------ Table Datei
-            DateiMemoDbHelper.COLUMN_USERNAME,
-            DateiMemoDbHelper.COLUMN_PASSWORD,
-            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT,
-            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT,
-            DateiMemoDbHelper.COLUMN_CORNERTOPLEFT,
-            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT,
-            DateiMemoDbHelper.COLUMN_PUNKTX,
-            DateiMemoDbHelper.COLUMN_PUNKTY,
-            DateiMemoDbHelper.COLUMN_IP,
-            DateiMemoDbHelper.COLUMN_COUNTPEERS,
-            DateiMemoDbHelper.COLUMN_CHECKED
-    };
-
-    //neue Array String für Neighbor
-    private String[] columns_Neighbor = {
-            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT,
-            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT,
-            DateiMemoDbHelper.COLUMN_CORNERTOPLEFT,
-            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT,
-            DateiMemoDbHelper.COLUMN_PUNKTX,
-            DateiMemoDbHelper.COLUMN_PUNKTY,
-            DateiMemoDbHelper.COLUMN_UIP,
-            DateiMemoDbHelper.COLUMN_RTT,
-            DateiMemoDbHelper.COLUMN_UID,
-            DateiMemoDbHelper.COLUMN_CHECKED
-    };
-
-
-    //neue Array String für Peer
-    private String[] columns_Peer = {
-            DateiMemoDbHelper.COLUMN_PEERID,
-            DateiMemoDbHelper.COLUMN_PEERIP,
-            DateiMemoDbHelper.COLUMN_UID,
-            DateiMemoDbHelper.COLUMN_CHECKED
-    };
-
-    //neue Array String für Peer
-    private String[] columns_OwnData = {
-            DateiMemoDbHelper.COLUMN_FILEID,
-            DateiMemoDbHelper.COLUMN_UID,
-            DateiMemoDbHelper.COLUMN_CHECKED
-    };
-
-    //neue Array String für Peer
-    private String[] columns_ForeignData = {
-            DateiMemoDbHelper.COLUMN_FOTOID,
-            DateiMemoDbHelper.COLUMN_UID,
-            DateiMemoDbHelper.COLUMN_CHECKED
-    };
+//    //neue Array String für Datei
+//    private String[] columns = {
+//            DateiMemoDbHelper.COLUMN_UID, //------------------------ Table Datei
+//            DateiMemoDbHelper.COLUMN_USERNAME,
+//            DateiMemoDbHelper.COLUMN_PASSWORD,
+//            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT,
+//            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT,
+//            DateiMemoDbHelper.COLUMN_CORNERTOPLEFT,
+//            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT,
+//            DateiMemoDbHelper.COLUMN_PUNKTX,
+//            DateiMemoDbHelper.COLUMN_PUNKTY,
+//            DateiMemoDbHelper.COLUMN_IP,
+//            DateiMemoDbHelper.COLUMN_COUNTPEERS,
+//            DateiMemoDbHelper.COLUMN_CHECKED
+//    };
+//
+//    //neue Array String für Neighbor
+//    private String[] columns_Neighbor = {
+//            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT,
+//            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT,
+//            DateiMemoDbHelper.COLUMN_CORNERTOPLEFT,
+//            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT,
+//            DateiMemoDbHelper.COLUMN_PUNKTX,
+//            DateiMemoDbHelper.COLUMN_PUNKTY,
+//            DateiMemoDbHelper.COLUMN_UIP,
+//            DateiMemoDbHelper.COLUMN_RTT,
+//            DateiMemoDbHelper.COLUMN_UID,
+//            DateiMemoDbHelper.COLUMN_CHECKED
+//    };
+//
+//
+//    //neue Array String für Peer
+//    private String[] columns_Peer = {
+//            DateiMemoDbHelper.COLUMN_PEERID,
+//            DateiMemoDbHelper.COLUMN_PEERIP,
+//            DateiMemoDbHelper.COLUMN_UID,
+//            DateiMemoDbHelper.COLUMN_CHECKED
+//    };
+//
+//    //neue Array String für Peer
+//    private String[] columns_OwnData = {
+//            DateiMemoDbHelper.COLUMN_FILEID,
+//            DateiMemoDbHelper.COLUMN_UID,
+//            DateiMemoDbHelper.COLUMN_CHECKED
+//    };
+//
+//    //neue Array String für Peer
+//    private String[] columns_ForeignData = {
+//            DateiMemoDbHelper.COLUMN_FOTOID,
+//            DateiMemoDbHelper.COLUMN_UID,
+//            DateiMemoDbHelper.COLUMN_CHECKED
+//    };
 
     public DateiMemoDbSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
@@ -91,32 +93,41 @@ public class DateiMemoDbSource {
     }
 
 
-    //----------------------------- Insert, delete, update values in Table ---------------------------------
-    public DateiMemo createDateiMemo(String username, String password, long uid, boolean checked, double cornerTopRight, double cornerTopLeft, double cornerBottomRight, double cornerBottomLeft, double punktX, double punktY, double IP, int countPeers) {
+    //
+    //String username, String password, long uid, boolean checked,
+    // double cornerTopRight, double cornerTopLeft, double cornerBottomRight,
+    // double cornerBottomLeft, double punktX, double punktY, double IP, int countPeers
+    //
+    //----------------------------- Insert, delete, update, get values in Table ---------------------------------
+    //
+    //
+    public long createDateiMemo(DateiMemo dateiMemo, long[] datei_id) {
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_USERNAME, username);
-        values.put(DateiMemoDbHelper.COLUMN_PASSWORD, password);
-        values.put(DateiMemoDbHelper.COLUMN_UID, uid);
-        values.put(DateiMemoDbHelper.COLUMN_CHECKED, checked);
-        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT, cornerBottomRight);
-        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT, cornerBottomLeft);
-        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT, cornerTopLeft);
-        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT, cornerTopRight);
-        values.put(DateiMemoDbHelper.COLUMN_PUNKTX, punktX);
-        values.put(DateiMemoDbHelper.COLUMN_PUNKTY, punktY);
-        values.put(DateiMemoDbHelper.COLUMN_IP, IP);
+        values.put(DateiMemoDbHelper.COLUMN_USERNAME, dateiMemo.getUsername());
+        values.put(DateiMemoDbHelper.COLUMN_PASSWORD, dateiMemo.getPassword());
+        values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemo.getUid());
+        values.put(DateiMemoDbHelper.COLUMN_CHECKED, dateiMemo.isChecked());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT, dateiMemo.getCornerBottomRight());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT, dateiMemo.getCornerBottomLeft());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT, dateiMemo.getCornerTopLeft());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT, dateiMemo.getCornerTopRight());
+        values.put(DateiMemoDbHelper.COLUMN_PUNKTX, dateiMemo.getPunktX());
+        values.put(DateiMemoDbHelper.COLUMN_PUNKTY, dateiMemo.getPunktY());
+        values.put(DateiMemoDbHelper.COLUMN_IP, dateiMemo.getIP());
         values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, countPeers);
 
         //Erstmal gibt man die Velues ein, dann würde es die ID kriegen
         //insert Peer Id und insertNeighId muss noch überlegt werden, da die von der NodeList gekriegt wird
-        long insertId = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_UID + "=" + insertId ,
-                null, null, null, null);
+        long data_ID = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
 
-        cursor.moveToFirst();
-        DateiMemo DateiMemo = cursorToDateiMemo(cursor);
-        cursor.close();
+
+//        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
+//                columns, DateiMemoDbHelper.COLUMN_UID + "=" + data_ID ,
+//                null, null, null, null);
+//
+//        cursor.moveToFirst();
+//        DateiMemo DateiMemo = cursorToDateiMemo(cursor);
+//        cursor.close();
 
         return DateiMemo;
     }
