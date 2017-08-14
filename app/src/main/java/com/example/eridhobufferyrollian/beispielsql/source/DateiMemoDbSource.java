@@ -464,7 +464,7 @@ public class DateiMemoDbSource {
 
 
     public List<Integer> getUid() {
-        List<Double> UidList = new ArrayList<>();
+        List<Integer> UidList = new ArrayList<>();
         String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_UID + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
 
         Cursor cursor = database.rawQuery(selectQuery, null);
