@@ -156,8 +156,9 @@ public class PeerDbSource {
     *
     * */
 
-    public PeerMemo updatePeerMemo(long newUid, int newPeerId, int newPeerIp, boolean newChecked) {
+    public PeerMemo updatePeerMemo(int newUid, int newPeerId, int newPeerIp, boolean newChecked) {
         int intValueChecked = (newChecked)? 1 : 0;
+        newUid = listToInt(dateiMemoDbSource.getUid());
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_UID, newUid);
         values.put(DateiMemoDbHelper.COLUMN_PEERID, newPeerId);
@@ -180,6 +181,19 @@ public class PeerDbSource {
 
         return peerMemo;
     }
+
+    public int getPeersCount() {
+        String countQuery = "SELECT  * FROM " + DateiMemoDbHelper.TABLE_PEER_LIST;
+        Cursor cursor = database.rawQuery(countQuery, null);
+
+        int count = cursor.getCount();
+        cursor.close();
+
+        // return count
+        return count;
+    }
+
+
 
 
 }

@@ -88,7 +88,7 @@ public class DateiMemoDbSource {
         values.put(DateiMemoDbHelper.COLUMN_PUNKTX, dateiMemo.getPunktX());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTY, dateiMemo.getPunktY());
         values.put(DateiMemoDbHelper.COLUMN_IP, dateiMemo.getIP());
-        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, peerDbSource.getData());
+        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, peerDbSource.getPeersCount());
 
         //
         //insert row
@@ -159,7 +159,7 @@ public class DateiMemoDbSource {
         values.put(DateiMemoDbHelper.COLUMN_PUNKTX, newPunktX);
         values.put(DateiMemoDbHelper.COLUMN_PUNKTY, newPunktY);
         values.put(DateiMemoDbHelper.COLUMN_IP, newIP);
-        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, peerDbSource.getData());
+        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, peerDbSource.getPeersCount());
         values.put(DateiMemoDbHelper.COLUMN_UID, uid);
 
 
