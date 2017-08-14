@@ -148,6 +148,7 @@ public class DateiMemoDbSource {
                                      double newCornerTopRight, double newCornerTopLeft, double newCornerBottomRight,
                                      double newCornerBottomLeft, double newPunktX, double newPunktY, double newIP, int newCountPeers) {
         int intValueChecked = (newChecked)? 1 : 0;
+        newCountPeers = peerDbSource.getPeersCount();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_USERNAME, newUsername);
         values.put(DateiMemoDbHelper.COLUMN_PASSWORD, newPassword);
@@ -159,7 +160,7 @@ public class DateiMemoDbSource {
         values.put(DateiMemoDbHelper.COLUMN_PUNKTX, newPunktX);
         values.put(DateiMemoDbHelper.COLUMN_PUNKTY, newPunktY);
         values.put(DateiMemoDbHelper.COLUMN_IP, newIP);
-        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, peerDbSource.getPeersCount());
+        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, newCountPeers);
         values.put(DateiMemoDbHelper.COLUMN_UID, uid);
 
 
