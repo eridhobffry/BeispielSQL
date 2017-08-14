@@ -463,14 +463,14 @@ public class DateiMemoDbSource {
 
 
 
-    public List<Integer> getUid() {
-        List<Integer> UidList = new ArrayList<>();
+    public List<Long> getUid() {
+        List<Long> UidList = new ArrayList<>();
         String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_UID + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
 
         Cursor cursor = database.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        int UID;
+        long UID;
 
         while(!cursor.isAfterLast()) {
             UID = cursor.getInt(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID));

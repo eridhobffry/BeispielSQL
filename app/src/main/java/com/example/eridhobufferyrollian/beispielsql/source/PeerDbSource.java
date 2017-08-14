@@ -55,6 +55,13 @@ public class PeerDbSource {
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
+
+    /*
+    *
+    *
+    *           Converting
+    *
+    * */
     public double listToDouble(List<Double> list){
         double[] tmp = new double[list.size()];
         double ret = 0;
@@ -83,6 +90,26 @@ public class PeerDbSource {
         return ret;
     }
 
+    public long listToLong(List<Long> list){
+        long[] tmp = new long[list.size()];
+        long ret = 0;
+
+        for (int i = 0; i < list.size(); ++i) { //iterate over the elements of the list
+            tmp[i] = Long.valueOf(list.get(i));
+        }
+        for (int j = 0; j < tmp.length; ++j) {
+            ret = tmp[j];
+        }
+
+        return ret;
+    }
+
+
+    //
+    //==================================================================================================================
+    //
+
+
     //
     //    private long uid;
     //    public int peerId;
@@ -102,7 +129,7 @@ public class PeerDbSource {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_PEERID, peerMemo.getPeerId());
         values.put(DateiMemoDbHelper.COLUMN_PEERIP, peerMemo.getPeerIp());
-        values.put(DateiMemoDbHelper.COLUMN_UID, listToInt(dateiMemoDbSource.getUid()));
+        values.put(DateiMemoDbHelper.COLUMN_UID, listToLong(dateiMemoDbSource.getUid()));
         values.put(DateiMemoDbHelper.COLUMN_CHECKED, peerMemo.isChecked());
 
         //
@@ -156,9 +183,9 @@ public class PeerDbSource {
     *
     * */
 
-    public PeerMemo updatePeerMemo(int newUid, int newPeerId, int newPeerIp, boolean newChecked) {
+    public PeerMemo updatePeerMemo(long newUid, int newPeerId, int newPeerIp, boolean newChecked) {
         int intValueChecked = (newChecked)? 1 : 0;
-        newUid = listToInt(dateiMemoDbSource.getUid());
+        newUid = listToLong(dateiMemoDbSource.getUid());
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_UID, newUid);
         values.put(DateiMemoDbHelper.COLUMN_PEERID, newPeerId);
@@ -176,7 +203,7 @@ public class PeerDbSource {
                 null, null, null, null);
 
         cursor.moveToFirst();
-        PeerMemo peerMemo = cursorToDateiMemo(cursor);
+        PeerMemo peerMemo = cursorToPeerMemo(cursor);
         cursor.close();
 
         return peerMemo;
@@ -220,5 +247,26 @@ public class PeerDbSource {
     //
     //===============================================================================================
     //
+
+
+    private PeerMemo cursorToPeerMemo(Cursor cursor) {
+        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
+        int idPeerId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERID);
+        int idPeerIp = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERIP);
+        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+
+        long uid = cursor.getLong(idIndex);
+
+        int intValueChecked = cursor.getInt(idChecked);
+        boolean isChecked = (intValueChecked != 0);
+
+        int peerId = cursor.getInt(idPeerId);
+        int peerIp = cursor.getInt(idPeerIp);
+
+
+        PeerMemo peerMemo = new PeerMemo(uid, peerId, peerIp, isChecked);
+
+        return peerMemo;
+    }
 
 }
