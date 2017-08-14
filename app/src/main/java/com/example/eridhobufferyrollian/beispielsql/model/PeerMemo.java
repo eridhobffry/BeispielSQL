@@ -21,6 +21,9 @@ public class PeerMemo {
     public long getUid() {
         return dateiMemo.getUid();
     }
+    public void setUid(long uid) {
+       this.uid = uid;
+    }
 
     public int getPeerId() {
         return peerId;

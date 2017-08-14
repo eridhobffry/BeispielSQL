@@ -325,12 +325,12 @@ public class DateiMemoDbSource {
                 columns, null, null, null, null, null);
 
         cursor.moveToFirst();
-        DateiMemo DateiMemo;
+        DateiMemo dateiMemo;
 
         while(!cursor.isAfterLast()) {
-            DateiMemo = cursorToDateiMemo(cursor);
-            DateiMemoList.add(DateiMemo);
-            Log.d(LOG_TAG, "ID: " + DateiMemo.getUid() + ", Inhalt: " + DateiMemo.toString());
+            dateiMemo = cursorToDateiMemo(cursor);
+            DateiMemoList.add(dateiMemo);
+            Log.d(LOG_TAG, "ID: " + dateiMemo.getUid() + ", Inhalt: " + dateiMemo.toString());
             cursor.moveToNext();
         }
 
@@ -554,14 +554,14 @@ public class DateiMemoDbSource {
     }
 
 
-    /*
-    *
-    *
-    *                               Get einzelne Data
-    *
-    *
-    *
-    * */
+//    /*
+//    *
+//    *
+//    *                               Get einzelne Data
+//    *
+//    *
+//    *
+//    * */
 //    public DateiMemo getDataEinzelneRow(long dateiMemo_Id) {
 //
 //

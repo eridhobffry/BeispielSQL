@@ -269,4 +269,98 @@ public class PeerDbSource {
         return peerMemo;
     }
 
+    /*
+    *           Get
+    *
+    *
+    *           All Data
+    *
+    *
+    *
+    * */
+    public List<PeerMemo> getAllPeerMemos() {
+        List<PeerMemo> PeerMemoList = new ArrayList<>();
+
+        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                columns_Peer, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        PeerMemo peerMemo;
+
+        while(!cursor.isAfterLast()) {
+            peerMemo = cursorToPeerMemo(cursor);
+            PeerMemoList.add(peerMemo);
+            Log.d(LOG_TAG, "ID: " + peerMemo.getUid() + ", Inhalt: " + peerMemo.toString());
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return PeerMemoList;
+    }
+
+    public List<Long> getUid() {
+        return dateiMemoDbSource.getUid();
+    }
+
+
+
+    public List<Integer> getPeerIp(long peerId) {
+        List<Integer> PeerIdList = new ArrayList<>();
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_PEERIP + " FROM " + DateiMemoDbHelper.TABLE_PEER_LIST + " WHERE "
+                + DateiMemoDbHelper.COLUMN_PEERID + " = " + peerId;;
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        int peerIp;
+
+        while(!cursor.isAfterLast()) {
+            peerIp = cursor.getInt(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERIP));
+            PeerIdList.add(peerIp);
+            Log.d(LOG_TAG, selectQuery);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return PeerIdList;
+    }
+
+    /*
+    *
+    *
+    *                               Get einzelne Data
+    *
+    *
+    *
+    * */
+//    public PeerMemo getDataEinzelneRow(long peerId) {
+//
+//
+//
+//        String selectQuery = "SELECT  * FROM " + DateiMemoDbHelper.TABLE_PEER_LIST + " WHERE "
+//                + DateiMemoDbHelper.COLUMN_PEERID + " = " + peerId;
+//
+//        Log.e(LOG_TAG, selectQuery);
+//
+//        Cursor c = database.rawQuery(selectQuery, null);
+//        int idChecked = c.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int intValueChecked = c.getInt(idChecked);
+//        boolean isChecked = (intValueChecked > 0);
+//        if (c != null)
+//            c.moveToFirst();
+//
+//        PeerMemo peerMemo = new PeerMemo();
+//        peerMemo.setUid(c.getLong(c.getColumnIndex(DateiMemoDbHelper.COLUMN_UID)));
+//        peerMemo.setPeerId(c.getInt(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERID)));
+//        peerMemo.setPeerIp(c.getInt(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERIP)));
+//        peerMemo.setChecked(isChecked);
+//
+//
+//        c.close();
+//
+//        return peerMemo;
+//    }
+
 }
