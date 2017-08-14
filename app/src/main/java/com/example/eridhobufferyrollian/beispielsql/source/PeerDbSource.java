@@ -182,6 +182,14 @@ public class PeerDbSource {
         return peerMemo;
     }
 
+
+    /*
+    *
+    *
+    *                   Peerscount -- Increase -- Decrease
+    *
+    *
+    * */
     public int getPeersCount() {
         String countQuery = "SELECT  * FROM " + DateiMemoDbHelper.TABLE_PEER_LIST;
         Cursor cursor = database.rawQuery(countQuery, null);
@@ -194,6 +202,23 @@ public class PeerDbSource {
     }
 
 
+    public int decreaseCountPeers (PeerMemo peerMemo) {
+        if (getPeersCount() == 0){
+            System.out.println("No more Peers");
+        }
+        deletePeerMemo(peerMemo);
+        return getPeersCount();
+    }
 
+    public int increaseCountPeers (PeerMemo peerMemo) {
+        if (getPeersCount() == 2){
+            System.out.println("Prepare to split");
+        }
+        createPeerMemo(peerMemo);
+        return getPeersCount();
+    }
+    //
+    //===============================================================================================
+    //
 
 }
