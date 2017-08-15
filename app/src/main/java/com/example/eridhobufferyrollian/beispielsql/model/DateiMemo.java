@@ -2,6 +2,7 @@ package com.example.eridhobufferyrollian.beispielsql.model;
 
 /**
  * Created by en on 15.06.17.
+ * Class haupt daten
  */
 
 public class DateiMemo {
@@ -25,7 +26,8 @@ public class DateiMemo {
     private boolean checked;
 
     public DateiMemo(long uid, boolean checked, double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
-                     double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY, double punktX, double punktY, double IP, int countPeers) {
+                     double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY, double punktX,
+                     double punktY, String IP, int countPeers) {
 //        this.username = username;
 //        this.password = password;
         this.uid = uid;
@@ -208,7 +210,13 @@ public class DateiMemo {
 
     @Override
     public String toString() {
-        String output = uid + " -- " + username + " Und andere Information.";
+        String output = uid + " -- " + IP +
+                "\nCorner top Left : x -> "+ cornerTopLeftX + " -- y -> "+ cornerTopLeftY +
+                "\nCorner top Right : x -> "+ cornerTopRightX + " -- y -> "+ cornerTopRightY +
+                "\nCorner Bottom Left : x -> "+ cornerBottomLeftX + " -- y -> "+ cornerBottomLeftY +
+                "\nCorner Bottom Right : x -> "+ cornerBottomRightX + " -- y -> "+ cornerBottomRightY +
+                "\nCorner Punkt : x -> "+ punktX + " -- y -> "+ punktY +
+                "\nCorner CountPeers : "+ countPeers;
         return output;
     }
 }
