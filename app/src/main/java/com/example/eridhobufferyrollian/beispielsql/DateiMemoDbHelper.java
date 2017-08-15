@@ -62,6 +62,14 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     public static final String COLUMN_FOTOID = "fotoId";
     public static final String COLUMN_FILEID = "fileId";
 
+    public static final String COLUMN_CORNERTOPRIGHTX = "cornerTopRightX";
+    public static final String COLUMN_CORNERTOPRIGHTY = "cornerTopRightY";
+    public static final String COLUMN_CORNERBOTTOMRIGHTX = "cornerBottomRightX";
+    public static final String COLUMN_CORNERBOTTOMRIGHTY = "cornerBottomRightY";
+    public static final String COLUMN_CORNERTOPLEFTX = "cornerTopLeftX";
+    public static final String COLUMN_CORNERTOPLEFTY = "cornerTopLeftY";
+    public static final String COLUMN_CORNERBOTTOMLEFTX = "cornerBottomLeftX";
+    public static final String COLUMN_CORNERBOTTOMLEFTY = "cornerBottomLeftY";
 
 
     public static final String COLUMN_CHECKED = "checked";
