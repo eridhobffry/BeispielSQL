@@ -82,18 +82,18 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
                     COLUMN_USERNAME + " TEXT NOT NULL, " +
                     COLUMN_PASSWORD + " TEXT NOT NULL, " +
                     COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" +
-                    COLUMN_CORNERTOPRIGHT + " INTEGER NOT NULL, " +
-                    COLUMN_CORNERTOPLEFT + " INTEGER NOT NULL, " +
-                    COLUMN_CORNERBOTTOMRIGHT + " INTEGER NOT NULL, " +
-                    COLUMN_CORNERBOTTOMLEFT + " INTEGER NOT NULL, " +
-                    COLUMN_PUNKTX + "INTEGER NOT NULL" +
-                    COLUMN_PUNKTY + "INTEGER NOT NULL" +
-                    COLUMN_IP + "INTEGER NOT NULL" +
+                    COLUMN_CORNERTOPRIGHT + " REAL NOT NULL, " +
+                    COLUMN_CORNERTOPLEFT + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMRIGHT + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMLEFT + " REAL NOT NULL, " +
+                    COLUMN_PUNKTX + "REAL NOT NULL" +
+                    COLUMN_PUNKTY + "REAL NOT NULL" +
+                    COLUMN_IP + "TEXT NOT NULL" +
                     COLUMN_COUNTPEERS + "INTEGER NOT NULL);" ;
 
     public static final String SQL_CREATE_TABLE_PEERS =
             "CREATE TABLE " + TABLE_PEER_LIST +
-                    "(" + COLUMN_PEERIP + " STRING PRIMARY KEY AUTOINCREMENT, " +
+                    "(" + COLUMN_PEERIP + " TEXT PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_PEERID + " INTEGER NOT NULL, " +
                     COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0), " +
                     COLUMN_UID + " INTEGER NOT NULL, " + " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
@@ -101,13 +101,13 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     public static final String SQL_CREATE_TABLE_NEIGBHORS =
             "CREATE TABLE " + TABLE_NEIGHBOR_LIST +
                     "(" + COLUMN_UIP + " STRING PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CORNERTOPRIGHT + " INTEGER NOT NULL, " +
-                    COLUMN_CORNERTOPLEFT + " INTEGER NOT NULL, " +
-                    COLUMN_CORNERBOTTOMRIGHT + " INTEGER NOT NULL, " +
-                    COLUMN_CORNERBOTTOMLEFT + " INTEGER NOT NULL, " +
-                    COLUMN_PUNKTX + "INTEGER NOT NULL" +
-                    COLUMN_PUNKTY + "INTEGER NOT NULL" +
-                    COLUMN_RTT + " INTEGER NOT NULL, " +
+                    COLUMN_CORNERTOPRIGHT + " REAL NOT NULL, " +
+                    COLUMN_CORNERTOPLEFT + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMRIGHT + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMLEFT + " REAL NOT NULL, " +
+                    COLUMN_PUNKTX + "REAL NOT NULL" +
+                    COLUMN_PUNKTY + "REAL NOT NULL" +
+                    COLUMN_RTT + " REAL NOT NULL, " +
                     COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0), " +
                     COLUMN_UID + " INTEGER NOT NULL, " + " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
 
