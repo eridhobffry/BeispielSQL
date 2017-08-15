@@ -36,8 +36,8 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
 
     public static final String COLUMN_UID = "_uid";
-    public static final String COLUMN_USERNAME = "username";
-    public static final String COLUMN_PASSWORD = "password";
+//    public static final String COLUMN_USERNAME = "username";
+//    public static final String COLUMN_PASSWORD = "password";
     public static final String COLUMN_IP = "IP";
     public static final String COLUMN_COUNTPEERS = "CountPeers";
 
@@ -49,10 +49,10 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
 
     public static final String COLUMN_UIP = "uip";
-    public static final String COLUMN_CORNERTOPRIGHT = "cornerTopRight";
-    public static final String COLUMN_CORNERTOPLEFT = "cornerTopLeft";
-    public static final String COLUMN_CORNERBOTTOMRIGHT = "cornerBottomRight";
-    public static final String COLUMN_CORNERBOTTOMLEFT = "cornerBottomLeft";
+//    public static final String COLUMN_CORNERTOPRIGHT = "cornerTopRight";
+//    public static final String COLUMN_CORNERTOPLEFT = "cornerTopLeft";
+//    public static final String COLUMN_CORNERBOTTOMRIGHT = "cornerBottomRight";
+//    public static final String COLUMN_CORNERBOTTOMLEFT = "cornerBottomLeft";
     public static final String COLUMN_PUNKTX = "punktX";
     public static final String COLUMN_PUNKTY = "punktY";
     public static final String COLUMN_RTT = "rtt";
@@ -79,13 +79,15 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     public static final String SQL_CREATE_TABLE_DATEI =
             "CREATE TABLE " + TABLE_DATEI_LIST +
                     "(" + COLUMN_UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_USERNAME + " TEXT NOT NULL, " +
-                    COLUMN_PASSWORD + " TEXT NOT NULL, " +
                     COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0);" +
-                    COLUMN_CORNERTOPRIGHT + " REAL NOT NULL, " +
-                    COLUMN_CORNERTOPLEFT + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMRIGHT + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMLEFT + " REAL NOT NULL, " +
+                    COLUMN_CORNERTOPRIGHTX + " REAL NOT NULL, " +
+                    COLUMN_CORNERTOPRIGHTY + " REAL NOT NULL, " +
+                    COLUMN_CORNERTOPLEFTX + " REAL NOT NULL, " +
+                    COLUMN_CORNERTOPLEFTY + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMRIGHTX + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMRIGHTY + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMLEFTX + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMLEFTY + " REAL NOT NULL, " +
                     COLUMN_PUNKTX + "REAL NOT NULL" +
                     COLUMN_PUNKTY + "REAL NOT NULL" +
                     COLUMN_IP + "TEXT NOT NULL" +
@@ -101,10 +103,14 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     public static final String SQL_CREATE_TABLE_NEIGBHORS =
             "CREATE TABLE " + TABLE_NEIGHBOR_LIST +
                     "(" + COLUMN_UIP + " STRING PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CORNERTOPRIGHT + " REAL NOT NULL, " +
-                    COLUMN_CORNERTOPLEFT + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMRIGHT + " REAL NOT NULL, " +
-                    COLUMN_CORNERBOTTOMLEFT + " REAL NOT NULL, " +
+                    COLUMN_CORNERTOPRIGHTX + " REAL NOT NULL, " +
+                    COLUMN_CORNERTOPRIGHTY + " REAL NOT NULL, " +
+                    COLUMN_CORNERTOPLEFTX + " REAL NOT NULL, " +
+                    COLUMN_CORNERTOPLEFTY + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMRIGHTX + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMRIGHTY + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMLEFTX + " REAL NOT NULL, " +
+                    COLUMN_CORNERBOTTOMLEFTY + " REAL NOT NULL, " +
                     COLUMN_PUNKTX + "REAL NOT NULL" +
                     COLUMN_PUNKTY + "REAL NOT NULL" +
                     COLUMN_RTT + " REAL NOT NULL, " +
