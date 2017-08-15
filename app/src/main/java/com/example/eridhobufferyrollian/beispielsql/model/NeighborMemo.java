@@ -5,60 +5,135 @@ public class NeighborMemo {
 
     DateiMemo dateiMemo;
 
-    public double cornerTopRight;
-    public double cornerTopLeft;
-    public double cornerBottomRight;
-    public double cornerBottomLeft;
+    private double cornerTopRightX;
+    private double cornerTopRightY;
+    private double cornerTopLeftX;
+    private double cornerTopLeftY;
+    private double cornerBottomRightX;
+    private double cornerBottomRightY;
+    private double cornerBottomLeftX;
+    private double cornerBottomLeftY;
     public double punktX;
     public double punktY;
-    public double UIP;
+    public String UIP;
     public double RTT;
     public boolean checked;
-    public int uid;
+    public long uid;
 
-    public NeighborMemo(int uid, boolean checked, double cornerTopRight, double cornerTopLeft, double cornerBottomRight, double cornerBottomLeft, double punktX, double punktY, double UIP, double RTT) {
+    public NeighborMemo(int uid, boolean checked,
+                        double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
+                        double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
+                        double punktX, double punktY, String UIP, double RTT) {
         this.uid = uid;
         this.checked = checked;
-        this.cornerTopRight = cornerTopRight;
-        this.cornerTopLeft = cornerTopLeft;
-        this.cornerBottomRight = cornerBottomRight;
-        this.cornerBottomLeft = cornerBottomLeft;
+        this.cornerTopRightX = cornerTopRightX;
+        this.cornerTopRightY = cornerTopRightY;
+        this.cornerTopLeftX = cornerTopLeftX;
+        this.cornerTopLeftY = cornerTopLeftY;
+        this.cornerBottomRightX = cornerBottomRightX;
+        this.cornerBottomRightY = cornerBottomRightY;
+        this.cornerBottomLeftX = cornerBottomLeftX;
+        this.cornerBottomLeftY = cornerBottomLeftY;
         this.punktX = punktX;
         this.punktY = punktY;
         this.UIP = UIP;
         this.RTT = RTT;
     }
 
-    public double getCornerTopRight() {
-        return cornerTopRight;
+//    public double getCornerTopRight() {
+//        return cornerTopRight;
+//    }
+//
+//    public void setCornerTopRight(double cornerTopRight) {
+//        this.cornerTopRight = cornerTopRight;
+//    }
+//
+//    public double getCornerTopLeft() {
+//        return cornerTopLeft;
+//    }
+//
+//    public void setCornerTopLeft(double cornerTopLeft) {
+//        this.cornerTopLeft = cornerTopLeft;
+//    }
+//
+//    public double getCornerBottomRight() {
+//        return cornerBottomRight;
+//    }
+//
+//    public void setCornerBottomRight(double cornerBottomRight) {
+//        this.cornerBottomRight = cornerBottomRight;
+//    }
+//
+//    public double getCornerBottomLeft() {
+//        return cornerBottomLeft;
+//    }
+//
+//    public void setCornerBottomLeft(double cornerBottomLeft) {
+//        this.cornerBottomLeft = cornerBottomLeft;
+//    }
+
+    public double getCornerTopRightX() {
+        return cornerTopRightX;
     }
 
-    public void setCornerTopRight(double cornerTopRight) {
-        this.cornerTopRight = cornerTopRight;
+    public void setCornerTopRightX(double cornerTopRightX) {
+        this.cornerTopRightX = cornerTopRightX;
     }
 
-    public double getCornerTopLeft() {
-        return cornerTopLeft;
+    public double getCornerTopRightY() {
+        return cornerTopRightY;
     }
 
-    public void setCornerTopLeft(double cornerTopLeft) {
-        this.cornerTopLeft = cornerTopLeft;
+    public void setCornerTopRightY(double cornerTopRightY) {
+        this.cornerTopRightY = cornerTopRightY;
     }
 
-    public double getCornerBottomRight() {
-        return cornerBottomRight;
+    public double getCornerTopLeftX() {
+        return cornerTopLeftX;
     }
 
-    public void setCornerBottomRight(double cornerBottomRight) {
-        this.cornerBottomRight = cornerBottomRight;
+    public void setCornerTopLeftX(double cornerTopLeftX) {
+        this.cornerTopLeftX = cornerTopLeftX;
     }
 
-    public double getCornerBottomLeft() {
-        return cornerBottomLeft;
+    public double getCornerTopLeftY() {
+        return cornerTopLeftY;
     }
 
-    public void setCornerBottomLeft(double cornerBottomLeft) {
-        this.cornerBottomLeft = cornerBottomLeft;
+    public void setCornerTopLeftY(double cornerTopLeftY) {
+        this.cornerTopLeftY = cornerTopLeftY;
+    }
+
+    public double getCornerBottomRightX() {
+        return cornerBottomRightX;
+    }
+
+    public void setCornerBottomRightX(double cornerBottomRightX) {
+        this.cornerBottomRightX = cornerBottomRightX;
+    }
+
+    public double getCornerBottomRightY() {
+        return cornerBottomRightY;
+    }
+
+    public void setCornerBottomRightY(double cornerBottomRightY) {
+        this.cornerBottomRightY = cornerBottomRightY;
+    }
+
+    public double getCornerBottomLeftX() {
+        return cornerBottomLeftX;
+    }
+
+    public void setCornerBottomLeftX(double cornerBottomLeftX) {
+        this.cornerBottomLeftX = cornerBottomLeftX;
+    }
+
+    public double getCornerBottomLeftY() {
+        return cornerBottomLeftY;
+    }
+
+    public void setCornerBottomLeftY(double cornerBottomLeftY) {
+        this.cornerBottomLeftY = cornerBottomLeftY;
     }
 
     public double getPunktX() {
@@ -77,11 +152,11 @@ public class NeighborMemo {
         this.punktY = punktY;
     }
 
-    public double getUIP() {
+    public String getUIP() {
         return UIP;
     }
 
-    public void setUIP(double UIP) {
+    public void setUIP(String UIP) {
         this.UIP = UIP;
     }
 
@@ -103,6 +178,10 @@ public class NeighborMemo {
 
     public long getUid() {
         return dateiMemo.getUid();
+    }
+
+    public  void setUid(long uid) {
+        this.uid = uid;
     }
 
     @Override

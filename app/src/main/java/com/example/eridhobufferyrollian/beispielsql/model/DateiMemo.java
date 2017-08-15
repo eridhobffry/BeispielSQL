@@ -25,9 +25,10 @@ public class DateiMemo {
     private int countPeers;
     private boolean checked;
 
-    public DateiMemo(long uid, boolean checked, double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
-                     double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY, double punktX,
-                     double punktY, String IP, int countPeers) {
+    public DateiMemo(long uid, boolean checked,
+                     double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
+                     double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
+                     double punktX, double punktY, String IP, int countPeers) {
 //        this.username = username;
 //        this.password = password;
         this.uid = uid;
