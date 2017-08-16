@@ -26,10 +26,14 @@ public class NeighborDbSource {
 
     //neue Array String für Neighbor
     private String[] columns_Neighbor = {
-            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHT,
-            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT,
-            DateiMemoDbHelper.COLUMN_CORNERTOPLEFT,
-            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT,
+            DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX,
+            DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY,
+            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX,
+            DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY,
+            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX,
+            DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY,
+            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX,
+            DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY,
             DateiMemoDbHelper.COLUMN_PUNKTX,
             DateiMemoDbHelper.COLUMN_PUNKTY,
             DateiMemoDbHelper.COLUMN_UIP,

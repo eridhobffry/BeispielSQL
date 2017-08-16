@@ -62,6 +62,7 @@ public class DateiMemoDbSource {
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
+
     /*
    *
    *
@@ -333,6 +334,9 @@ public class DateiMemoDbSource {
 
         return cornerTopLeftY;
     }
+    //
+    // ================================================================================================================================
+    //
 
 
    public double updateCornerBottomRight(double newCornerBottomRight) {
@@ -380,11 +384,14 @@ public class DateiMemoDbSource {
 
 
 
-
+    /*
+    *
+    *
+    *               Hilfklasse für Update Methode und Insert Methode
+    *
+    * */
     private DateiMemo cursorToDateiMemo(Cursor cursor) {
         int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
-        int idUsername = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_USERNAME);
-        int idPassword = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PASSWORD);
         int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
         int idTopRight = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT);
         int idTopLeft = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT);
