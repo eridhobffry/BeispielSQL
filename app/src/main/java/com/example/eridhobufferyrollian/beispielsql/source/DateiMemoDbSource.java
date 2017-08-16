@@ -463,7 +463,7 @@ public class DateiMemoDbSource {
     *           Get
     *
     *
-    *           Corner Bottom Right
+    *           Corner Bottom Right X und Y
     *
     *
     *
@@ -489,39 +489,27 @@ public class DateiMemoDbSource {
 
         return CornerBottomRightX;
     }
-    //
-    // ================================================================================================================================
-    //
 
-
-    /*
-    *           Get
-    *
-    *
-    *           Corner Bottom Left
-    *
-    *
-    *
-    * */
-    public List<Double> getCornerBottomLeft() {
-        List<Double> CornerBottomLeftList = new ArrayList<>();
-        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
+    public double getCornerBottomRightY() {
+        //List<Double> CornerBottomRightList = new ArrayList<>();
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
 
         Cursor cursor = database.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        double CornerBottomLeft;
+        double CornerBottomRightY;
+        CornerBottomRightY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY));
 
-        while(!cursor.isAfterLast()) {
-            CornerBottomLeft = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFT));
-            CornerBottomLeftList.add(CornerBottomLeft);
-            Log.d(LOG_TAG, selectQuery);
-            cursor.moveToNext();
-        }
+//        while(!cursor.isAfterLast()) {
+//            CornerBottomRightX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX));
+//            //CornerBottomRightList.add(CornerBottomRight);
+//            Log.d(LOG_TAG, selectQuery);
+//            cursor.moveToNext();
+//        }
 
         cursor.close();
 
-        return CornerBottomLeftList;
+        return CornerBottomRightY;
     }
     //
     // ================================================================================================================================
@@ -532,29 +520,53 @@ public class DateiMemoDbSource {
     *           Get
     *
     *
-    *           Corner Top Right
+    *           Corner Bottom Left X und Y
+    *
     *
     *
     * */
-    public List<Double> getCornerTopRight() {
-        List<Double> CornerTopRightList = new ArrayList<>();
-        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
+    public double getCornerBottomLeftX() {
+        //List<Double> CornerBottomLeftList = new ArrayList<>();
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
 
         Cursor cursor = database.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        double CornerTopRight;
+        double CornerBottomLeftX;
+        CornerBottomLeftX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX));
 
-        while(!cursor.isAfterLast()) {
-            CornerTopRight = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT));
-            CornerTopRightList.add(CornerTopRight);
-            Log.d(LOG_TAG, selectQuery);
-            cursor.moveToNext();
-        }
+//        while(!cursor.isAfterLast()) {
+//            CornerBottomLeftX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX));
+//            //CornerBottomLeftList.add(CornerBottomLeft);
+//            Log.d(LOG_TAG, selectQuery);
+//            cursor.moveToNext();
+//        }
 
         cursor.close();
 
-        return CornerTopRightList;
+        return CornerBottomLeftX;
+    }
+
+    public double getCornerBottomLeftY() {
+        //List<Double> CornerBottomLeftList = new ArrayList<>();
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        double CornerBottomLeftY;
+        CornerBottomLeftY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY));
+
+//        while(!cursor.isAfterLast()) {
+//            CornerBottomLeftX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX));
+//            //CornerBottomLeftList.add(CornerBottomLeft);
+//            Log.d(LOG_TAG, selectQuery);
+//            cursor.moveToNext();
+//        }
+
+        cursor.close();
+
+        return CornerBottomLeftY;
     }
     //
     // ================================================================================================================================
@@ -565,29 +577,113 @@ public class DateiMemoDbSource {
     *           Get
     *
     *
-    *           Corner Top Left
+    *           Corner Top Right X und Y
     *
     *
     * */
-    public List<Double> getCornerTopLeft() {
-        List<Double> CornerTopLeftList = new ArrayList<>();
-        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_CORNERTOPLEFT + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
+    public double getCornerTopRightX() {
+        //List<Double> CornerTopRightList = new ArrayList<>();
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
 
         Cursor cursor = database.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        double CornerTopLeft;
+        double CornerTopRightX;
+        CornerTopRightX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX));
 
-        while(!cursor.isAfterLast()) {
-            CornerTopLeft = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFT));
-            CornerTopLeftList.add(CornerTopLeft);
-            Log.d(LOG_TAG, selectQuery);
-            cursor.moveToNext();
-        }
+
+//        while(!cursor.isAfterLast()) {
+//            CornerTopRightX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX));
+//            //CornerTopRightList.add(CornerTopRight);
+//            Log.d(LOG_TAG, selectQuery);
+//            cursor.moveToNext();
+//        }
 
         cursor.close();
 
-        return CornerTopLeftList;
+        return CornerTopRightX;
+    }
+
+    public double getCornerTopRightY() {
+        //List<Double> CornerTopRightList = new ArrayList<>();
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        double CornerTopRightY;
+        CornerTopRightY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY));
+
+
+//        while(!cursor.isAfterLast()) {
+//            CornerTopRightX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX));
+//            //CornerTopRightList.add(CornerTopRight);
+//            Log.d(LOG_TAG, selectQuery);
+//            cursor.moveToNext();
+//        }
+
+        cursor.close();
+
+        return CornerTopRightY;
+    }
+
+    //
+    // ================================================================================================================================
+    //
+
+
+    /*
+    *           Get
+    *
+    *
+    *           Corner Top Left X und Y
+    *
+    *
+    * */
+    public double getCornerTopLeftX() {
+        //List<Double> CornerTopRightList = new ArrayList<>();
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        double CornerTopLeftX;
+        CornerTopLeftX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX));
+
+
+//        while(!cursor.isAfterLast()) {
+//            CornerTopRightX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX));
+//            //CornerTopRightList.add(CornerTopRight);
+//            Log.d(LOG_TAG, selectQuery);
+//            cursor.moveToNext();
+//        }
+
+        cursor.close();
+
+        return CornerTopLeftX;
+    }
+
+    public double getCornerTopLeftY() {
+        //List<Double> CornerTopRightList = new ArrayList<>();
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY + " FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST;
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        double CornerTopLeftY;
+        CornerTopLeftY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY));
+
+
+//        while(!cursor.isAfterLast()) {
+//            CornerTopRightX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX));
+//            //CornerTopRightList.add(CornerTopRight);
+//            Log.d(LOG_TAG, selectQuery);
+//            cursor.moveToNext();
+//        }
+
+        cursor.close();
+
+        return CornerTopLeftY;
     }
     //
     // ================================================================================================================================
@@ -673,6 +769,35 @@ public class DateiMemoDbSource {
         punktY = c.getLong(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY));
 
         return punktY;
+    }
+    //
+    // ================================================================================================================================
+    //
+
+
+    /*
+    *           Get
+    *
+    *
+    *           IP
+    *
+    *
+    * */
+    public String getIp(long dateiMemo_Id) {
+
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_IP +" FROM " + DateiMemoDbHelper.TABLE_DATEI_LIST + " WHERE "
+                + DateiMemoDbHelper.COLUMN_UID + " = " + dateiMemo_Id;
+
+        Log.e(LOG_TAG, selectQuery);
+
+        Cursor c = database.rawQuery(selectQuery, null);
+
+        if (c != null)
+            c.moveToFirst();
+        String Ip;
+        Ip = c.getString(c.getColumnIndex(DateiMemoDbHelper.COLUMN_IP));
+
+        return Ip;
     }
     //
     // ================================================================================================================================

@@ -5,8 +5,8 @@ public class PeerMemo {
     DateiMemo dateiMemo;
 
     private long uid;
-    public int peerId;
-    public String peerIp;
+    private int peerId;
+    private String peerIp;
     private boolean checked;
 
 

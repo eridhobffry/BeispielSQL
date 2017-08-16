@@ -129,7 +129,7 @@ public class PeerDbSource {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_PEERID, peerMemo.getPeerId());
         values.put(DateiMemoDbHelper.COLUMN_PEERIP, peerMemo.getPeerIp());
-        values.put(DateiMemoDbHelper.COLUMN_UID, listToLong(dateiMemoDbSource.getUid()));
+        values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemoDbSource.getUid());
         values.put(DateiMemoDbHelper.COLUMN_CHECKED, peerMemo.isChecked());
 
         //
@@ -185,7 +185,7 @@ public class PeerDbSource {
 
     public PeerMemo updatePeerMemo(long newUid, int newPeerId, int newPeerIp, boolean newChecked) {
         int intValueChecked = (newChecked)? 1 : 0;
-        newUid = listToLong(dateiMemoDbSource.getUid());
+        newUid = dateiMemoDbSource.getUid();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_UID, newUid);
         values.put(DateiMemoDbHelper.COLUMN_PEERID, newPeerId);
@@ -261,7 +261,7 @@ public class PeerDbSource {
         boolean isChecked = (intValueChecked != 0);
 
         int peerId = cursor.getInt(idPeerId);
-        int peerIp = cursor.getInt(idPeerIp);
+        String peerIp = cursor.getString(idPeerIp);
 
 
         PeerMemo peerMemo = new PeerMemo(uid, peerId, peerIp, isChecked);
@@ -299,7 +299,7 @@ public class PeerDbSource {
         return PeerMemoList;
     }
 
-    public List<Long> getUid() {
+    public double getUid() {
         return dateiMemoDbSource.getUid();
     }
 
