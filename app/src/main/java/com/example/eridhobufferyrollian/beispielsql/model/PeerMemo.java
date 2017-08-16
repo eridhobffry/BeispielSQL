@@ -6,12 +6,12 @@ public class PeerMemo {
 
     private long uid;
     public int peerId;
-    public double peerIp;
+    public String peerIp;
     private boolean checked;
 
 
 
-    public PeerMemo(long uid, int peerId, double peerIp, boolean checked) {
+    public PeerMemo(long uid, int peerId, String peerIp, boolean checked) {
         this.uid = uid;
         this.peerId = peerId;
         this.peerIp = peerIp;
@@ -42,11 +42,11 @@ public class PeerMemo {
     }
 
 
-    public double getPeerIp() {
+    public String getPeerIp() {
         return peerIp;
     }
 
-    public void setPeerIp(double peerIp) {
+    public void setPeerIp(String peerIp) {
         this.peerIp = peerIp;
     }
 
