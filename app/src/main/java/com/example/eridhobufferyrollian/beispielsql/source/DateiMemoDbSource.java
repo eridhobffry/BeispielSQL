@@ -678,6 +678,16 @@ public class DateiMemoDbSource {
     // ================================================================================================================================
     //
 
+}
+
+
+//Ungebrauchte Code
+
+
+
+
+
+
 //    public Cursor getCorner(int dateiMemo_Id) {
 //
 //        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_CORNERTOPLEFT +", "+ DateiMemoDbHelper.COLUMN_CORNERTOPRIGHT +
@@ -742,7 +752,7 @@ public class DateiMemoDbSource {
 
 
 
-    //    public List<DateiMemo> getAllDateiMemos() {
+//    public List<DateiMemo> getAllDateiMemos() {
 //        List<DateiMemo> DateiMemoList = new ArrayList<>();
 //
 //        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
@@ -766,7 +776,7 @@ public class DateiMemoDbSource {
 
 
 
-    //    public DateiMemo updateDateiMemo(long uid, boolean newChecked,
+//    public DateiMemo updateDateiMemo(long uid, boolean newChecked,
 //                                     double newCornerTopRightX, double newCornerTopRightY, double newCornerTopLeftX, double newCornerTopLeftY,
 //                                     double newCornerBottomRightX, double newCornerBottomRightY, double newCornerBottomLeftX, double newCornerBottomLeftY,
 //                                     double newPunktX, double newPunktY, double newIP, int newCountPeers) {
@@ -805,4 +815,3 @@ public class DateiMemoDbSource {
 //
 //        return dateiMemo;
 //    }
-}
