@@ -59,7 +59,7 @@ public class PeerDbSource {
     /*
     *
     *
-    *           Converting
+    *           Converting List to Double -- List to Integer -- List to Long
     *
     * */
     public double listToDouble(List<Double> list){
