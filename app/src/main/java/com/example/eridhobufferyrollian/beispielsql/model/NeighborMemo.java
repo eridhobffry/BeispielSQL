@@ -13,14 +13,14 @@ public class NeighborMemo {
     private double cornerBottomRightY;
     private double cornerBottomLeftX;
     private double cornerBottomLeftY;
-    public double punktX;
-    public double punktY;
-    public String UIP;
-    public double RTT;
-    public boolean checked;
-    public long uid;
+    private double punktX;
+    private double punktY;
+    private String UIP;
+    private double RTT;
+    private boolean checked;
+    private long uid;
 
-    public NeighborMemo(int uid, boolean checked,
+    public NeighborMemo(long uid, boolean checked,
                         double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
                         double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
                         double punktX, double punktY, String UIP, double RTT) {
