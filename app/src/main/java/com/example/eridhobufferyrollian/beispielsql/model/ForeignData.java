@@ -2,6 +2,7 @@ package com.example.eridhobufferyrollian.beispielsql.model;
 
 /**
  * Created by eridhobufferyrollian on 12.08.17.
+ * Class Foreign Data
  */
 
 public class ForeignData {

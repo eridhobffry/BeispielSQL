@@ -1,6 +1,6 @@
 package com.example.eridhobufferyrollian.beispielsql.model;
 
-
+/**/
 public class NeighborMemo {
 
     DateiMemo dateiMemo;
