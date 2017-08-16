@@ -299,12 +299,22 @@ public class PeerDbSource {
         return PeerMemoList;
     }
 
+    /*
+    *
+    *           Get UID
+    *
+    * */
     public double getUid() {
         return dateiMemoDbSource.getUid();
     }
 
 
-
+    /*
+    *
+    *
+    *           Get Peer Ip
+    *
+    * */
     public List<Integer> getPeerIp(long peerId) {
         List<Integer> PeerIdList = new ArrayList<>();
         String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_PEERIP + " FROM " + DateiMemoDbHelper.TABLE_PEER_LIST + " WHERE "
@@ -326,6 +336,11 @@ public class PeerDbSource {
 
         return PeerIdList;
     }
+
+}
+
+
+
 
     /*
     *
@@ -362,5 +377,3 @@ public class PeerDbSource {
 //
 //        return peerMemo;
 //    }
-
-}
