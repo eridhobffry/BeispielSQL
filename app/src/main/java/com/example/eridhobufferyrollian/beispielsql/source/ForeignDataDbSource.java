@@ -286,7 +286,7 @@ public class ForeignDataDbSource {
 
         cursor.moveToFirst();
         int fotoId;
-        fotoId = cursor.getInt(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID));
+        fotoId = cursor.getInt(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FOTOID));
 
         cursor.close();
 

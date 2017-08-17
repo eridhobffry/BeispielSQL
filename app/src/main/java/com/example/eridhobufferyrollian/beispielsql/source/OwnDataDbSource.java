@@ -14,6 +14,8 @@ import android.database.Cursor;
 
 import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.ForeignData;
+import com.example.eridhobufferyrollian.beispielsql.model.OwnDataMemo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class OwnDataDbSource {
 
     private SQLiteDatabase database;
     private DateiMemoDbHelper dbHelper;
+    private DateiMemoDbSource dateiMemoDbSource;
 
     //Array
     private String[] columns_OwnData = {
@@ -101,4 +104,128 @@ public class OwnDataDbSource {
     //==================================================================================================================
     //
 
+
+    //
+    //    public long uid;
+    //    public boolean checked;
+    //    public int fileId
+    //----------------------------- Insert, delete, update, get values in Table ---------------------------------
+    //
+    //
+    /*
+    *
+    *                                             Insert Data
+    *
+    *
+    * */
+    public OwnDataMemo createOwnData(OwnDataMemo ownDataMemo) {
+        ContentValues values = new ContentValues();
+        values.put(DateiMemoDbHelper.COLUMN_UID, ownDataMemo.getUid());
+        values.put(DateiMemoDbHelper.COLUMN_CHECKED, ownDataMemo.isChecked());
+        values.put(DateiMemoDbHelper.COLUMN_FOTOID, ownDataMemo.getFileId());
+
+        //
+        //insert row
+        //insert muss long
+        //
+        long ownData_Id = database.insert(DateiMemoDbHelper.TABLE_OWNDATA_LIST, null, values);
+
+        //
+        //Own Data ID
+        //insert data in Array
+        //
+        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_OWNDATA_LIST,
+                columns_OwnData, DateiMemoDbHelper.COLUMN_UID + "=" + ownData_Id ,
+                null, null, null, null);
+
+        cursor.moveToFirst();
+        ownDataMemo = cursorToOwnData(cursor);
+        cursor.close();
+
+        return ownDataMemo;
+    }
+
+    /*
+*
+*
+*                                           Delete data
+*
+*
+*
+* */
+    public void deleteOwnData(OwnDataMemo ownDataMemo) {
+        long id = ownDataMemo.getUid();
+
+        database.delete(DateiMemoDbHelper.TABLE_OWNDATA_LIST,
+                DateiMemoDbHelper.COLUMN_UID + "=" + id,
+                null);
+
+        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + ownDataMemo.toString());
+    }
+    /*
+    *
+    * ==================================================================================================================
+    * */
+
+    /*
+*
+*
+*               Hilfklasse für Update Methode und Insert Methode
+*
+* */
+    private OwnDataMemo cursorToOwnData(Cursor cursor) {
+        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
+        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+        int idFileId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FILEID);
+
+
+
+        long uid = cursor.getLong(idIndex);
+
+        int intValueChecked = cursor.getInt(idChecked);
+        boolean isChecked = (intValueChecked != 0);
+
+        int fileId = cursor.getInt(idFileId);
+
+
+
+        OwnDataMemo ownDataMemo = new OwnDataMemo(uid, isChecked, fileId);
+
+        return ownDataMemo;
+    }
+
+    /*
+   *
+   *
+   *                   get Foto ID
+   *
+   *
+   * */
+    public int getFileId(long uid) {
+        //List<long> UidList = new ArrayList<>();
+        String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_FILEID + " FROM " + DateiMemoDbHelper.TABLE_OWNDATA_LIST+ " WHERE "
+                + DateiMemoDbHelper.COLUMN_UID + " = " + uid;
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        int fileId;
+        fileId = cursor.getInt(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FILEID));
+
+        cursor.close();
+
+        return fileId;
+    }
+    //
+    // ================================================================================================================================
+    //
+
+    /*
+    *
+    *           Get UID
+    *
+    * */
+    public double getUidOwn() {
+        return dateiMemoDbSource.getUid();
+    }
 }
