@@ -120,7 +120,7 @@ public class OwnDataDbSource {
     * */
     public OwnDataMemo createOwnData(OwnDataMemo ownDataMemo) {
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_UID, ownDataMemo.getUid());
+        values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemoDbSource.getUid());
         values.put(DateiMemoDbHelper.COLUMN_CHECKED, ownDataMemo.isChecked());
         values.put(DateiMemoDbHelper.COLUMN_FOTOID, ownDataMemo.getFileId());
 

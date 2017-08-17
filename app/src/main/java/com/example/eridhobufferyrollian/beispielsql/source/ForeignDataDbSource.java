@@ -123,7 +123,7 @@ public class ForeignDataDbSource {
     * */
     public ForeignData createForeignData(ForeignData foreignData) {
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_UID, foreignData.getUid());
+        values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemoDbSource.getUid());
         values.put(DateiMemoDbHelper.COLUMN_CHECKED, foreignData.isChecked());
         values.put(DateiMemoDbHelper.COLUMN_FOTOID, foreignData.getFotoId());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTX, foreignData.getPunktX());
