@@ -270,19 +270,19 @@ public class DateiMemoDbSource {
 
     public double updateCornerTopLeftY(double newCornerTopLeftY) {
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX, newCornerTopLeftY);
+        values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY, newCornerTopLeftY);
 
         database.update(DateiMemoDbHelper.TABLE_DATEI_LIST,
                 values,
-                DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX + "=" + newCornerTopLeftY,
+                DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY + "=" + newCornerTopLeftY,
                 null);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX + "=" + newCornerTopLeftY,
+                columns, DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY + "=" + newCornerTopLeftY,
                 null, null, null, null);
 
         cursor.moveToFirst();
-        double cornerTopLeftY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX));
+        double cornerTopLeftY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY));
         cursor.close();
 
         return cornerTopLeftY;
