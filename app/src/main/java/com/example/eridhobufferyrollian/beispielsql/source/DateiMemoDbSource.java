@@ -454,15 +454,6 @@ public class DateiMemoDbSource {
     *           Get
     *
     *
-    *           All Data
-    *
-    *
-    *
-    * */
-    /*
-    *           Get
-    *
-    *
     *           Corner Bottom Right X und Y
     *
     *
@@ -736,7 +727,7 @@ public class DateiMemoDbSource {
         if (c != null)
             c.moveToFirst();
         double punktX;
-        punktX = c.getLong(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX));
+        punktX = c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX));
 
         return punktX;
     }
@@ -766,7 +757,7 @@ public class DateiMemoDbSource {
         if (c != null)
             c.moveToFirst();
         double punktY;
-        punktY = c.getLong(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY));
+        punktY = c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY));
 
         return punktY;
     }

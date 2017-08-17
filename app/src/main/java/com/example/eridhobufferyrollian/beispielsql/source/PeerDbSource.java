@@ -304,7 +304,7 @@ public class PeerDbSource {
     *           Get UID
     *
     * */
-    public double getUid() {
+    public double getUidPeer() {
         return dateiMemoDbSource.getUid();
     }
 
