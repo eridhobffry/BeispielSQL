@@ -245,7 +245,7 @@ public class NeighborDbSource {
                 null);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY + "=" + newCornerTopRightY,
+                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY + "=" + newCornerTopRightY,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -277,7 +277,7 @@ public class NeighborDbSource {
                 null);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX + "=" + newCornerTopLeftX,
+                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX + "=" + newCornerTopLeftX,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -297,7 +297,7 @@ public class NeighborDbSource {
                 null);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY + "=" + newCornerTopLeftY,
+                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY + "=" + newCornerTopLeftY,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -329,7 +329,7 @@ public class NeighborDbSource {
                 null);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX + "=" + newCornerBottomRightX,
+                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX + "=" + newCornerBottomRightX,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -349,7 +349,7 @@ public class NeighborDbSource {
                 null);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY + "=" + newCornerBottomRightY,
+                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY + "=" + newCornerBottomRightY,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -381,7 +381,7 @@ public class NeighborDbSource {
                 null);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX + "=" + newCornerBottomLeftX,
+                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX + "=" + newCornerBottomLeftX,
                 null, null, null, null);
 
         cursor.moveToFirst();
@@ -401,7 +401,7 @@ public class NeighborDbSource {
                 null);
 
         Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY + "=" + newCornerBottomLeftY,
+                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY + "=" + newCornerBottomLeftY,
                 null, null, null, null);
 
         cursor.moveToFirst();
