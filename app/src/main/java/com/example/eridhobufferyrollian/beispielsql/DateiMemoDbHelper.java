@@ -129,6 +129,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
             "CREATE TABLE " + TABLE_FOREIGNDATA_LIST +
                     "(" + COLUMN_FOTOID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0" +
+                    COLUMN_IP + "TEXT NOT NULL" +
                     COLUMN_UID + " INTEGER NOT NULL, " + " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));" ;
 
     public static final String SQL_DROP_DATEI = "DROP TABLE IF EXISTS " + TABLE_DATEI_LIST;
