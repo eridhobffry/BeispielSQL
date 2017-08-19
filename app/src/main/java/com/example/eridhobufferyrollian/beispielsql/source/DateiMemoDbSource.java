@@ -794,6 +794,27 @@ public class DateiMemoDbSource {
     // ================================================================================================================================
     //
 
+        public List<DateiMemo> getAllDateiMemos() {
+        List<DateiMemo> DateiMemoList = new ArrayList<>();
+
+        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
+                columns, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        DateiMemo dateiMemo;
+
+        while(!cursor.isAfterLast()) {
+            dateiMemo = cursorToDateiMemo(cursor);
+            DateiMemoList.add(dateiMemo);
+            Log.d(LOG_TAG, "ID: " + dateiMemo.getUid() + ", Inhalt: " + dateiMemo.toString());
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return DateiMemoList;
+    }
+
 }
 
 
@@ -868,26 +889,7 @@ public class DateiMemoDbSource {
 
 
 
-//    public List<DateiMemo> getAllDateiMemos() {
-//        List<DateiMemo> DateiMemoList = new ArrayList<>();
-//
-//        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-//                columns, null, null, null, null, null);
-//
-//        cursor.moveToFirst();
-//        DateiMemo dateiMemo;
-//
-//        while(!cursor.isAfterLast()) {
-//            dateiMemo = cursorToDateiMemo(cursor);
-//            DateiMemoList.add(dateiMemo);
-//            Log.d(LOG_TAG, "ID: " + dateiMemo.getUid() + ", Inhalt: " + dateiMemo.toString());
-//            cursor.moveToNext();
-//        }
-//
-//        cursor.close();
-//
-//        return DateiMemoList;
-//    }
+
 
 
 

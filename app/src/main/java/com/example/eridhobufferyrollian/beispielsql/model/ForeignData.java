@@ -13,14 +13,15 @@ public class ForeignData {
     private int fotoId;
     private double punktX;
     private double punktY;
+    private String foreignIp;
 
-    public ForeignData(long uid, boolean checked, int fotoId, double punktX, double punktY){
+    public ForeignData(long uid, boolean checked, int fotoId, double punktX, double punktY, String foreignIp){
         this.uid = uid;
         this.checked = checked;
         this.fotoId = fotoId;
         this.punktX = punktX;
         this.punktY = punktY;
-
+        this.foreignIp = foreignIp;
     }
 
     public long getUid() {
@@ -59,10 +60,19 @@ public class ForeignData {
         this.punktY = punktY;
     }
 
+    public String getForeignIp() {
+        return foreignIp;
+    }
+
+    public void setForeignIp(String foreignIp) {
+        this.foreignIp = foreignIp;
+    }
+
     @Override
     public String toString() {
         String output = uid + " -- " + fotoId +
-                "\nCorner Punkt : x -> "+ punktX + " -- y -> "+ punktY ;
+                "\nCorner Punkt : x -> "+ punktX + " -- y -> "+ punktY +
+                "\n Foreign IP : "+ foreignIp;
         return output;
     }
 }
