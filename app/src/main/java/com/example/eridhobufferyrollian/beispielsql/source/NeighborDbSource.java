@@ -413,4 +413,87 @@ public class NeighborDbSource {
     /*
     *  ================================================================================================================================
     */
+
+    /*
+    *               Update Round Trip Time
+    *
+    *
+    *
+    *
+    *
+    *
+    * */
+        public double udpateRTT(double newRTT) {
+            ContentValues values = new ContentValues();
+            values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX, newRTT);
+
+            database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
+                    values,
+                    DateiMemoDbHelper.COLUMN_RTT + "=" + newRTT,
+                    null);
+
+            Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
+                    columns_Neighbor, DateiMemoDbHelper.COLUMN_RTT + "=" + newRTT,
+                    null, null, null, null);
+
+            cursor.moveToFirst();
+            double RTT = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_RTT));
+            cursor.close();
+
+            return RTT;
+        }
+    /*
+    *  ================================================================================================================================
+    */
+
+    /*
+    *
+    *
+    *               Hilfklasse für Update Methode und Insert Methode
+    *
+    * */
+    private NeighborMemo cursorToNeighborMemo(Cursor cursor) {
+        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
+        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+        int idTopRightX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX);
+        int idTopRightY = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY);
+        int idTopLeftX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX);
+        int idTopLeftY = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY);
+        int idBottomRightX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX);
+        int idBottomRightY = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY);
+        int idBottomLeftX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY);
+        int idBottomLeftY = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY);
+        int idPunktX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX);
+        int idPunktY = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY);
+        int idUIP = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UIP);
+        int idRtt = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_RTT);
+
+
+
+        long uid = cursor.getLong(idIndex);
+
+        int intValueChecked = cursor.getInt(idChecked);
+        boolean isChecked = (intValueChecked != 0);
+
+        double cornerTopRightX = cursor.getDouble(idTopRightX);
+        double cornerTopRightY = cursor.getDouble(idTopRightY);
+        double cornerTopLeftX = cursor.getDouble(idTopLeftX);
+        double cornerTopLeftY = cursor.getDouble(idTopLeftY);
+        double cornerBottomRightX = cursor.getDouble(idBottomRightX);
+        double cornerBottomRightY = cursor.getDouble(idBottomRightY);
+        double cornerBottomLeftX= cursor.getDouble(idBottomLeftX);
+        double cornerBottomLeftY = cursor.getDouble(idBottomLeftY);
+        double punktX = cursor.getDouble(idPunktX);
+        double punktY = cursor.getDouble(idPunktY);
+        String UIP = cursor.getString(idUIP);
+        double RTT = cursor.getDouble(idRtt);
+
+
+        NeighborMemo neighborMemo = new NeighborMemo(uid, isChecked,
+                cornerTopRightX, cornerTopRightY, cornerTopLeftX, cornerTopLeftY,
+                cornerBottomRightX, cornerBottomRightY, cornerBottomLeftX, cornerBottomLeftY,
+                punktX, punktY, UIP, RTT);
+
+        return neighborMemo;
+    }
 }
