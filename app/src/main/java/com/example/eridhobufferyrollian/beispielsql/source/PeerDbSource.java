@@ -14,6 +14,7 @@ import android.database.Cursor;
 
 import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.OwnDataMemo;
 import com.example.eridhobufferyrollian.beispielsql.model.PeerMemo;
 
 import java.util.ArrayList;
@@ -335,6 +336,27 @@ public class PeerDbSource {
         cursor.close();
 
         return PeerIdList;
+    }
+
+    public List<PeerMemo> getAllPeer() {
+        List<PeerMemo> PeerMemoList = new ArrayList<>();
+
+        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_PEER_LIST,
+                columns_Peer, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        PeerMemo peerMemo;
+
+        while(!cursor.isAfterLast()) {
+            peerMemo = cursorToPeerMemo(cursor);
+            PeerMemoList.add(peerMemo);
+            Log.d(LOG_TAG, "ID: " + peerMemo.getUid() + ", Inhalt: " + peerMemo.toString());
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return PeerMemoList;
     }
 
 }

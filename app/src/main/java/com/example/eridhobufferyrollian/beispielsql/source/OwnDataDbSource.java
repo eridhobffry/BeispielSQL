@@ -15,6 +15,7 @@ import android.database.Cursor;
 import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 import com.example.eridhobufferyrollian.beispielsql.model.ForeignData;
+import com.example.eridhobufferyrollian.beispielsql.model.NeighborMemo;
 import com.example.eridhobufferyrollian.beispielsql.model.OwnDataMemo;
 
 import java.util.ArrayList;
@@ -227,5 +228,26 @@ public class OwnDataDbSource {
     * */
     public double getUidOwn() {
         return dateiMemoDbSource.getUid();
+    }
+
+    public List<OwnDataMemo> getAllOwnData() {
+        List<OwnDataMemo> OwnDataMemoList = new ArrayList<>();
+
+        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_OWNDATA_LIST,
+                columns_OwnData, null, null, null, null, null);
+
+        cursor.moveToFirst();
+        OwnDataMemo ownDataMemo;
+
+        while(!cursor.isAfterLast()) {
+            ownDataMemo = cursorToOwnData(cursor);
+            OwnDataMemoList.add(ownDataMemo);
+            Log.d(LOG_TAG, "ID: " + ownDataMemo.getUid() + ", Inhalt: " + ownDataMemo.toString());
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return OwnDataMemoList;
     }
 }
