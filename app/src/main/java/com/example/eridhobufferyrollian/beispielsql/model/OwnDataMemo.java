@@ -23,6 +23,10 @@ public class OwnDataMemo {
         return dateiMemo.getUid();
     }
 
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+
     public boolean isChecked() {
         return checked;
     }

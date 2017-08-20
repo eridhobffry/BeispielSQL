@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -38,13 +39,33 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.ForeignData;
+import com.example.eridhobufferyrollian.beispielsql.model.NeighborMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.OwnDataMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.PeerMemo;
 import com.example.eridhobufferyrollian.beispielsql.source.DateiMemoDbSource;
+import com.example.eridhobufferyrollian.beispielsql.source.ForeignDataDbSource;
+import com.example.eridhobufferyrollian.beispielsql.source.NeighborDbSource;
+import com.example.eridhobufferyrollian.beispielsql.source.OwnDataDbSource;
+import com.example.eridhobufferyrollian.beispielsql.source.PeerDbSource;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    Button btnData, btnOwnData, btnForeignData, btnNeighbor, btnPeer;
+
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private DateiMemoDbSource dataSource;
+    private DateiMemoDbSource dateiMemoDbSource;
+    private ForeignDataDbSource foreignDataDbSource;
+    private NeighborDbSource neighborDbSource;
+    private OwnDataDbSource ownDataDbSource;
+    private PeerDbSource peerDbSource;
+
+    private DateiMemo dateiMemo;
+    private ForeignData foreignData;
+    private NeighborMemo neighborMemo;
+    private OwnDataMemo ownDataMemo;
+    private PeerMemo peerMemo;
 
     private ListView mDateiMemosListView;
     //----------------  Man verbindet von hier zu der DBSource  -----------------------------
@@ -54,26 +75,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         Log.d(LOG_TAG, "Das Datenquellen-Objekt wird angelegt.");
-        dataSource = new DateiMemoDbSource(this);
+        dateiMemoDbSource = new DateiMemoDbSource(this);
+        foreignDataDbSource = new ForeignDataDbSource(this);
+        neighborDbSource = new NeighborDbSource(this);
+        ownDataDbSource = new OwnDataDbSource(this);
+        peerDbSource = new PeerDbSource(this);
 
         btnData= (Button)findViewById(R.id.btnData);
-        btnStuCourseGrade.setOnClickListener(this);
+        btnData.setOnClickListener(this);
 
-        btnCourseNameGradeTotal= (Button) findViewById(R.id.btnCourseNameGradeTotal);
-        btnCourseNameGradeTotal.setOnClickListener(this);
+        btnOwnData= (Button) findViewById(R.id.btnOwnData);
+        btnOwnData.setOnClickListener(this);
 
-        btnCourseNotTakenByStudent= (Button) findViewById(R.id.btnCourseNotTakenByStudent);
-        btnCourseNotTakenByStudent.setOnClickListener(this);
+        btnForeignData= (Button) findViewById(R.id.btnForeignData);
+        btnForeignData.setOnClickListener(this);
 
 
-        btnFail= (Button) findViewById(R.id.btnFail);
-        btnFail.setOnClickListener(this);
+        btnNeighbor= (Button) findViewById(R.id.btnNeighbor);
+        btnNeighbor.setOnClickListener(this);
 
-        btnDelete= (Button) findViewById(R.id.btnDelete);
-        btnDelete.setOnClickListener(this);
-
-        btnInsert= (Button) findViewById(R.id.btnInsert);
-        btnInsert.setOnClickListener(this);
+        btnPeer= (Button) findViewById(R.id.btnPeer);
+        btnPeer.setOnClickListener(this);
 
         insertSampleData();
 
@@ -110,6 +132,206 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
 //        dataSource.close();
     }
+
+    private void insertSampleData(){
+
+        dateiMemoDbSource.deleteDateiMemo(dateiMemo);
+        foreignDataDbSource.deleteForeignData(foreignData);
+        neighborDbSource.deleteNeighbormemo(neighborMemo);
+        ownDataDbSource.deleteOwnData(ownDataMemo);
+        peerDbSource.deletePeerMemo(peerMemo);
+
+        //insert DateiMemo
+        // String username, String password, int uid, boolean checked,
+        // double cornerTopRightX und Y, double cornerTopLeftx und Y, double cornerBottomRightX und Y,
+        // double cornerBottomLeftX und Y, double punktX, double punktY, double IP, int countPeers
+        dateiMemo.setUid(1);
+        dateiMemo.setChecked(true);
+        dateiMemo.setCornerTopRightX(0.5);
+        dateiMemo.setCornerTopRightY(0.6);
+        dateiMemo.setCornerTopLeftX(0.2);
+        dateiMemo.setCornerTopLeftY(0.2);
+        dateiMemo.setCornerBottomLeftX(0.4);
+        dateiMemo.setCornerBottomLeftY(0.6);
+        dateiMemo.setCornerBottomRightX(0.5);
+        dateiMemo.setCornerBottomRightY(1);
+        dateiMemo.setPunktX(0.2);
+        dateiMemo.setPunktY(0.4);
+        dateiMemo.setIP("277.0.0.0/8");
+        dateiMemo.setCountPeers(2);
+        dateiMemoDbSource.createDateiMemo(dateiMemo);
+
+        //insert Foreign Data
+        //private long uid;
+        //private boolean checked;
+        //private int fotoId;
+        //private double punktX;
+        //private double punktY;
+        //private String foreignIp;
+        foreignData.setUid(1);
+        foreignData.setChecked(true);
+        foreignData.setFotoId(2);
+        foreignData.setPunktX(0.5);
+        foreignData.setPunktY(0.5);
+        foreignData.setForeignIp("277.0.0.1");
+        foreignDataDbSource.createForeignData(foreignData);
+
+        //insert neighbor memo
+        //private double cornerTopRightX;
+        //private double cornerTopRightY;
+        //private double cornerTopLeftX;
+        //private double cornerTopLeftY;
+        //private double cornerBottomRightX;
+        //private double cornerBottomRightY;
+        //private double cornerBottomLeftX;
+        //private double cornerBottomLeftY;
+        //private double punktX;
+        //private double punktY;
+        //private String UIP;
+        //private double RTT;
+        //private boolean checked;
+        //private long uid;
+        neighborMemo.setUid(1);
+        neighborMemo.setChecked(true);
+        neighborMemo.setCornerTopRightX(0.5);
+        neighborMemo.setCornerTopRightY(0.6);
+        neighborMemo.setCornerTopLeftX(0.2);
+        neighborMemo.setCornerTopLeftY(0.2);
+        neighborMemo.setCornerBottomLeftX(0.4);
+        neighborMemo.setCornerBottomLeftY(0.6);
+        neighborMemo.setCornerBottomRightX(0.5);
+        neighborMemo.setCornerBottomRightY(1);
+        neighborMemo.setPunktX(0.2);
+        neighborMemo.setPunktY(0.4);
+        neighborMemo.setUIP("277.0.0.0/8");
+        neighborMemo.setRTT(25.89);
+        neighborDbSource.createNeighborMemo(neighborMemo);
+
+        //insert Own Data
+        //    public long uid;
+        //    public boolean checked;
+        //    public int fileId
+        ownDataMemo.setUid(1);
+        ownDataMemo.setChecked(true);
+        ownDataMemo.setFileId(3);
+        ownDataDbSource.createOwnData(ownDataMemo);
+
+        //insert Peer
+        //    private long uid;
+        //    public int peerId;
+        //    public double peerIp;
+        //    private boolean checked;
+        peerMemo.setUid(1);
+        peerMemo.setPeerId(1);
+        peerMemo.setChecked(true);
+        peerMemo.setPeerIp("277.0.0.1");
+        peerDbSource.createPeerMemo(peerMemo);
+
+    }
+
+    //Zeig Table Datei Memo
+    private void ListDatei () {
+        List<DateiMemo> dateiMemoList= dateiMemoDbSource.getAllDateiMemos();
+        Log.d(LOG_TAG,"=============================================================");
+
+        for (int j = 0; j < dateiMemoList.size(); j++){
+            String output = "ID: "+ dateiMemoList.get(j).getUid() +
+                    "\n Status: "+ dateiMemoList.get(j).isChecked() +
+                    "\n Corner Top Right X: "+ dateiMemoList.get(j).getCornerTopRightX() +
+                    "\n Corner Top Right Y: "+ dateiMemoList.get(j).getCornerTopRightY() +
+                    "\n Corner Top Left X: "+ dateiMemoList.get(j).getCornerTopLeftX() +
+                    "\n Corner Top Left Y: "+ dateiMemoList.get(j).getCornerTopLeftY() +
+                    "\n Corner Bottom Right X: "+ dateiMemoList.get(j).getCornerBottomRightX() +
+                    "\n Corner Bottom Right Y: "+ dateiMemoList.get(j).getCornerBottomRightY() +
+                    "\n Corner Bottom Left X: "+ dateiMemoList.get(j).getCornerBottomLeftX() +
+                    "\n Corner Bottom Left Y: "+ dateiMemoList.get(j).getCornerTopLeftY() +
+                    "\n Punkt X: "+ dateiMemoList.get(j).getPunktX() +
+                    "\n Punkt Y: "+ dateiMemoList.get(j).getPunktY() +
+                    "\n IP: "+ dateiMemoList.get(j).getIP() +
+                    "\n Count Peers: "+ dateiMemoList.get(j).getCountPeers() ;
+
+
+            Log.d(LOG_TAG, output);
+
+
+        }
+        Log.d(LOG_TAG,"=============================================================");
+    }
+
+    //Zeig Table Foreign Datei
+    private void ListForeignDatei () {
+        List<ForeignData> foreignDataList= foreignDataDbSource.getAllForeignData();
+        Log.d(LOG_TAG,"=============================================================");
+
+        for (int i= 0; i < foreignDataList.size(); i++){
+            String output = "ID: "+ foreignDataList.get(i).getUid() +
+                    "\n Status: "+ foreignDataList.get(i).isChecked() +
+                    "\n Foto ID: "+ foreignDataList.get(i).getFotoId() +
+                    "\n Punkt X: "+ foreignDataList.get(i).getPunktX() +
+                    "\n Punkt Y: "+ foreignDataList.get(i).getPunktY() +
+                    "\n IP: "+ foreignDataList.get(i).getForeignIp() ;
+
+            Log.d(LOG_TAG, output);
+        }
+        Log.d(LOG_TAG,"=============================================================");
+    }
+
+    private void ListNeighborData() {
+        List<NeighborMemo> neighborMemoList= neighborDbSource.getAllNeighborMemo();
+        Log.d(LOG_TAG,"=============================================================");
+
+        for (int i= 0; i < neighborMemoList.size(); i++) {
+            String output = "ID: "+ neighborMemoList.get(i).getUid() +
+                    "\n Status: "+ neighborMemoList.get(i).isChecked() +
+                    "\n Corner Top Right X: "+ neighborMemoList.get(i).getCornerTopRightX() +
+                    "\n Corner Top Right Y: "+ neighborMemoList.get(i).getCornerTopRightY() +
+                    "\n Corner Top Left X: "+ neighborMemoList.get(i).getCornerTopLeftX() +
+                    "\n Corner Top Left Y: "+ neighborMemoList.get(i).getCornerTopLeftY() +
+                    "\n Corner Bottom Right X: "+ neighborMemoList.get(i).getCornerBottomRightX() +
+                    "\n Corner Bottom Right Y: "+ neighborMemoList.get(i).getCornerBottomRightY() +
+                    "\n Corner Bottom Left X: "+ neighborMemoList.get(i).getCornerBottomLeftX() +
+                    "\n Corner Bottom Left Y: "+ neighborMemoList.get(i).getCornerTopLeftY() +
+                    "\n Punkt X: "+ neighborMemoList.get(i).getPunktX() +
+                    "\n Punkt Y: "+ neighborMemoList.get(i).getPunktY() +
+                    "\n IP: "+ neighborMemoList.get(i).getUIP() +
+                    "\n RTT: "+ neighborMemoList.get(i).getRTT();
+
+            Log.d(LOG_TAG, output);
+        }
+        Log.d(LOG_TAG,"=============================================================");
+
+    }
+
+    private void ListOwnData (){
+        List<OwnDataMemo> ownDataMemoList= ownDataDbSource.getAllOwnData();
+        Log.d(LOG_TAG,"=============================================================");
+
+        for (int i = 0; i < ownDataMemoList.size(); i++){
+            String output = "ID: "+ ownDataMemoList.get(i).getUid() +
+                    "\n Status: "+ ownDataMemoList.get(i).isChecked() +
+                    "File ID: "+ ownDataMemoList.get(i).getFileId();
+
+            Log.d(LOG_TAG, output);
+        }
+
+        Log.d(LOG_TAG,"=============================================================");
+    }
+
+    private void ListPeer (){
+        List<PeerMemo> peerMemoList= peerDbSource.getAllPeer();
+        Log.d(LOG_TAG,"=============================================================");
+
+        for(int i= 0; i < peerMemoList.size(); i++){
+            String output = "ID: "+ peerMemoList.get(i).getUid() +
+                    "\n Status: "+ peerMemoList.get(i).isChecked() +
+                    "Peer ID: "+ peerMemoList.get(i).getPeerId() +
+                    "\n IP: "+ peerMemoList.get(i).getPeerIp();
+
+            Log.d(LOG_TAG, output);
+        }
+        Log.d(LOG_TAG,"=============================================================");
+    }
+
 
 //    private void initializeDateiMemosListView() {
 //        List<DateiMemo> emptyListForInitialization = new ArrayList<>();
@@ -389,7 +611,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void showAllListEntries () {
-        List<DateiMemo> DateiMemoList = dataSource.getAllDateiMemos();
+        List<DateiMemo> DateiMemoList = dateiMemoDbSource.getAllDateiMemos();
 
         ArrayAdapter<DateiMemo> adapter = (ArrayAdapter<DateiMemo>) mDateiMemosListView.getAdapter();
 
@@ -420,5 +642,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        if (view ==findViewById(R.id.btnData)){
+            ListDatei();
+        }else if (view ==findViewById(R.id.btnOwnData)){
+            ListOwnData();
+        }else if (view ==findViewById(R.id.btnForeignData)){
+            ListForeignDatei();
+        }else if (view ==findViewById(R.id.btnNeighbor)){
+            ListNeighborData();
+        }else if (view ==findViewById(R.id.btnPeer)) {
+            ListPeer();
+        }
     }
 }
