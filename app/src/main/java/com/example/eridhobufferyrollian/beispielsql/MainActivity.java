@@ -40,7 +40,7 @@ import android.widget.AdapterView;
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 import com.example.eridhobufferyrollian.beispielsql.source.DateiMemoDbSource;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -56,10 +56,31 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "Das Datenquellen-Objekt wird angelegt.");
         dataSource = new DateiMemoDbSource(this);
 
-        initializeDateiMemosListView();
+        btnData= (Button)findViewById(R.id.btnData);
+        btnStuCourseGrade.setOnClickListener(this);
 
-        activateAddButton();
-        initializeContextualActionBar();
+        btnCourseNameGradeTotal= (Button) findViewById(R.id.btnCourseNameGradeTotal);
+        btnCourseNameGradeTotal.setOnClickListener(this);
+
+        btnCourseNotTakenByStudent= (Button) findViewById(R.id.btnCourseNotTakenByStudent);
+        btnCourseNotTakenByStudent.setOnClickListener(this);
+
+
+        btnFail= (Button) findViewById(R.id.btnFail);
+        btnFail.setOnClickListener(this);
+
+        btnDelete= (Button) findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(this);
+
+        btnInsert= (Button) findViewById(R.id.btnInsert);
+        btnInsert.setOnClickListener(this);
+
+        insertSampleData();
+
+        //initializeDateiMemosListView();
+
+        //activateAddButton();
+        //initializeContextualActionBar();
 
 //        //------------------------------------Test Dummies------------------------------------
 //
@@ -90,275 +111,275 @@ public class MainActivity extends AppCompatActivity {
 //        dataSource.close();
     }
 
-    private void initializeDateiMemosListView() {
-        List<DateiMemo> emptyListForInitialization = new ArrayList<>();
-
-        mDateiMemosListView = (ListView) findViewById(R.id.listview_datei_memos);
-
-        // Erstellen des ArrayAdapters für unseren ListView
-        ArrayAdapter<DateiMemo> DateiMemoArrayAdapter = new ArrayAdapter<DateiMemo> (
-                this,
-                android.R.layout.simple_list_item_multiple_choice,
-                emptyListForInitialization) {
-
-            // Wird immer dann aufgerufen, wenn der übergeordnete ListView die Zeile neu zeichnen muss
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                View view =  super.getView(position, convertView, parent);
-                TextView textView = (TextView) view;
-
-                DateiMemo memo = (DateiMemo) mDateiMemosListView.getItemAtPosition(position);
-
-                // Hier prüfen, ob Eintrag abgehakt ist. Falls ja, Text durchstreichen
-                if (memo.isChecked()) {
-                    textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    textView.setTextColor(Color.rgb(175,175,175));
-                }
-                else {
-                    textView.setPaintFlags( textView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    textView.setTextColor(Color.DKGRAY);
-                }
-
-                return view;
-            }
-        };
-
-        mDateiMemosListView.setAdapter(DateiMemoArrayAdapter);
-
-        mDateiMemosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                DateiMemo memo = (DateiMemo) adapterView.getItemAtPosition(position);
-
-                // Hier den checked-Wert des Memo-Objekts umkehren, bspw. von true auf false
-                // Dann ListView neu zeichnen mit showAllListEntries()
-                DateiMemo updatedDateiMemo = dataSource.updateDateiMemo(memo.getUid(), memo.getUsername(), memo.getPassword(), (!memo.isChecked()));
-                Log.d(LOG_TAG, "Checked-Status von Eintrag: " + updatedDateiMemo.toString() + " ist: " + updatedDateiMemo.isChecked());
-                showAllListEntries();
-            }
-        });
-
-    }
-
-
-    private void initializeContextualActionBar() {
-        final ListView dateiMemosListView = (ListView) findViewById(R.id.listview_datei_memos);
-        dateiMemosListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-
-        dateiMemosListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-
-            int selCount = 0;
-
-            // In dieser Callback-Methode zählen wir die ausgewählen Listeneinträge mit
-            // und fordern ein Aktualisieren der Contextual Action Bar mit invalidate() an
-            @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position, long uid, boolean checked) {
-                if (checked) {
-                    selCount++;
-                } else {
-                    selCount--;
-                }
-                String cabTitle = selCount + " " + getString(R.string.cab_checked_string);
-                mode.setTitle(cabTitle);
-                mode.invalidate();
-            }
-
-            // In dieser Callback-Methode legen wir die CAB-Menüeinträge an
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                getMenuInflater().inflate(R.menu.menu_contextual_action_bar, menu);
-                return true;
-            }
-
-            // In dieser Callback-Methode reagieren wir auf den invalidate() Aufruf
-            // Wir lassen das Edit-Symbol verschwinden, wenn mehr als 1 Eintrag ausgewählt ist
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                MenuItem item = menu.findItem(R.id.cab_change);
-                if (selCount == 1) {
-                    item.setVisible(true);
-                } else {
-                    item.setVisible(false);
-                }
-
-                return true;
-            }
-
-            // In dieser Callback-Methode reagieren wir auf Action Item-Klicks
-            // Je nachdem ob das Löschen- oder Ändern-Symbol angeklickt wurde
-            @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                boolean returnValue = true;
-                SparseBooleanArray touchedDateiMemosPositions = dateiMemosListView.getCheckedItemPositions();
-
-                switch (item.getItemId()) {
-                    case R.id.cab_delete:
-                        for (int i=0; i < touchedDateiMemosPositions.size(); i++) {
-                            boolean isChecked = touchedDateiMemosPositions.valueAt(i);
-                            if(isChecked) {
-                                int postitionInListView = touchedDateiMemosPositions.keyAt(i);
-                                DateiMemo dateiMemo = (DateiMemo) dateiMemosListView.getItemAtPosition(postitionInListView);
-                                Log.d(LOG_TAG, "Position im ListView: " + postitionInListView + " Inhalt: " + dateiMemo.toString());
-                                dataSource.deleteDateiMemo(dateiMemo);
-                            }
-                        }
-                        showAllListEntries();
-                        mode.finish();
-                        break;
-
-                    case R.id.cab_change:
-                        Log.d(LOG_TAG, "Eintrag ändern");
-                        for (int i = 0; i < touchedDateiMemosPositions.size(); i++) {
-                            boolean isChecked = touchedDateiMemosPositions.valueAt(i);
-                            if (isChecked) {
-                                int postitionInListView = touchedDateiMemosPositions.keyAt(i);
-                                DateiMemo dateiMemo = (DateiMemo) dateiMemosListView.getItemAtPosition(postitionInListView);
-                                Log.d(LOG_TAG, "Position im ListView: " + postitionInListView + " Inhalt: " + dateiMemo.toString());
-
-                                AlertDialog editDateiMemoDialog = createEditDateiMemoDialog(dateiMemo);
-                                editDateiMemoDialog.show();
-                            }
-                        }
-
-                        mode.finish();
-                        break;
-
-                    default:
-                        returnValue = false;
-                        break;
-                }
-                return returnValue;
-            }
-
-            // In dieser Callback-Methode reagieren wir auf das Schließen der CAB
-            // Wir setzen den Zähler auf 0 zurück
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-                selCount = 0;
-            }
-        });
-    }
-
-    private AlertDialog createEditDateiMemoDialog(final DateiMemo dateiMemo) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-
-        View dialogsView = inflater.inflate(R.layout.dialog_edit_datei_memo, null);
-
-        final EditText editTextNewPassword = (EditText) dialogsView.findViewById(R.id.editText_new_password);
-        editTextNewPassword.setText(String.valueOf(dateiMemo.getPassword()));
-
-        final EditText editTextNewName = (EditText) dialogsView.findViewById(R.id.editText_new_name);
-        editTextNewName.setText(dateiMemo.getUsername());
-
-        //final EditText editTextNewUip = (EditText) dialogsView.findViewById(R.id.editText_new_uip);
-        //editTextNewUip.setText(dateiMemo.getUip());
-
-        //final EditText editTextNewPeerId = (EditText) dialogsView.findViewById(R.id.editText_new_peerid);
-        //editTextNewPeerId.setText(dateiMemo.getPeerId());
-
-        //final EditText editTextNewFileId = (EditText) dialogsView.findViewById(R.id.editText_new_fileid);
-        //editTextNewFileId.setText(dateiMemo.getFileId());
-
-        //final EditText editTextNewFotoId = (EditText) dialogsView.findViewById(R.id.editText_new_fotoid);
-        //editTextNewFotoId.setText(dateiMemo.getFotoId());
-
-        builder.setView(dialogsView)
-                .setTitle(R.string.dialog_title)
-                .setPositiveButton(R.string.dialog_button_positive, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int uid) {
-                        String password = editTextNewPassword.getText().toString();
-                        String username = editTextNewName.getText().toString();
-                        //long uip = editTextNewUip.getText().toString();
-                        //long peerId = editTextNewPeerId.getText().toString();
-                        //long fileId = editTextNewFileId.getText().toString();
-                        //long fotoId = editTextNewFotoId.getText().toString();
-
-                        if ((TextUtils.isEmpty(password)) || (TextUtils.isEmpty(username))) {
-                            Log.d(LOG_TAG, "Ein Eintrag enthielt keinen Text. Daher Abbruch der Änderung.");
-                            return;
-                        }
-
-                        // An dieser Stelle schreiben wir die geänderten Daten in die SQLite Datenbank
-                        DateiMemo updatedDateiMemo = dataSource.updateDateiMemo(dateiMemo.getUid(), username, password/*, uip, peerId, fileId, fotoId*/, dateiMemo.isChecked());
-
-                        Log.d(LOG_TAG, "Alter Eintrag - ID: " + dateiMemo.getUid() + " Inhalt: " + dateiMemo.toString());
-                        Log.d(LOG_TAG, "Neuer Eintrag - ID: " + updatedDateiMemo.getUid() + " Inhalt: " + updatedDateiMemo.toString());
-
-                        showAllListEntries();
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton(R.string.dialog_button_negative, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int uid) {
-                        dialog.cancel();
-                    }
-                });
-
-        return builder.create();
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
-        dataSource.open();
-
-        Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
-        showAllListEntries();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
-        dataSource.close();
-    }
-
-    private void activateAddButton() {
-        Button buttonAddUsername = (Button) findViewById(R.id.button_add_user);
-        final EditText editTextUsername = (EditText) findViewById(R.id.editText_username);
-        final EditText editTextPassword = (EditText) findViewById(R.id.editText_password);
-
-        buttonAddUsername.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String username = editTextUsername.getText().toString();
-                String password = editTextUsername.getText().toString();
-
-                if(TextUtils.isEmpty(username)) {
-                    editTextUsername.setError(getString(R.string.editText_errorMessage));
-                    return;
-                }
-                if(TextUtils.isEmpty(password)) {
-                    editTextPassword.setError(getString(R.string.editText_errorMessage));
-                    return;
-                }
+//    private void initializeDateiMemosListView() {
+//        List<DateiMemo> emptyListForInitialization = new ArrayList<>();
+//
+//        mDateiMemosListView = (ListView) findViewById(R.id.textView);
+//
+//        // Erstellen des ArrayAdapters für unseren ListView
+//        ArrayAdapter<DateiMemo> DateiMemoArrayAdapter = new ArrayAdapter<DateiMemo> (
+//                this,
+//                android.R.layout.simple_list_item_multiple_choice,
+//                emptyListForInitialization) {
+//
+//            // Wird immer dann aufgerufen, wenn der übergeordnete ListView die Zeile neu zeichnen muss
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//
+//                View view =  super.getView(position, convertView, parent);
+//                TextView textView = (TextView) view;
+//
+//                DateiMemo memo = (DateiMemo) mDateiMemosListView.getItemAtPosition(position);
+//
+//                // Hier prüfen, ob Eintrag abgehakt ist. Falls ja, Text durchstreichen
+//                if (memo.isChecked()) {
+//                    textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                    textView.setTextColor(Color.rgb(175,175,175));
+//                }
+//                else {
+//                    textView.setPaintFlags( textView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+//                    textView.setTextColor(Color.DKGRAY);
+//                }
+//
+//                return view;
+//            }
+//        };
+//
+//        mDateiMemosListView.setAdapter(DateiMemoArrayAdapter);
+//
+//        mDateiMemosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                DateiMemo memo = (DateiMemo) adapterView.getItemAtPosition(position);
+//
+//                // Hier den checked-Wert des Memo-Objekts umkehren, bspw. von true auf false
+//                // Dann ListView neu zeichnen mit showAllListEntries()
+//                DateiMemo updatedDateiMemo = dataSource.updateDateiMemo(memo.getUid(), memo.getUsername(), memo.getPassword(), (!memo.isChecked()));
+//                Log.d(LOG_TAG, "Checked-Status von Eintrag: " + updatedDateiMemo.toString() + " ist: " + updatedDateiMemo.isChecked());
+//                showAllListEntries();
+//            }
+//        });
+//
+//    }
+//
+//
+//    private void initializeContextualActionBar() {
+//        final ListView dateiMemosListView = (ListView) findViewById(R.id.listview_datei_memos);
+//        dateiMemosListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+//
+//        dateiMemosListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+//
+//            int selCount = 0;
+//
+//            // In dieser Callback-Methode zählen wir die ausgewählen Listeneinträge mit
+//            // und fordern ein Aktualisieren der Contextual Action Bar mit invalidate() an
+//            @Override
+//            public void onItemCheckedStateChanged(ActionMode mode, int position, long uid, boolean checked) {
+//                if (checked) {
+//                    selCount++;
+//                } else {
+//                    selCount--;
+//                }
+//                String cabTitle = selCount + " " + getString(R.string.cab_checked_string);
+//                mode.setTitle(cabTitle);
+//                mode.invalidate();
+//            }
+//
+//            // In dieser Callback-Methode legen wir die CAB-Menüeinträge an
+//            @Override
+//            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+//                getMenuInflater().inflate(R.menu.menu_contextual_action_bar, menu);
+//                return true;
+//            }
+//
+//            // In dieser Callback-Methode reagieren wir auf den invalidate() Aufruf
+//            // Wir lassen das Edit-Symbol verschwinden, wenn mehr als 1 Eintrag ausgewählt ist
+//            @Override
+//            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+//                MenuItem item = menu.findItem(R.id.cab_change);
+//                if (selCount == 1) {
+//                    item.setVisible(true);
+//                } else {
+//                    item.setVisible(false);
+//                }
+//
+//                return true;
+//            }
+//
+//            // In dieser Callback-Methode reagieren wir auf Action Item-Klicks
+//            // Je nachdem ob das Löschen- oder Ändern-Symbol angeklickt wurde
+//            @Override
+//            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+//                boolean returnValue = true;
+//                SparseBooleanArray touchedDateiMemosPositions = dateiMemosListView.getCheckedItemPositions();
+//
+//                switch (item.getItemId()) {
+//                    case R.id.cab_delete:
+//                        for (int i=0; i < touchedDateiMemosPositions.size(); i++) {
+//                            boolean isChecked = touchedDateiMemosPositions.valueAt(i);
+//                            if(isChecked) {
+//                                int postitionInListView = touchedDateiMemosPositions.keyAt(i);
+//                                DateiMemo dateiMemo = (DateiMemo) dateiMemosListView.getItemAtPosition(postitionInListView);
+//                                Log.d(LOG_TAG, "Position im ListView: " + postitionInListView + " Inhalt: " + dateiMemo.toString());
+//                                dataSource.deleteDateiMemo(dateiMemo);
+//                            }
+//                        }
+//                        showAllListEntries();
+//                        mode.finish();
+//                        break;
+//
+//                    case R.id.cab_change:
+//                        Log.d(LOG_TAG, "Eintrag ändern");
+//                        for (int i = 0; i < touchedDateiMemosPositions.size(); i++) {
+//                            boolean isChecked = touchedDateiMemosPositions.valueAt(i);
+//                            if (isChecked) {
+//                                int postitionInListView = touchedDateiMemosPositions.keyAt(i);
+//                                DateiMemo dateiMemo = (DateiMemo) dateiMemosListView.getItemAtPosition(postitionInListView);
+//                                Log.d(LOG_TAG, "Position im ListView: " + postitionInListView + " Inhalt: " + dateiMemo.toString());
+//
+//                                AlertDialog editDateiMemoDialog = createEditDateiMemoDialog(dateiMemo);
+//                                editDateiMemoDialog.show();
+//                            }
+//                        }
+//
+//                        mode.finish();
+//                        break;
+//
+//                    default:
+//                        returnValue = false;
+//                        break;
+//                }
+//                return returnValue;
+//            }
+//
+//            // In dieser Callback-Methode reagieren wir auf das Schließen der CAB
+//            // Wir setzen den Zähler auf 0 zurück
+//            @Override
+//            public void onDestroyActionMode(ActionMode mode) {
+//                selCount = 0;
+//            }
+//        });
+//    }
+//
+//    private AlertDialog createEditDateiMemoDialog(final DateiMemo dateiMemo) {
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        LayoutInflater inflater = getLayoutInflater();
+//
+//        View dialogsView = inflater.inflate(R.layout.dialog_edit_datei_memo, null);
+//
+//        final EditText editTextNewPassword = (EditText) dialogsView.findViewById(R.id.editText_new_password);
+//        editTextNewPassword.setText(String.valueOf(dateiMemo.getPassword()));
+//
+//        final EditText editTextNewName = (EditText) dialogsView.findViewById(R.id.editText_new_name);
+//        editTextNewName.setText(dateiMemo.getUsername());
+//
+//        //final EditText editTextNewUip = (EditText) dialogsView.findViewById(R.id.editText_new_uip);
+//        //editTextNewUip.setText(dateiMemo.getUip());
+//
+//        //final EditText editTextNewPeerId = (EditText) dialogsView.findViewById(R.id.editText_new_peerid);
+//        //editTextNewPeerId.setText(dateiMemo.getPeerId());
+//
+//        //final EditText editTextNewFileId = (EditText) dialogsView.findViewById(R.id.editText_new_fileid);
+//        //editTextNewFileId.setText(dateiMemo.getFileId());
+//
+//        //final EditText editTextNewFotoId = (EditText) dialogsView.findViewById(R.id.editText_new_fotoid);
+//        //editTextNewFotoId.setText(dateiMemo.getFotoId());
+//
+//        builder.setView(dialogsView)
+//                .setTitle(R.string.dialog_title)
+//                .setPositiveButton(R.string.dialog_button_positive, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int uid) {
+//                        String password = editTextNewPassword.getText().toString();
+//                        String username = editTextNewName.getText().toString();
+//                        //long uip = editTextNewUip.getText().toString();
+//                        //long peerId = editTextNewPeerId.getText().toString();
+//                        //long fileId = editTextNewFileId.getText().toString();
+//                        //long fotoId = editTextNewFotoId.getText().toString();
+//
+//                        if ((TextUtils.isEmpty(password)) || (TextUtils.isEmpty(username))) {
+//                            Log.d(LOG_TAG, "Ein Eintrag enthielt keinen Text. Daher Abbruch der Änderung.");
+//                            return;
+//                        }
+//
+//                        // An dieser Stelle schreiben wir die geänderten Daten in die SQLite Datenbank
+//                        DateiMemo updatedDateiMemo = dataSource.updateDateiMemo(dateiMemo.getUid(), username, password/*, uip, peerId, fileId, fotoId*/, dateiMemo.isChecked());
+//
+//                        Log.d(LOG_TAG, "Alter Eintrag - ID: " + dateiMemo.getUid() + " Inhalt: " + dateiMemo.toString());
+//                        Log.d(LOG_TAG, "Neuer Eintrag - ID: " + updatedDateiMemo.getUid() + " Inhalt: " + updatedDateiMemo.toString());
+//
+//                        showAllListEntries();
+//                        dialog.dismiss();
+//                    }
+//                })
+//                .setNegativeButton(R.string.dialog_button_negative, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int uid) {
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//        return builder.create();
+//    }
 
 
-                editTextUsername.setText("");
-                editTextPassword.setText("");
-
-                dataSource.createDateiMemo(username, password);
-
-                InputMethodManager inputMethodManager;
-                inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                if(getCurrentFocus() != null) {
-                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                }
-
-                showAllListEntries();
-            }
-        });
-
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        Log.d(LOG_TAG, "Die Datenquelle wird geöffnet.");
+//        dataSource.open();
+//
+//        Log.d(LOG_TAG, "Folgende Einträge sind in der Datenbank vorhanden:");
+//        showAllListEntries();
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//
+//        Log.d(LOG_TAG, "Die Datenquelle wird geschlossen.");
+//        dataSource.close();
+//    }
+//
+//    private void activateAddButton() {
+//        Button buttonAddUsername = (Button) findViewById(R.id.button_add_user);
+//        final EditText editTextUsername = (EditText) findViewById(R.id.editText_username);
+//        final EditText editTextPassword = (EditText) findViewById(R.id.editText_password);
+//
+//        buttonAddUsername.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                String username = editTextUsername.getText().toString();
+//                String password = editTextUsername.getText().toString();
+//
+//                if(TextUtils.isEmpty(username)) {
+//                    editTextUsername.setError(getString(R.string.editText_errorMessage));
+//                    return;
+//                }
+//                if(TextUtils.isEmpty(password)) {
+//                    editTextPassword.setError(getString(R.string.editText_errorMessage));
+//                    return;
+//                }
+//
+//
+//                editTextUsername.setText("");
+//                editTextPassword.setText("");
+//
+//                dataSource.createDateiMemo(username, password);
+//
+//                InputMethodManager inputMethodManager;
+//                inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                if(getCurrentFocus() != null) {
+//                    inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+//                }
+//
+//                showAllListEntries();
+//            }
+//        });
+//
+//    }
     //----------------------------------------------------------------------------------------------
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
