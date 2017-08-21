@@ -12,6 +12,7 @@ import android.util.Log;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.example.eridhobufferyrollian.beispielsql.DatabaseManager;
 import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 import com.example.eridhobufferyrollian.beispielsql.model.ForeignData;
@@ -19,12 +20,15 @@ import com.example.eridhobufferyrollian.beispielsql.model.ForeignData;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.id;
+
 public class ForeignDataDbSource {
     private static final String LOG_TAG = ForeignDataDbSource.class.getSimpleName();
 
     private SQLiteDatabase database;
     private DateiMemoDbHelper dbHelper;
     private DateiMemoDbSource dateiMemoDbSource;
+    private ForeignData foreignData;
 
     //Array
     private String[] columns_ForeignData = {
@@ -36,22 +40,29 @@ public class ForeignDataDbSource {
             DateiMemoDbHelper.COLUMN_IP
     };
 
-    public ForeignDataDbSource(Context context) {
-        Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
-        dbHelper = new DateiMemoDbHelper(context);
-    }
+    public ForeignDataDbSource(){}
+     /*
+    *
+    * For single table
+    *
+    * */
 
-    //mit getWritableDatabase öffnet man die Verbindung DB
-    public void open() {
-        Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird jetzt angefragt.");
-        database = dbHelper.getWritableDatabase();
-        Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
-    }
-
-    public void close() {
-        dbHelper.close();
-        Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
-    }
+//    public ForeignDataDbSource(Context context) {
+//        Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
+//        dbHelper = new DateiMemoDbHelper(context);
+//    }
+//
+//    //mit getWritableDatabase öffnet man die Verbindung DB
+//    public void open() {
+//        Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird jetzt angefragt.");
+//        database = dbHelper.getWritableDatabase();
+//        Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
+//    }
+//
+//    public void close() {
+//        dbHelper.close();
+//        Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
+//    }
 
     /*
    *
@@ -123,7 +134,8 @@ public class ForeignDataDbSource {
     *
     *
     * */
-    public ForeignData createForeignData(ForeignData foreignData) {
+    public int createForeignData(ForeignData foreignData) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemoDbSource.getUid());
         values.put(DateiMemoDbHelper.COLUMN_CHECKED, foreignData.isChecked());
@@ -137,21 +149,21 @@ public class ForeignDataDbSource {
         //insert row
         //insert muss long
         //
-        long foreign_Id = database.insert(DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST, null, values);
-
+        int foreign_Id = (int)database.insert(DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST, null, values);
+        DatabaseManager.getInstance().closeDatabase();
         //
         //dataId
         //insert data in Array
         //
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST,
-                columns_ForeignData, DateiMemoDbHelper.COLUMN_UID + "=" + foreign_Id ,
-                null, null, null, null);
+//        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST,
+//                columns_ForeignData, DateiMemoDbHelper.COLUMN_UID + "=" + foreign_Id ,
+//                null, null, null, null);
+//
+//        cursor.moveToFirst();
+//        foreignData = cursorToForeignData(cursor);
+//        cursor.close();
 
-        cursor.moveToFirst();
-        foreignData = cursorToForeignData(cursor);
-        cursor.close();
-
-        return foreignData;
+        return foreign_Id;
     }
 
     /*
@@ -162,14 +174,11 @@ public class ForeignDataDbSource {
     *
     *
     * */
-    public void deleteForeignData(ForeignData foreignData) {
-        long id = foreignData.getUid();
-
-        database.delete(DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST,
-                DateiMemoDbHelper.COLUMN_UID + "=" + id,
-                null);
-
-        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + foreignData.toString());
+    public void deleteForeignData() {
+        database = DatabaseManager.getInstance().openDatabase();
+        database.delete(DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST, null, null);
+        DatabaseManager.getInstance().closeDatabase();
+        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + foreignData.getUid() + " Inhalt: " + foreignData.toString());
     }
     /*
     *

@@ -49,6 +49,7 @@ public class DateiMemoDbSource {
             DateiMemoDbHelper.COLUMN_CHECKED
     };
 
+    public DateiMemoDbSource(){}
 
     /*
     *
@@ -212,6 +213,7 @@ public class DateiMemoDbSource {
     *
     * */
     public double updateCornerTopRightX(double newCornerTopRightX) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX, newCornerTopRightX);
 
@@ -228,10 +230,13 @@ public class DateiMemoDbSource {
         double cornerTopRightX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX));
         cursor.close();
 
+        DatabaseManager.getInstance().closeDatabase();
+
         return cornerTopRightX;
     }
 
     public double updateCornerTopRightY(double newCornerTopRightY) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY, newCornerTopRightY);
 
@@ -247,7 +252,7 @@ public class DateiMemoDbSource {
         cursor.moveToFirst();
         double cornerTopRightY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY));
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         return cornerTopRightY;
     }
     //

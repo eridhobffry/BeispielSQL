@@ -12,6 +12,7 @@ import android.util.Log;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.example.eridhobufferyrollian.beispielsql.DatabaseManager;
 import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 import com.example.eridhobufferyrollian.beispielsql.model.OwnDataMemo;
@@ -28,6 +29,7 @@ public class PeerDbSource {
     private SQLiteDatabase database;
     private DateiMemoDbHelper dbHelper;
     private DateiMemoDbSource dateiMemoDbSource;
+    private PeerMemo peerMemo;
 
 
 
@@ -39,22 +41,36 @@ public class PeerDbSource {
             DateiMemoDbHelper.COLUMN_CHECKED
     };
 
-    public PeerDbSource(Context context) {
-        Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
-        dbHelper = new DateiMemoDbHelper(context);
-    }
+    public PeerDbSource(){}
 
-    //mit getWritableDatabase öffnet man die Verbindung DB
-    public void open() {
-        Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird jetzt angefragt.");
-        database = dbHelper.getWritableDatabase();
-        Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
-    }
 
-    public void close() {
-        dbHelper.close();
-        Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
-    }
+    /*
+    *
+    * For single table
+    *
+    * */
+
+//    public PeerDbSource(Context context) {
+//        Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
+//        dbHelper = new DateiMemoDbHelper(context);
+//    }
+//
+//    //mit getWritableDatabase öffnet man die Verbindung DB
+//    public void open() {
+//        Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird jetzt angefragt.");
+//        database = dbHelper.getWritableDatabase();
+//        Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
+//    }
+//
+//    public void close() {
+//        dbHelper.close();
+//        Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
+//    }
+
+
+    //
+    //==================================================================================================================
+    //
 
 
     /*
@@ -126,7 +142,8 @@ public class PeerDbSource {
     *
     *
     * */
-    public PeerMemo createPeerMemo(PeerMemo peerMemo) {
+    public int createPeerMemo(PeerMemo peerMemo) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_PEERID, peerMemo.getPeerId());
         values.put(DateiMemoDbHelper.COLUMN_PEERIP, peerMemo.getPeerIp());
@@ -136,21 +153,21 @@ public class PeerDbSource {
         //
         //insert row
         //
-        long data_Id = database.insert(DateiMemoDbHelper.TABLE_PEER_LIST, null, values);
-
+        int peer_Id = (int) database.insert(DateiMemoDbHelper.TABLE_PEER_LIST, null, values);
+        DatabaseManager.getInstance().closeDatabase();
         //
         //dataId
         //insert data in Array
         //
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns_Peer, DateiMemoDbHelper.COLUMN_UID + "=" + data_Id ,
-                null, null, null, null);
+//        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
+//                columns_Peer, DateiMemoDbHelper.COLUMN_UID + "=" + data_Id ,
+//                null, null, null, null);
+//
+//        cursor.moveToFirst();
+//        peerMemo = cursorToPeerMemo(cursor);
+//        cursor.close();
 
-        cursor.moveToFirst();
-        peerMemo = cursorToPeerMemo(cursor);
-        cursor.close();
-
-        return peerMemo;
+        return peer_Id;
     }
 
     /*
@@ -161,14 +178,11 @@ public class PeerDbSource {
     *
     *
     * */
-    public void deletePeerMemo(PeerMemo peerMemo) {
-        long id = peerMemo.getUid();
-
-        database.delete(DateiMemoDbHelper.TABLE_PEER_LIST,
-                DateiMemoDbHelper.COLUMN_UID + "=" + id,
-                null);
-
-        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + peerMemo.toString());
+    public void deletePeerMemo() {
+        database = DatabaseManager.getInstance().openDatabase();
+        database.delete(DateiMemoDbHelper.TABLE_PEER_LIST, null, null);
+        DatabaseManager.getInstance().closeDatabase();
+        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + peerMemo.getUid() + " Inhalt: " + peerMemo.toString());
     }
     /*
     *
@@ -230,11 +244,11 @@ public class PeerDbSource {
     }
 
 
-    public int decreaseCountPeers (PeerMemo peerMemo) {
+    public int decreaseCountPeers () {
         if (getPeersCount() == 0){
             System.out.println("No more Peers");
         }
-        deletePeerMemo(peerMemo);
+        deletePeerMemo();
         return getPeersCount();
     }
 

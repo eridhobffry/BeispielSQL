@@ -75,11 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         Log.d(LOG_TAG, "Das Datenquellen-Objekt wird angelegt.");
-        dateiMemoDbSource = new DateiMemoDbSource(this);
-        foreignDataDbSource = new ForeignDataDbSource(this);
-        neighborDbSource = new NeighborDbSource(this);
-        ownDataDbSource = new OwnDataDbSource(this);
-        peerDbSource = new PeerDbSource(this);
+
 
         btnData= (Button)findViewById(R.id.btnData);
         btnData.setOnClickListener(this);
@@ -133,13 +129,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        dataSource.close();
     }
 
-    private void insertSampleData(){
 
-        dateiMemoDbSource.deleteDateiMemo(dateiMemo);
-        foreignDataDbSource.deleteForeignData(foreignData);
-        neighborDbSource.deleteNeighbormemo(neighborMemo);
-        ownDataDbSource.deleteOwnData(ownDataMemo);
-        peerDbSource.deletePeerMemo(peerMemo);
+    /*
+    *
+    *
+    *                       Insert Dummies
+    *
+    *
+    *
+    * */
+    private void insertSampleData(){
+                dateiMemoDbSource = new DateiMemoDbSource();
+        foreignDataDbSource = new ForeignDataDbSource();
+        neighborDbSource = new NeighborDbSource();
+        ownDataDbSource = new OwnDataDbSource();
+        peerDbSource = new PeerDbSource();
+
+        dateiMemoDbSource.deleteDateiMemo();
+        foreignDataDbSource.deleteForeignData();
+        neighborDbSource.deleteNeighbormemo();
+        ownDataDbSource.deleteOwnData();
+        peerDbSource.deletePeerMemo();
 
         //insert DateiMemo
         // String username, String password, int uid, boolean checked,

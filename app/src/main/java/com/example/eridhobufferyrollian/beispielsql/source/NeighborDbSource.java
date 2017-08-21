@@ -12,6 +12,7 @@ import android.util.Log;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.example.eridhobufferyrollian.beispielsql.DatabaseManager;
 import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 import com.example.eridhobufferyrollian.beispielsql.model.NeighborMemo;
@@ -25,6 +26,7 @@ public class NeighborDbSource {
     private SQLiteDatabase database;
     private DateiMemoDbHelper dbHelper;
     private DateiMemoDbSource dateiMemoDbSource;
+    private NeighborMemo neighborMemo;
 
     //neue Array String für Neighbor
     private String[] columns_Neighbor = {
@@ -44,22 +46,36 @@ public class NeighborDbSource {
             DateiMemoDbHelper.COLUMN_CHECKED
     };
 
-    public NeighborDbSource(Context context) {
-        Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
-        dbHelper = new DateiMemoDbHelper(context);
+    public NeighborDbSource(){
     }
 
-    //mit getWritableDatabase öffnet man die Verbindung DB
-    public void open() {
-        Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird jetzt angefragt.");
-        database = dbHelper.getWritableDatabase();
-        Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
-    }
+      /*
+    *
+    * For single table
+    *
+    * */
 
-    public void close() {
-        dbHelper.close();
-        Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
-    }
+//    public NeighborDbSource(Context context) {
+//        Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
+//        dbHelper = new DateiMemoDbHelper(context);
+//    }
+//
+//    //mit getWritableDatabase öffnet man die Verbindung DB
+//    public void open() {
+//        Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird jetzt angefragt.");
+//        database = dbHelper.getWritableDatabase();
+//        Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
+//    }
+//
+//    public void close() {
+//        dbHelper.close();
+//        Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
+//    }
+//
+//==================================================================================================================
+//
+
+
     /*
    *
    *
@@ -136,7 +152,8 @@ public class NeighborDbSource {
     *
     *
     * */
-    public NeighborMemo createNeighborMemo(NeighborMemo neighborMemo) {
+    public int createNeighborMemo(NeighborMemo neighborMemo) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemoDbSource.getUid());
         values.put(DateiMemoDbHelper.COLUMN_CHECKED, neighborMemo.isChecked());
@@ -159,21 +176,22 @@ public class NeighborDbSource {
         //insert row
         //insert muss long
         //
-        long neighbor_Id = database.insert(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, null, values);
+        int neighbor_Id = (int) database.insert(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, null, values);
+        DatabaseManager.getInstance().closeDatabase();
 
         //
         //neighbor_Id
         //insert data in Array
         //
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                columns_Neighbor, DateiMemoDbHelper.COLUMN_UID + "=" + neighbor_Id ,
-                null, null, null, null);
+//        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
+//                columns_Neighbor, DateiMemoDbHelper.COLUMN_UID + "=" + neighbor_Id ,
+//                null, null, null, null);
+//
+//        cursor.moveToFirst();
+//        neighborMemo = cursorToNeighborMemo(cursor);
+//        cursor.close();
 
-        cursor.moveToFirst();
-        neighborMemo = cursorToNeighborMemo(cursor);
-        cursor.close();
-
-        return neighborMemo;
+        return neighbor_Id;
     }
 
     /*
@@ -184,14 +202,11 @@ public class NeighborDbSource {
   *
   *
   * */
-    public void deleteNeighbormemo(NeighborMemo neighborMemo) {
-        long id = neighborMemo.getUid();
-
-        database.delete(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                DateiMemoDbHelper.COLUMN_UID + "=" + id,
-                null);
-
-        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + neighborMemo.toString());
+    public void deleteNeighbormemo() {
+        database = DatabaseManager.getInstance().openDatabase();
+        database.delete(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, null, null);
+        DatabaseManager.getInstance().closeDatabase();
+        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + neighborMemo.getUid() + " Inhalt: " + neighborMemo.toString());
     }
     /*
     *
