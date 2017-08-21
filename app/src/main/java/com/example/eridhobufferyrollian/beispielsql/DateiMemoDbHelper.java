@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import com.example.eridhobufferyrollian.beispielsql.app.App;
 
 import java.security.PublicKey;
 
@@ -21,7 +22,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
     //######################    neue Database   #######################################
     public static final String DB_NAME = "p2p.db";
-    public static final int DB_VERSION = 2;
+    public static final int DB_VERSION = 8;
     //##################################################################################
 
 
@@ -143,10 +144,8 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
     //Konstruktor
     //SUPER verwendet man, weil unsere "helper" ist eine Ableitung von SQLiteOpenHelper
-    public DateiMemoDbHelper(Context context) {
-        //super(context, "PLATZHALTER_DATENBANKNAME", null, 1); ----- ursprüngliche CODE
-        super(context, DB_NAME, null, DB_VERSION);
-        Log.d(LOG_TAG, "DbHelper hat die Datenbank: " + getDatabaseName() + " erzeugt.");
+    public DateiMemoDbHelper( ) {
+        super(App.getContext(), DB_NAME, null, DB_VERSION);
     }
 
     // Die onCreate-Methode wird nur aufgerufen, falls die Datenbank noch nicht existiert

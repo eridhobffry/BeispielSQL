@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by en on 21.08.17.
  */
 
+//Synchronize Class wenn Open Database und Close
+
 public class DatabaseManager {
     private Integer mOpenCounter = 0;
 

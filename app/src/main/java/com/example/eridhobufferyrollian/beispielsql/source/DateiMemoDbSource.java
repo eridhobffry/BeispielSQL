@@ -12,10 +12,14 @@ import android.database.Cursor;
 
 import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
+import com.example.eridhobufferyrollian.beispielsql.DatabaseManager;
+
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static android.R.attr.id;
 
 
 public class DateiMemoDbSource {
@@ -25,6 +29,7 @@ public class DateiMemoDbSource {
     private SQLiteDatabase database;
     private DateiMemoDbHelper dbHelper;
     private PeerDbSource peerDbSource;
+    private DateiMemo dateiMemo;
 
     //neue Array String für Datei
     private String[] columns = {
@@ -45,22 +50,31 @@ public class DateiMemoDbSource {
     };
 
 
-    public DateiMemoDbSource(Context context) {
-        Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
-        dbHelper = new DateiMemoDbHelper(context);
-    }
+    /*
+    *
+    * For single table
+    *
+    * */
 
-    //mit getWritableDatabase öffnet man die Verbindung DB
-    public void open() {
-        Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird jetzt angefragt.");
-        database = dbHelper.getWritableDatabase();
-        Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
-    }
-
-    public void close() {
-        dbHelper.close();
-        Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
-    }
+//    public DateiMemoDbSource(Context context) {
+//        Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
+//        dbHelper = new DateiMemoDbHelper(context);
+//    }
+//
+//    //mit getWritableDatabase öffnet man die Verbindung DB
+//    public void open() {
+//        Log.d(LOG_TAG, "Eine Referenz auf die Datenbank wird jetzt angefragt.");
+//        database = dbHelper.getWritableDatabase();
+//        Log.d(LOG_TAG, "Datenbank-Referenz erhalten. Pfad zur Datenbank: " + database.getPath());
+//    }
+//
+//    public void close() {
+//        dbHelper.close();
+//        Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
+//    }
+    //
+    //==================================================================================================================
+    //
 
 
     /*
@@ -116,7 +130,8 @@ public class DateiMemoDbSource {
     *
     *
     * */
-    public DateiMemo createDateiMemo(DateiMemo dateiMemo) {
+    public int createDateiMemo(DateiMemo dateiMemo) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemo.getUid());
         values.put(DateiMemoDbHelper.COLUMN_CHECKED, dateiMemo.isChecked());
@@ -137,21 +152,23 @@ public class DateiMemoDbSource {
         //insert row
         //insert muss long
         //
-        long data_Id = database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
+        int data_Id;
+        data_Id = (int)database.insert(DateiMemoDbHelper.TABLE_DATEI_LIST, null, values);
+        DatabaseManager.getInstance().closeDatabase();
 
         //
         //dataId
         //insert data in Array
         //
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                        columns, DateiMemoDbHelper.COLUMN_UID + "=" + data_Id ,
-                        null, null, null, null);
+//        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
+//                        columns, DateiMemoDbHelper.COLUMN_UID + "=" + data_Id ,
+//                        null, null, null, null);
+//
+//        cursor.moveToFirst();
+//        dateiMemo = cursorToDateiMemo(cursor);
+//        cursor.close();
 
-        cursor.moveToFirst();
-        dateiMemo = cursorToDateiMemo(cursor);
-        cursor.close();
-
-        return dateiMemo;
+        return data_Id;
     }
 
 
@@ -164,13 +181,11 @@ public class DateiMemoDbSource {
     *
     *
     * */
-    public void deleteDateiMemo(DateiMemo dateiMemo) {
-        long id = dateiMemo.getUid();
+    public void deleteDateiMemo() {
 
-        database.delete(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                DateiMemoDbHelper.COLUMN_UID + "=" + id,
-                null);
-
+        database = DatabaseManager.getInstance().openDatabase();
+        database.delete(DateiMemoDbHelper.TABLE_DATEI_LIST, null, null);
+        DatabaseManager.getInstance().closeDatabase();
         Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + dateiMemo.toString());
     }
     /*
