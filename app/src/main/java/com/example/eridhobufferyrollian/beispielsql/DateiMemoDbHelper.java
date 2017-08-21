@@ -20,7 +20,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 //-------------Wie man eine verbindung zu dem SQL macht-------------------------------
 
     //######################    neue Database   #######################################
-    public static final String DB_NAME = "datei_list_db";
+    public static final String DB_NAME = "p2p.db";
     public static final int DB_VERSION = 2;
     //##################################################################################
 
