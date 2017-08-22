@@ -206,7 +206,7 @@ public class NeighborDbSource {
         database = DatabaseManager.getInstance().openDatabase();
         database.delete(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, null, null);
         DatabaseManager.getInstance().closeDatabase();
-        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + neighborMemo.getUid() + " Inhalt: " + neighborMemo.toString());
+        //Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + neighborMemo.getUid() + " Inhalt: " + neighborMemo.toString());
     }
     /*
     *

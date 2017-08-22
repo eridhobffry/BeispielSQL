@@ -173,7 +173,7 @@ public class OwnDataDbSource {
         database = DatabaseManager.getInstance().openDatabase();
         database.delete(DateiMemoDbHelper.TABLE_OWNDATA_LIST, null, null);
         DatabaseManager.getInstance().closeDatabase();
-        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + ownDataMemo.getUid() + " Inhalt: " + ownDataMemo.toString());
+        //Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + ownDataMemo.getUid() + " Inhalt: " + ownDataMemo.toString());
     }
     /*
     *

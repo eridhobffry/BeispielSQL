@@ -182,7 +182,7 @@ public class PeerDbSource {
         database = DatabaseManager.getInstance().openDatabase();
         database.delete(DateiMemoDbHelper.TABLE_PEER_LIST, null, null);
         DatabaseManager.getInstance().closeDatabase();
-        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + peerMemo.getUid() + " Inhalt: " + peerMemo.toString());
+        //Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + peerMemo.getUid() + " Inhalt: " + peerMemo.toString());
     }
     /*
     *

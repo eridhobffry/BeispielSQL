@@ -25,7 +25,7 @@ public class ForeignData {
     }
 
     public long getUid() {
-        return dateiMemo.getUid();
+        return uid;
     }
 
     public void setUid(long uid) {

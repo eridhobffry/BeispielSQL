@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     *
     * */
     private void insertSampleData(){
-                dateiMemoDbSource = new DateiMemoDbSource();
+        dateiMemoDbSource = new DateiMemoDbSource();
         foreignDataDbSource = new ForeignDataDbSource();
         neighborDbSource = new NeighborDbSource();
         ownDataDbSource = new OwnDataDbSource();

@@ -203,7 +203,7 @@ public class DateiMemo {
     }
 
     public int getCountPeers() {
-        return peerMemo.getPeerCount();
+        return countPeers;
     }
     public void setCountPeers(int countPeers) {
         this.countPeers = countPeers;

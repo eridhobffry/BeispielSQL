@@ -178,7 +178,7 @@ public class ForeignDataDbSource {
         database = DatabaseManager.getInstance().openDatabase();
         database.delete(DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST, null, null);
         DatabaseManager.getInstance().closeDatabase();
-        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + foreignData.getUid() + " Inhalt: " + foreignData.toString());
+        //Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + foreignData.getUid() + " Inhalt: " + foreignData.toString());
     }
     /*
     *

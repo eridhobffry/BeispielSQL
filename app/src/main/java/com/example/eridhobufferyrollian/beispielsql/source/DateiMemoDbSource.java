@@ -187,7 +187,7 @@ public class DateiMemoDbSource {
         database = DatabaseManager.getInstance().openDatabase();
         database.delete(DateiMemoDbHelper.TABLE_DATEI_LIST, null, null);
         DatabaseManager.getInstance().closeDatabase();
-        Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + dateiMemo.toString());
+        //Log.d(LOG_TAG, "Eintrag gelöscht! ID: " + id + " Inhalt: " + dateiMemo.toString());
     }
     /*
     *
