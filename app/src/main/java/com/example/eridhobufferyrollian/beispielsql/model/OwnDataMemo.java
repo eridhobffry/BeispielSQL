@@ -13,11 +13,11 @@ public class OwnDataMemo {
 
 
 
-    public OwnDataMemo(long uid, boolean checked, int fileId){
-        this.uid = uid;
-        this.checked = checked;
-        this.fileId = fileId;
-    }
+//    public OwnDataMemo(long uid, boolean checked, int fileId){
+//        this.uid = uid;
+//        this.checked = checked;
+//        this.fileId = fileId;
+//    }
 
     public long getUid() {
         return uid;

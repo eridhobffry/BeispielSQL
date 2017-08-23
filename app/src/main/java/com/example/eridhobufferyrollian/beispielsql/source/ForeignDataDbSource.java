@@ -40,7 +40,9 @@ public class ForeignDataDbSource {
             DateiMemoDbHelper.COLUMN_IP
     };
 
-    public ForeignDataDbSource(){}
+    public ForeignDataDbSource(){
+        foreignData = new ForeignData();
+    }
      /*
     *
     * For single table
@@ -191,32 +193,32 @@ public class ForeignDataDbSource {
     *               Hilfklasse für Update Methode und Insert Methode
     *
     * */
-    private ForeignData cursorToForeignData(Cursor cursor) {
-        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
-        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
-        int idFotoId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FOTOID);
-        int idPunktX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX);
-        int idPunktY = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY);
-        int idForeignIp = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_IP);
-
-
-
-        long uid = cursor.getLong(idIndex);
-
-        int intValueChecked = cursor.getInt(idChecked);
-        boolean isChecked = (intValueChecked != 0);
-
-        int fotoId = cursor.getInt(idFotoId);
-        double punktX = cursor.getDouble(idPunktX);
-        double punktY = cursor.getDouble(idPunktY);
-        String foreignIp = cursor.getString(idForeignIp);
-
-
-
-        ForeignData foreignData = new ForeignData(uid, isChecked, fotoId, punktX, punktY, foreignIp);
-
-        return foreignData;
-    }
+//    private ForeignData cursorToForeignData(Cursor cursor) {
+//        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int idFotoId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FOTOID);
+//        int idPunktX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX);
+//        int idPunktY = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY);
+//        int idForeignIp = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_IP);
+//
+//
+//
+//        long uid = cursor.getLong(idIndex);
+//
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
+//
+//        int fotoId = cursor.getInt(idFotoId);
+//        double punktX = cursor.getDouble(idPunktX);
+//        double punktY = cursor.getDouble(idPunktY);
+//        String foreignIp = cursor.getString(idForeignIp);
+//
+//
+//
+//        ForeignData foreignData = new ForeignData(uid, isChecked, fotoId, punktX, punktY, foreignIp);
+//
+//        return foreignData;
+//    }
 
      /*
     *           Get

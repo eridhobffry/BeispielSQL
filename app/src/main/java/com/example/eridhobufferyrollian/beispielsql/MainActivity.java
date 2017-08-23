@@ -146,15 +146,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         peerDbSource = new PeerDbSource();
 
         dateiMemoDbSource.deleteDateiMemo();
-        foreignDataDbSource.deleteForeignData();
         neighborDbSource.deleteNeighbormemo();
         ownDataDbSource.deleteOwnData();
         peerDbSource.deletePeerMemo();
+        foreignDataDbSource.deleteForeignData();
+
+
 
         //insert DateiMemo
         // String username, String password, int uid, boolean checked,
         // double cornerTopRightX und Y, double cornerTopLeftx und Y, double cornerBottomRightX und Y,
         // double cornerBottomLeftX und Y, double punktX, double punktY, double IP, int countPeers
+        DateiMemo dateiMemo = new DateiMemo();
         dateiMemo.setUid(1);
         dateiMemo.setChecked(true);
         dateiMemo.setCornerTopRightX(0.5);
@@ -178,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private double punktX;
         //private double punktY;
         //private String foreignIp;
+        ForeignData foreignData = new ForeignData();
         foreignData.setUid(1);
         foreignData.setChecked(true);
         foreignData.setFotoId(2);
@@ -201,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private double RTT;
         //private boolean checked;
         //private long uid;
+        NeighborMemo neighborMemo = new NeighborMemo();
         neighborMemo.setUid(1);
         neighborMemo.setChecked(true);
         neighborMemo.setCornerTopRightX(0.5);
@@ -221,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    public long uid;
         //    public boolean checked;
         //    public int fileId
+        OwnDataMemo ownDataMemo = new OwnDataMemo();
         ownDataMemo.setUid(1);
         ownDataMemo.setChecked(true);
         ownDataMemo.setFileId(3);
@@ -231,6 +237,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    public int peerId;
         //    public double peerIp;
         //    private boolean checked;
+        PeerMemo peerMemo = new PeerMemo();
         peerMemo.setUid(1);
         peerMemo.setPeerId(1);
         peerMemo.setChecked(true);

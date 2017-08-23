@@ -38,6 +38,10 @@ public class OwnDataDbSource {
     };
 
 
+    public OwnDataDbSource(){
+        ownDataMemo = new OwnDataMemo();
+    }
+
      /*
     *
     * For single table
@@ -186,26 +190,26 @@ public class OwnDataDbSource {
 *               Hilfklasse für Update Methode und Insert Methode
 *
 * */
-    private OwnDataMemo cursorToOwnData(Cursor cursor) {
-        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
-        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
-        int idFileId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FILEID);
-
-
-
-        long uid = cursor.getLong(idIndex);
-
-        int intValueChecked = cursor.getInt(idChecked);
-        boolean isChecked = (intValueChecked != 0);
-
-        int fileId = cursor.getInt(idFileId);
-
-
-
-        OwnDataMemo ownDataMemo = new OwnDataMemo(uid, isChecked, fileId);
-
-        return ownDataMemo;
-    }
+//    private OwnDataMemo cursorToOwnData(Cursor cursor) {
+//        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int idFileId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FILEID);
+//
+//
+//
+//        long uid = cursor.getLong(idIndex);
+//
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
+//
+//        int fileId = cursor.getInt(idFileId);
+//
+//
+//
+//        OwnDataMemo ownDataMemo = new OwnDataMemo(uid, isChecked, fileId);
+//
+//        return ownDataMemo;
+//    }
 
     /*
    *

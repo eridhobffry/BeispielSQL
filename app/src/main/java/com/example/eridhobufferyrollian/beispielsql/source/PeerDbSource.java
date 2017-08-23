@@ -41,7 +41,9 @@ public class PeerDbSource {
             DateiMemoDbHelper.COLUMN_CHECKED
     };
 
-    public PeerDbSource(){}
+    public PeerDbSource(){
+        peerMemo = new PeerMemo();
+    }
 
 
     /*
@@ -264,25 +266,25 @@ public class PeerDbSource {
     //
 
 
-    private PeerMemo cursorToPeerMemo(Cursor cursor) {
-        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
-        int idPeerId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERID);
-        int idPeerIp = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERIP);
-        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
-
-        long uid = cursor.getLong(idIndex);
-
-        int intValueChecked = cursor.getInt(idChecked);
-        boolean isChecked = (intValueChecked != 0);
-
-        int peerId = cursor.getInt(idPeerId);
-        String peerIp = cursor.getString(idPeerIp);
-
-
-        PeerMemo peerMemo = new PeerMemo(uid, peerId, peerIp, isChecked);
-
-        return peerMemo;
-    }
+//    private PeerMemo cursorToPeerMemo(Cursor cursor) {
+//        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
+//        int idPeerId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERID);
+//        int idPeerIp = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERIP);
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//
+//        long uid = cursor.getLong(idIndex);
+//
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
+//
+//        int peerId = cursor.getInt(idPeerId);
+//        String peerIp = cursor.getString(idPeerIp);
+//
+//
+//        PeerMemo peerMemo = new PeerMemo(uid, peerId, peerIp, isChecked);
+//
+//        return peerMemo;
+//    }
 
     /*
     *           Get

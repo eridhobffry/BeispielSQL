@@ -11,12 +11,12 @@ public class PeerMemo {
 
 
 
-    public PeerMemo(long uid, int peerId, String peerIp, boolean checked) {
-        this.uid = uid;
-        this.peerId = peerId;
-        this.peerIp = peerIp;
-        this.checked = checked;
-    }
+//    public PeerMemo(long uid, int peerId, String peerIp, boolean checked) {
+//        this.uid = uid;
+//        this.peerId = peerId;
+//        this.peerIp = peerIp;
+//        this.checked = checked;
+//    }
 
     public long getUid() {
         return uid;

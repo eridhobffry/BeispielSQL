@@ -15,14 +15,14 @@ public class ForeignData {
     private double punktY;
     private String foreignIp;
 
-    public ForeignData(long uid, boolean checked, int fotoId, double punktX, double punktY, String foreignIp){
-        this.uid = uid;
-        this.checked = checked;
-        this.fotoId = fotoId;
-        this.punktX = punktX;
-        this.punktY = punktY;
-        this.foreignIp = foreignIp;
-    }
+//    public ForeignData(long uid, boolean checked, int fotoId, double punktX, double punktY, String foreignIp){
+//        this.uid = uid;
+//        this.checked = checked;
+//        this.fotoId = fotoId;
+//        this.punktX = punktX;
+//        this.punktY = punktY;
+//        this.foreignIp = foreignIp;
+//    }
 
     public long getUid() {
         return uid;

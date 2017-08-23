@@ -25,27 +25,27 @@ public class DateiMemo {
     private int countPeers;
     private boolean checked;
 
-    public DateiMemo(long uid, boolean checked,
-                     double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
-                     double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
-                     double punktX, double punktY, String IP, int countPeers) {
-//        this.username = username;
-//        this.password = password;
-        this.uid = uid;
-        this.checked = checked;
-        this.cornerTopRightX = cornerTopRightX;
-        this.cornerTopRightY = cornerTopRightY;
-        this.cornerTopLeftX = cornerTopLeftX;
-        this.cornerTopLeftY = cornerTopLeftY;
-        this.cornerBottomRightX = cornerBottomRightX;
-        this.cornerBottomRightY = cornerBottomRightY;
-        this.cornerBottomLeftX = cornerBottomLeftX;
-        this.cornerBottomLeftY = cornerBottomLeftY;
-        this.punktX = punktX;
-        this.punktY = punktY;
-        this.IP = IP;
-        this.countPeers = countPeers;
-    }
+//    public DateiMemo(long uid, boolean checked,
+//                     double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
+//                     double cornerBottomRightX, double cornerBottomRightY, double cornerBottomLeftX, double cornerBottomLeftY,
+//                     double punktX, double punktY, String IP, int countPeers) {
+////        this.username = username;
+////        this.password = password;
+//        this.uid = uid;
+//        this.checked = checked;
+//        this.cornerTopRightX = cornerTopRightX;
+//        this.cornerTopRightY = cornerTopRightY;
+//        this.cornerTopLeftX = cornerTopLeftX;
+//        this.cornerTopLeftY = cornerTopLeftY;
+//        this.cornerBottomRightX = cornerBottomRightX;
+//        this.cornerBottomRightY = cornerBottomRightY;
+//        this.cornerBottomLeftX = cornerBottomLeftX;
+//        this.cornerBottomLeftY = cornerBottomLeftY;
+//        this.punktX = punktX;
+//        this.punktY = punktY;
+//        this.IP = IP;
+//        this.countPeers = countPeers;
+//    }
 
 //    public String getUsername() {
 //        return username;
