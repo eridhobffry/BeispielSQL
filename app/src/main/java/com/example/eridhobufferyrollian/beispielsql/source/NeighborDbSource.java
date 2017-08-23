@@ -18,6 +18,7 @@ import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 import com.example.eridhobufferyrollian.beispielsql.model.NeighborMemo;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class NeighborDbSource {
@@ -859,22 +860,49 @@ public class NeighborDbSource {
     //
 
     public List<NeighborMemo> getAllNeighborMemo() {
-        List<NeighborMemo> NeighborMemoList = new ArrayList<>();
+        List<NeighborMemo> NeighborMemoList = new LinkedList<NeighborMemo>();
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                columns_Neighbor, null, null, null, null, null);
+        //1. query
+        String query = "SELECT  * FROM " + dbHelper.TABLE_NEIGHBOR_LIST;
 
-        cursor.moveToFirst();
-        NeighborMemo neighborMemo;
+        //2. open Database
+        database = DatabaseManager.getInstance().openDatabase();
 
-        while(!cursor.isAfterLast()) {
-            neighborMemo = cursorToNeighborMemo(cursor);
-            NeighborMemoList.add(neighborMemo);
-            Log.d(LOG_TAG, "ID: " + neighborMemo.getUid() + ", Inhalt: " + neighborMemo.toString());
-            cursor.moveToNext();
+        Cursor cursor = database.rawQuery(query, null);
+
+        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+        int intValueChecked = cursor.getInt(idChecked);
+        boolean isChecked = (intValueChecked != 0);
+
+
+        //3. Durchführen Zeile und füge in List hinzu
+        NeighborMemo neighborMemo = null;
+        if (cursor.moveToFirst()) {
+            do {
+                neighborMemo = new NeighborMemo();
+                neighborMemo.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_NID)));
+                neighborMemo.setChecked(isChecked);
+                neighborMemo.setCornerTopLeftX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPLEFTX)));
+                neighborMemo.setCornerTopLeftY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPLEFTY)));
+                neighborMemo.setCornerTopRightX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPRIGHTX)));
+                neighborMemo.setCornerTopRightY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPRIGHTY)));
+                neighborMemo.setCornerBottomLeftX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERBOTTOMLEFTX)));
+                neighborMemo.setCornerBottomLeftY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERBOTTOMLEFTY)));
+                neighborMemo.setCornerBottomRightX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERBOTTOMRIGHTX)));
+                neighborMemo.setCornerBottomRightY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERBOTTOMRIGHTY)));
+                neighborMemo.setPunktX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_PUNKTX)));
+                neighborMemo.setPunktY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_PUNKTY)));
+                neighborMemo.setUIP(cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_IP)));
+                neighborMemo.setRTT(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_RTT)));
+
+
+                // Add book to books
+                NeighborMemoList.add(neighborMemo);
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
 
         return NeighborMemoList;
     }

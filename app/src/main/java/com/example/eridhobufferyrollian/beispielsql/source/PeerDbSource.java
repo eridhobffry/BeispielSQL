@@ -15,10 +15,12 @@ import android.database.Cursor;
 import com.example.eridhobufferyrollian.beispielsql.DatabaseManager;
 import com.example.eridhobufferyrollian.beispielsql.DateiMemoDbHelper;
 import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
+import com.example.eridhobufferyrollian.beispielsql.model.ForeignData;
 import com.example.eridhobufferyrollian.beispielsql.model.OwnDataMemo;
 import com.example.eridhobufferyrollian.beispielsql.model.PeerMemo;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import java.util.Objects;
@@ -200,31 +202,31 @@ public class PeerDbSource {
     *
     * */
 
-    public PeerMemo updatePeerMemo(long newUid, int newPeerId, int newPeerIp, boolean newChecked) {
-        int intValueChecked = (newChecked)? 1 : 0;
-        newUid = dateiMemoDbSource.getUid();
-        ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_UID, newUid);
-        values.put(DateiMemoDbHelper.COLUMN_PEERID, newPeerId);
-        values.put(DateiMemoDbHelper.COLUMN_PEERIP, newPeerIp);
-        values.put(DateiMemoDbHelper.COLUMN_CHECKED, intValueChecked);
-
-
-        database.update(DateiMemoDbHelper.TABLE_PEER_LIST,
-                values,
-                DateiMemoDbHelper.COLUMN_UID + "=" + newUid,
-                null);
-
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_PEER_LIST,
-                columns_Peer, DateiMemoDbHelper.COLUMN_UID + "=" + newUid,
-                null, null, null, null);
-
-        cursor.moveToFirst();
-        PeerMemo peerMemo = cursorToPeerMemo(cursor);
-        cursor.close();
-
-        return peerMemo;
-    }
+//    public PeerMemo updatePeerMemo(long newUid, int newPeerId, int newPeerIp, boolean newChecked) {
+//        int intValueChecked = (newChecked)? 1 : 0;
+//        newUid = dateiMemoDbSource.getUid();
+//        ContentValues values = new ContentValues();
+//        values.put(DateiMemoDbHelper.COLUMN_UID, newUid);
+//        values.put(DateiMemoDbHelper.COLUMN_PEERID, newPeerId);
+//        values.put(DateiMemoDbHelper.COLUMN_PEERIP, newPeerIp);
+//        values.put(DateiMemoDbHelper.COLUMN_CHECKED, intValueChecked);
+//
+//
+//        database.update(DateiMemoDbHelper.TABLE_PEER_LIST,
+//                values,
+//                DateiMemoDbHelper.COLUMN_UID + "=" + newUid,
+//                null);
+//
+//        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_PEER_LIST,
+//                columns_Peer, DateiMemoDbHelper.COLUMN_UID + "=" + newUid,
+//                null, null, null, null);
+//
+//        cursor.moveToFirst();
+//        PeerMemo peerMemo = cursorToPeerMemo(cursor);
+//        cursor.close();
+//
+//        return peerMemo;
+//    }
 
 
     /*
@@ -295,26 +297,7 @@ public class PeerDbSource {
     *
     *
     * */
-    public List<PeerMemo> getAllPeerMemos() {
-        List<PeerMemo> PeerMemoList = new ArrayList<>();
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns_Peer, null, null, null, null, null);
-
-        cursor.moveToFirst();
-        PeerMemo peerMemo;
-
-        while(!cursor.isAfterLast()) {
-            peerMemo = cursorToPeerMemo(cursor);
-            PeerMemoList.add(peerMemo);
-            Log.d(LOG_TAG, "ID: " + peerMemo.getUid() + ", Inhalt: " + peerMemo.toString());
-            cursor.moveToNext();
-        }
-
-        cursor.close();
-
-        return PeerMemoList;
-    }
 
     /*
     *
@@ -355,22 +338,39 @@ public class PeerDbSource {
     }
 
     public List<PeerMemo> getAllPeer() {
-        List<PeerMemo> PeerMemoList = new ArrayList<>();
+        List<PeerMemo> PeerMemoList = new LinkedList<PeerMemo>();
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_PEER_LIST,
-                columns_Peer, null, null, null, null, null);
+        //1. query
+        String query = "SELECT  * FROM " + dbHelper.TABLE_PEER_LIST;
 
-        cursor.moveToFirst();
-        PeerMemo peerMemo;
+        //2. open Database
+        database = DatabaseManager.getInstance().openDatabase();
 
-        while(!cursor.isAfterLast()) {
-            peerMemo = cursorToPeerMemo(cursor);
-            PeerMemoList.add(peerMemo);
-            Log.d(LOG_TAG, "ID: " + peerMemo.getUid() + ", Inhalt: " + peerMemo.toString());
-            cursor.moveToNext();
+        Cursor cursor = database.rawQuery(query, null);
+
+        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+        int intValueChecked = cursor.getInt(idChecked);
+        boolean isChecked = (intValueChecked != 0);
+
+
+        //3. Durchführen Zeile und füge in List hinzu
+        PeerMemo peerMemo = null;
+        if (cursor.moveToFirst()) {
+            do {
+                peerMemo = new PeerMemo();
+                peerMemo.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_PID)));
+                peerMemo.setChecked(isChecked);
+                peerMemo.setPeerIp(cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_PEERIP)));
+                peerMemo.setPeerId(cursor.getInt(cursor.getColumnIndex(dbHelper.COLUMN_PEERID)));
+
+
+                // Add book to books
+                PeerMemoList.add(peerMemo);
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
 
         return PeerMemoList;
     }

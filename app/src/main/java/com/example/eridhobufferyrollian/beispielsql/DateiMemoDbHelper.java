@@ -37,6 +37,10 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
 
     public static final String COLUMN_UID = "_uid";
+    public static final String COLUMN_PID = "peer_id";
+    public static final String COLUMN_OID = "own_id";
+    public static final String COLUMN_FID = "foreign_id";
+    public static final String COLUMN_NID = "neighbor_id";
 //    public static final String COLUMN_USERNAME = "username";
 //    public static final String COLUMN_PASSWORD = "password";
     public static final String COLUMN_IP = "IP";
@@ -99,7 +103,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
                     "(" + COLUMN_PEERIP + " TEXT PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_PEERID + " INTEGER NOT NULL, " +
                     COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0, " +
-                    " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
+                    " FOREIGN KEY ("+ COLUMN_PID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
 
     public static final String SQL_CREATE_TABLE_NEIGBHORS =
             "CREATE TABLE " + TABLE_NEIGHBOR_LIST +
@@ -116,7 +120,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
                     COLUMN_PUNKTY + "REAL NOT NULL, " +
                     COLUMN_RTT + " REAL NOT NULL, " +
                     COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0, " +
-                    " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
+                    " FOREIGN KEY ("+ COLUMN_NID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
 
     public static final String SQL_CREATE_TABLE_OWNDATAS =
             "CREATE TABLE " + TABLE_OWNDATA_LIST +
@@ -124,14 +128,14 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
                     COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0, " +
                     COLUMN_PUNKTX + "REAL NOT NULL, " +
                     COLUMN_PUNKTY + "REAL NOT NULL, " +
-                    " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));" ;
+                    " FOREIGN KEY ("+ COLUMN_OID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));" ;
 
     public static final String SQL_CREATE_TABLE_FOREIGNDATAS =
             "CREATE TABLE " + TABLE_FOREIGNDATA_LIST +
                     "(" + COLUMN_FOTOID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0, " +
                     COLUMN_IP + "TEXT NOT NULL, " +
-                    " FOREIGN KEY ("+ COLUMN_UID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));" ;
+                    " FOREIGN KEY ("+ COLUMN_FID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));" ;
 
     public static final String SQL_DROP_DATEI = "DROP TABLE IF EXISTS " + TABLE_DATEI_LIST;
     public static final String SQL_DROP_PEERS = "DROP TABLE IF EXISTS " + TABLE_PEER_LIST;

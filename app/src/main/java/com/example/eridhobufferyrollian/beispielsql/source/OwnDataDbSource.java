@@ -20,6 +20,7 @@ import com.example.eridhobufferyrollian.beispielsql.model.NeighborMemo;
 import com.example.eridhobufferyrollian.beispielsql.model.OwnDataMemo;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class OwnDataDbSource {
@@ -247,23 +248,39 @@ public class OwnDataDbSource {
     }
 
     public List<OwnDataMemo> getAllOwnData() {
-        List<OwnDataMemo> OwnDataMemoList = new ArrayList<>();
+        List<OwnDataMemo> OwnDataList = new LinkedList<OwnDataMemo>();
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_OWNDATA_LIST,
-                columns_OwnData, null, null, null, null, null);
+        //1. query
+        String query = "SELECT  * FROM " + dbHelper.TABLE_OWNDATA_LIST;
 
-        cursor.moveToFirst();
-        OwnDataMemo ownDataMemo;
+        //2. open Database
+        database = DatabaseManager.getInstance().openDatabase();
 
-        while(!cursor.isAfterLast()) {
-            ownDataMemo = cursorToOwnData(cursor);
-            OwnDataMemoList.add(ownDataMemo);
-            Log.d(LOG_TAG, "ID: " + ownDataMemo.getUid() + ", Inhalt: " + ownDataMemo.toString());
-            cursor.moveToNext();
+        Cursor cursor = database.rawQuery(query, null);
+
+        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+        int intValueChecked = cursor.getInt(idChecked);
+        boolean isChecked = (intValueChecked != 0);
+
+
+        //3. Durchführen Zeile und füge in List hinzu
+        OwnDataMemo ownDataMemo = null;
+        if (cursor.moveToFirst()) {
+            do {
+                ownDataMemo = new OwnDataMemo();
+                ownDataMemo.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_OID)));
+                ownDataMemo.setChecked(isChecked);
+                ownDataMemo.setFileId(cursor.getInt(cursor.getColumnIndex(dbHelper.COLUMN_FILEID)));
+
+
+                // Add book to books
+                OwnDataList.add(ownDataMemo);
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
 
-        return OwnDataMemoList;
+        return OwnDataList;
     }
 }

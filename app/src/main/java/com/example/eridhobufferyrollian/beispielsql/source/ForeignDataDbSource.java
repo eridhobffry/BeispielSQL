@@ -18,6 +18,7 @@ import com.example.eridhobufferyrollian.beispielsql.model.DateiMemo;
 import com.example.eridhobufferyrollian.beispielsql.model.ForeignData;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static android.R.attr.id;
@@ -354,22 +355,41 @@ public class ForeignDataDbSource {
     //
 
     public List<ForeignData> getAllForeignData() {
-        List<ForeignData> ForeignDataList = new ArrayList<>();
+        List<ForeignData> ForeignDataList = new LinkedList<ForeignData>();
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST,
-                columns_ForeignData, null, null, null, null, null);
+        //1. query
+        String query = "SELECT  * FROM " + dbHelper.TABLE_FOREIGNDATA_LIST;
 
-        cursor.moveToFirst();
-        ForeignData foreignData;
+        //2. open Database
+        database = DatabaseManager.getInstance().openDatabase();
 
-        while(!cursor.isAfterLast()) {
-            foreignData = cursorToForeignData(cursor);
-            ForeignDataList.add(foreignData);
-            Log.d(LOG_TAG, "ID: " + foreignData.getUid() + ", Inhalt: " + foreignData.toString());
-            cursor.moveToNext();
+        Cursor cursor = database.rawQuery(query, null);
+
+        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+        int intValueChecked = cursor.getInt(idChecked);
+        boolean isChecked = (intValueChecked != 0);
+
+
+        //3. Durchführen Zeile und füge in List hinzu
+        ForeignData foreignData = null;
+        if (cursor.moveToFirst()) {
+            do {
+                foreignData = new ForeignData();
+                foreignData.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_FID)));
+                foreignData.setChecked(isChecked);
+                foreignData.setPunktX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_PUNKTX)));
+                foreignData.setPunktY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_PUNKTY)));
+                foreignData.setForeignIp(cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_IP)));
+                foreignData.setFotoId(cursor.getInt(cursor.getColumnIndex(dbHelper.COLUMN_FOTOID)));
+
+
+                // Add book to books
+                ForeignDataList.add(foreignData);
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
 
         return ForeignDataList;
     }

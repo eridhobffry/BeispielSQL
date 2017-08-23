@@ -17,6 +17,7 @@ import com.example.eridhobufferyrollian.beispielsql.DatabaseManager;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import static android.R.attr.id;
@@ -445,8 +446,8 @@ public class DateiMemoDbSource {
 //
 //        long uid = cursor.getLong(idIndex);
 //
-//        int intValueChecked = cursor.getInt(idChecked);
-//        boolean isChecked = (intValueChecked != 0);
+    //        int intValueChecked = cursor.getInt(idChecked);
+    //        boolean isChecked = (intValueChecked != 0);
 //
 //        double cornerTopRightX = cursor.getDouble(idTopRightX);
 //        double cornerTopRightY = cursor.getDouble(idTopRightY);
@@ -813,25 +814,50 @@ public class DateiMemoDbSource {
     // ================================================================================================================================
     //
 
-        public List<DateiMemo> getAllDateiMemos() {
-        List<DateiMemo> DateiMemoList = new ArrayList<>();
+    public List<DateiMemo> getAllDateiMemos() {
+        List<DateiMemo> DateiMemoList = new LinkedList<DateiMemo>();
 
-            database = DatabaseManager.getInstance().openDatabase();
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, null, null, null, null, null);
+        //1. query
+        String query = "SELECT  * FROM " + dbHelper.TABLE_DATEI_LIST;
 
-        cursor.moveToFirst();
-        DateiMemo dateiMemo;
+        //2. open Database
+        database = DatabaseManager.getInstance().openDatabase();
 
-        while(!cursor.isAfterLast()) {
-            dateiMemo = cursorToDateiMemo(cursor);
-            DateiMemoList.add(dateiMemo);
-            Log.d(LOG_TAG, "ID: " + dateiMemo.getUid() + ", Inhalt: " + dateiMemo.toString());
-            cursor.moveToNext();
+        Cursor cursor = database.rawQuery(query, null);
+
+        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+        int intValueChecked = cursor.getInt(idChecked);
+        boolean isChecked = (intValueChecked != 0);
+
+
+        //3. Durchführen Zeile und füge in List hinzu
+        DateiMemo dateiMemo = null;
+        if (cursor.moveToFirst()) {
+            do {
+                dateiMemo = new DateiMemo();
+                dateiMemo.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_UID)));
+                dateiMemo.setChecked(isChecked);
+                dateiMemo.setCornerTopLeftX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPLEFTX)));
+                dateiMemo.setCornerTopLeftY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPLEFTY)));
+                dateiMemo.setCornerTopRightX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPRIGHTX)));
+                dateiMemo.setCornerTopRightY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPRIGHTY)));
+                dateiMemo.setCornerBottomLeftX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERBOTTOMLEFTX)));
+                dateiMemo.setCornerBottomLeftY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERBOTTOMLEFTY)));
+                dateiMemo.setCornerBottomRightX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERBOTTOMRIGHTX)));
+                dateiMemo.setCornerBottomRightY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERBOTTOMRIGHTY)));
+                dateiMemo.setPunktX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_PUNKTX)));
+                dateiMemo.setPunktY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_PUNKTY)));
+                dateiMemo.setIP(cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_IP)));
+                dateiMemo.setCountPeers(cursor.getInt(cursor.getColumnIndex(dbHelper.COLUMN_COUNTPEERS)));
+
+
+                // Add book to books
+                DateiMemoList.add(dateiMemo);
+            } while (cursor.moveToNext());
         }
 
         cursor.close();
-            DatabaseManager.getInstance().closeDatabase();
+        DatabaseManager.getInstance().closeDatabase();
 
         return DateiMemoList;
     }
