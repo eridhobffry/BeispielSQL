@@ -146,7 +146,7 @@ public class DateiMemoDbSource {
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX, dateiMemo.getCornerBottomLeftX());
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY, dateiMemo.getCornerBottomLeftY());
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX, dateiMemo.getCornerBottomRightX());
-        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX, dateiMemo.getCornerBottomRightY());
+        values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY, dateiMemo.getCornerBottomRightY());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTX, dateiMemo.getPunktX());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTY, dateiMemo.getPunktY());
         values.put(DateiMemoDbHelper.COLUMN_IP, dateiMemo.getIP());
@@ -818,7 +818,7 @@ public class DateiMemoDbSource {
         List<DateiMemo> DateiMemoList = new LinkedList<DateiMemo>();
 
         //1. query
-        String query = "SELECT  * FROM " + dbHelper.TABLE_DATEI_LIST;
+        String query = "SELECT * FROM " + dbHelper.TABLE_DATEI_LIST;
 
         //2. open Database
         database = DatabaseManager.getInstance().openDatabase();

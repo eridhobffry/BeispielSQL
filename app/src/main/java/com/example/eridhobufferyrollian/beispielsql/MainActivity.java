@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "\n Corner Bottom Right X: "+ dateiMemoList.get(j).getCornerBottomRightX() +
                     "\n Corner Bottom Right Y: "+ dateiMemoList.get(j).getCornerBottomRightY() +
                     "\n Corner Bottom Left X: "+ dateiMemoList.get(j).getCornerBottomLeftX() +
-                    "\n Corner Bottom Left Y: "+ dateiMemoList.get(j).getCornerTopLeftY() +
+                    "\n Corner Bottom Left Y: "+ dateiMemoList.get(j).getCornerBottomLeftY() +
                     "\n Punkt X: "+ dateiMemoList.get(j).getPunktX() +
                     "\n Punkt Y: "+ dateiMemoList.get(j).getPunktY() +
                     "\n IP: "+ dateiMemoList.get(j).getIP() +

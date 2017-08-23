@@ -134,7 +134,7 @@ public class PeerDbSource {
     //
     //    private long uid;
     //    public int peerId;
-    //    public double peerIp;
+    //    public String peerIp;
     //    private boolean checked;
     //
     //----------------------------- Insert, delete, update, get values in Table ---------------------------------
@@ -151,7 +151,7 @@ public class PeerDbSource {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_PEERID, peerMemo.getPeerId());
         values.put(DateiMemoDbHelper.COLUMN_PEERIP, peerMemo.getPeerIp());
-        values.put(DateiMemoDbHelper.COLUMN_UID, peerMemo.getUid());
+        values.put(DateiMemoDbHelper.COLUMN_PID, peerMemo.getUid());
         //values.put(DateiMemoDbHelper.COLUMN_CHECKED, peerMemo.isChecked());
 
         //
@@ -237,7 +237,7 @@ public class PeerDbSource {
     *
     * */
     public int getPeersCount() {
-        String countQuery = "SELECT  * FROM " + DateiMemoDbHelper.TABLE_PEER_LIST;
+        String countQuery = "SELECT * FROM " + DateiMemoDbHelper.TABLE_PEER_LIST;
         Cursor cursor = database.rawQuery(countQuery, null);
 
         int count = cursor.getCount();
@@ -315,33 +315,38 @@ public class PeerDbSource {
     *           Get Peer Ip
     *
     * */
-    public List<Integer> getPeerIp(long peerId) {
-        List<Integer> PeerIdList = new ArrayList<>();
+    public String getPeerIp(int index) {
+        //List<Integer> PeerIdList = new ArrayList<>();
         String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_PEERIP + " FROM " + DateiMemoDbHelper.TABLE_PEER_LIST + " WHERE "
-                + DateiMemoDbHelper.COLUMN_PEERID + " = " + peerId;;
+                + DateiMemoDbHelper.COLUMN_PEERID + " = " + index;
+
+        database = DatabaseManager.getInstance().openDatabase();
 
         Cursor cursor = database.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        int peerIp;
+        String peerIp;
+        peerIp = cursor.getString(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERIP));
 
-        while(!cursor.isAfterLast()) {
-            peerIp = cursor.getInt(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERIP));
-            PeerIdList.add(peerIp);
-            Log.d(LOG_TAG, selectQuery);
-            cursor.moveToNext();
-        }
+//        while(!cursor.isAfterLast()) {
+//            peerIp = cursor.getInt(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PEERIP));
+//            PeerIdList.add(peerIp);
+//            Log.d(LOG_TAG, selectQuery);
+//            cursor.moveToNext();
+//        }
 
         cursor.close();
 
-        return PeerIdList;
+        DatabaseManager.getInstance().closeDatabase();
+
+        return peerIp;
     }
 
     public List<PeerMemo> getAllPeer() {
         List<PeerMemo> PeerMemoList = new LinkedList<PeerMemo>();
 
         //1. query
-        String query = "SELECT  * FROM " + dbHelper.TABLE_PEER_LIST;
+        String query = "SELECT * FROM " + dbHelper.TABLE_PEER_LIST;
 
         //2. open Database
         database = DatabaseManager.getInstance().openDatabase();

@@ -140,7 +140,7 @@ public class ForeignDataDbSource {
     public int createForeignData(ForeignData foreignData) {
         database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_UID, foreignData.getUid());
+        values.put(DateiMemoDbHelper.COLUMN_FID, foreignData.getUid());
         //values.put(DateiMemoDbHelper.COLUMN_CHECKED, foreignData.isChecked());
         values.put(DateiMemoDbHelper.COLUMN_FOTOID, foreignData.getFotoId());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTX, foreignData.getPunktX());
@@ -241,7 +241,7 @@ public class ForeignDataDbSource {
      public double getPunktXForeign(long uid) {
 
          String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_PUNKTX +" FROM " + DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST + " WHERE "
-                 + DateiMemoDbHelper.COLUMN_UID + " = " + uid;
+                 + DateiMemoDbHelper.COLUMN_FID + " = " + uid;
 
          Log.e(LOG_TAG, selectQuery);
 
@@ -358,7 +358,7 @@ public class ForeignDataDbSource {
         List<ForeignData> ForeignDataList = new LinkedList<ForeignData>();
 
         //1. query
-        String query = "SELECT  * FROM " + dbHelper.TABLE_FOREIGNDATA_LIST;
+        String query = "SELECT * FROM " + dbHelper.TABLE_FOREIGNDATA_LIST;
 
         //2. open Database
         database = DatabaseManager.getInstance().openDatabase();

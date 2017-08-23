@@ -141,7 +141,7 @@ public class OwnDataDbSource {
     public int createOwnData(OwnDataMemo ownDataMemo) {
         database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_UID, ownDataMemo.getUid());
+        values.put(DateiMemoDbHelper.COLUMN_OID, ownDataMemo.getUid());
         //values.put(DateiMemoDbHelper.COLUMN_CHECKED, ownDataMemo.isChecked());
         values.put(DateiMemoDbHelper.COLUMN_FOTOID, ownDataMemo.getFileId());
 
@@ -251,7 +251,7 @@ public class OwnDataDbSource {
         List<OwnDataMemo> OwnDataList = new LinkedList<OwnDataMemo>();
 
         //1. query
-        String query = "SELECT  * FROM " + dbHelper.TABLE_OWNDATA_LIST;
+        String query = "SELECT * FROM " + dbHelper.TABLE_OWNDATA_LIST;
 
         //2. open Database
         database = DatabaseManager.getInstance().openDatabase();
