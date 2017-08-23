@@ -35,7 +35,7 @@ public class OwnDataDbSource {
     private String[] columns_OwnData = {
             DateiMemoDbHelper.COLUMN_FILEID,
             DateiMemoDbHelper.COLUMN_UID,
-            DateiMemoDbHelper.COLUMN_CHECKED
+            //DateiMemoDbHelper.COLUMN_CHECKED
     };
 
 
@@ -141,8 +141,8 @@ public class OwnDataDbSource {
     public int createOwnData(OwnDataMemo ownDataMemo) {
         database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemoDbSource.getUid());
-        values.put(DateiMemoDbHelper.COLUMN_CHECKED, ownDataMemo.isChecked());
+        values.put(DateiMemoDbHelper.COLUMN_UID, ownDataMemo.getUid());
+        //values.put(DateiMemoDbHelper.COLUMN_CHECKED, ownDataMemo.isChecked());
         values.put(DateiMemoDbHelper.COLUMN_FOTOID, ownDataMemo.getFileId());
 
         //
@@ -258,9 +258,9 @@ public class OwnDataDbSource {
 
         Cursor cursor = database.rawQuery(query, null);
 
-        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
-        int intValueChecked = cursor.getInt(idChecked);
-        boolean isChecked = (intValueChecked != 0);
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
 
 
         //3. Durchführen Zeile und füge in List hinzu
@@ -269,7 +269,7 @@ public class OwnDataDbSource {
             do {
                 ownDataMemo = new OwnDataMemo();
                 ownDataMemo.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_OID)));
-                ownDataMemo.setChecked(isChecked);
+                //ownDataMemo.setChecked(isChecked);
                 ownDataMemo.setFileId(cursor.getInt(cursor.getColumnIndex(dbHelper.COLUMN_FILEID)));
 
 

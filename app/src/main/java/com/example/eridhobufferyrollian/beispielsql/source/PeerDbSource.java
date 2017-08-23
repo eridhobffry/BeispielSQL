@@ -40,7 +40,7 @@ public class PeerDbSource {
             DateiMemoDbHelper.COLUMN_PEERID,
             DateiMemoDbHelper.COLUMN_PEERIP,
             DateiMemoDbHelper.COLUMN_UID,
-            DateiMemoDbHelper.COLUMN_CHECKED
+            //DateiMemoDbHelper.COLUMN_CHECKED
     };
 
     public PeerDbSource(){
@@ -151,8 +151,8 @@ public class PeerDbSource {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_PEERID, peerMemo.getPeerId());
         values.put(DateiMemoDbHelper.COLUMN_PEERIP, peerMemo.getPeerIp());
-        values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemoDbSource.getUid());
-        values.put(DateiMemoDbHelper.COLUMN_CHECKED, peerMemo.isChecked());
+        values.put(DateiMemoDbHelper.COLUMN_UID, peerMemo.getUid());
+        //values.put(DateiMemoDbHelper.COLUMN_CHECKED, peerMemo.isChecked());
 
         //
         //insert row
@@ -348,9 +348,9 @@ public class PeerDbSource {
 
         Cursor cursor = database.rawQuery(query, null);
 
-        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
-        int intValueChecked = cursor.getInt(idChecked);
-        boolean isChecked = (intValueChecked != 0);
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
 
 
         //3. Durchführen Zeile und füge in List hinzu
@@ -359,7 +359,7 @@ public class PeerDbSource {
             do {
                 peerMemo = new PeerMemo();
                 peerMemo.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_PID)));
-                peerMemo.setChecked(isChecked);
+                //peerMemo.setChecked(isChecked);
                 peerMemo.setPeerIp(cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_PEERIP)));
                 peerMemo.setPeerId(cursor.getInt(cursor.getColumnIndex(dbHelper.COLUMN_PEERID)));
 

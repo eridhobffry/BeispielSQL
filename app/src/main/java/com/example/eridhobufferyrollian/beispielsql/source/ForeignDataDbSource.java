@@ -37,7 +37,7 @@ public class ForeignDataDbSource {
             DateiMemoDbHelper.COLUMN_UID,
             DateiMemoDbHelper.COLUMN_PUNKTX,
             DateiMemoDbHelper.COLUMN_PUNKTY,
-            DateiMemoDbHelper.COLUMN_CHECKED,
+            //DateiMemoDbHelper.COLUMN_CHECKED,
             DateiMemoDbHelper.COLUMN_IP
     };
 
@@ -140,8 +140,8 @@ public class ForeignDataDbSource {
     public int createForeignData(ForeignData foreignData) {
         database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemoDbSource.getUid());
-        values.put(DateiMemoDbHelper.COLUMN_CHECKED, foreignData.isChecked());
+        values.put(DateiMemoDbHelper.COLUMN_UID, foreignData.getUid());
+        //values.put(DateiMemoDbHelper.COLUMN_CHECKED, foreignData.isChecked());
         values.put(DateiMemoDbHelper.COLUMN_FOTOID, foreignData.getFotoId());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTX, foreignData.getPunktX());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTY, foreignData.getPunktY());
@@ -365,9 +365,9 @@ public class ForeignDataDbSource {
 
         Cursor cursor = database.rawQuery(query, null);
 
-        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
-        int intValueChecked = cursor.getInt(idChecked);
-        boolean isChecked = (intValueChecked != 0);
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
 
 
         //3. Durchführen Zeile und füge in List hinzu
@@ -376,7 +376,7 @@ public class ForeignDataDbSource {
             do {
                 foreignData = new ForeignData();
                 foreignData.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_FID)));
-                foreignData.setChecked(isChecked);
+                //foreignData.setChecked(isChecked);
                 foreignData.setPunktX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_PUNKTX)));
                 foreignData.setPunktY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_PUNKTY)));
                 foreignData.setForeignIp(cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_IP)));

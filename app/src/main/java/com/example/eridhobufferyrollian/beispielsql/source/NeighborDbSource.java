@@ -44,7 +44,7 @@ public class NeighborDbSource {
             DateiMemoDbHelper.COLUMN_UIP,
             DateiMemoDbHelper.COLUMN_RTT,
             DateiMemoDbHelper.COLUMN_UID,
-            DateiMemoDbHelper.COLUMN_CHECKED
+            //DateiMemoDbHelper.COLUMN_CHECKED
     };
 
     public NeighborDbSource(){
@@ -157,8 +157,8 @@ public class NeighborDbSource {
     public int createNeighborMemo(NeighborMemo neighborMemo) {
         database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemoDbSource.getUid());
-        values.put(DateiMemoDbHelper.COLUMN_CHECKED, neighborMemo.isChecked());
+        values.put(DateiMemoDbHelper.COLUMN_UID, neighborMemo.getUid());
+        //values.put(DateiMemoDbHelper.COLUMN_CHECKED, neighborMemo.isChecked());
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX, neighborMemo.getCornerTopLeftX());
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY, neighborMemo.getCornerTopLeftY());
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX, neighborMemo.getCornerTopRightX());
@@ -870,9 +870,9 @@ public class NeighborDbSource {
 
         Cursor cursor = database.rawQuery(query, null);
 
-        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
-        int intValueChecked = cursor.getInt(idChecked);
-        boolean isChecked = (intValueChecked != 0);
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
 
 
         //3. Durchführen Zeile und füge in List hinzu
@@ -881,7 +881,7 @@ public class NeighborDbSource {
             do {
                 neighborMemo = new NeighborMemo();
                 neighborMemo.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_NID)));
-                neighborMemo.setChecked(isChecked);
+                //neighborMemo.setChecked(isChecked);
                 neighborMemo.setCornerTopLeftX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPLEFTX)));
                 neighborMemo.setCornerTopLeftY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPLEFTY)));
                 neighborMemo.setCornerTopRightX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPRIGHTX)));

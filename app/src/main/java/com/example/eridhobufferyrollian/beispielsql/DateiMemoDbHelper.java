@@ -77,14 +77,13 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     public static final String COLUMN_CORNERBOTTOMLEFTY = "cornerBottomLeftY";
 
 
-    public static final String COLUMN_CHECKED = "checked";
+    //public static final String COLUMN_CHECKED = "checked";
 
 
 
     public static final String SQL_CREATE_TABLE_DATEI =
             "CREATE TABLE " + TABLE_DATEI_LIST +
                     "(" + COLUMN_UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0, " +
                     COLUMN_CORNERTOPRIGHTX + " REAL NOT NULL, " +
                     COLUMN_CORNERTOPRIGHTY + " REAL NOT NULL, " +
                     COLUMN_CORNERTOPLEFTX + " REAL NOT NULL, " +
@@ -102,12 +101,11 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
             "CREATE TABLE " + TABLE_PEER_LIST +
                     "(" + COLUMN_PEERIP + " TEXT PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_PEERID + " INTEGER NOT NULL, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0, " +
                     " FOREIGN KEY ("+ COLUMN_PID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
 
     public static final String SQL_CREATE_TABLE_NEIGBHORS =
             "CREATE TABLE " + TABLE_NEIGHBOR_LIST +
-                    "(" + COLUMN_UIP + " STRING PRIMARY KEY AUTOINCREMENT, " +
+                    "(" + COLUMN_UIP + " TEXT PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_CORNERTOPRIGHTX + " REAL NOT NULL, " +
                     COLUMN_CORNERTOPRIGHTY + " REAL NOT NULL, " +
                     COLUMN_CORNERTOPLEFTX + " REAL NOT NULL, " +
@@ -119,13 +117,11 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
                     COLUMN_PUNKTX + "REAL NOT NULL, " +
                     COLUMN_PUNKTY + "REAL NOT NULL, " +
                     COLUMN_RTT + " REAL NOT NULL, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0, " +
                     " FOREIGN KEY ("+ COLUMN_NID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));";
 
     public static final String SQL_CREATE_TABLE_OWNDATAS =
             "CREATE TABLE " + TABLE_OWNDATA_LIST +
                     "(" + COLUMN_FILEID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0, " +
                     COLUMN_PUNKTX + "REAL NOT NULL, " +
                     COLUMN_PUNKTY + "REAL NOT NULL, " +
                     " FOREIGN KEY ("+ COLUMN_OID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));" ;
@@ -133,7 +129,6 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     public static final String SQL_CREATE_TABLE_FOREIGNDATAS =
             "CREATE TABLE " + TABLE_FOREIGNDATA_LIST +
                     "(" + COLUMN_FOTOID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_CHECKED + " BOOLEAN NOT NULL DEFAULT 0, " +
                     COLUMN_IP + "TEXT NOT NULL, " +
                     " FOREIGN KEY ("+ COLUMN_FID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "));" ;
 

@@ -47,7 +47,7 @@ public class DateiMemoDbSource {
             DateiMemoDbHelper.COLUMN_PUNKTY,
             DateiMemoDbHelper.COLUMN_IP,
             DateiMemoDbHelper.COLUMN_COUNTPEERS,
-            DateiMemoDbHelper.COLUMN_CHECKED
+            //DateiMemoDbHelper.COLUMN_CHECKED
     };
 
     public DateiMemoDbSource(){
@@ -138,7 +138,7 @@ public class DateiMemoDbSource {
         database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_UID, dateiMemo.getUid());
-        values.put(DateiMemoDbHelper.COLUMN_CHECKED, dateiMemo.isChecked());
+        //values.put(DateiMemoDbHelper.COLUMN_CHECKED, dateiMemo.isChecked());
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX, dateiMemo.getCornerTopLeftX());
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY, dateiMemo.getCornerTopLeftY());
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX, dateiMemo.getCornerTopRightX());
@@ -150,7 +150,7 @@ public class DateiMemoDbSource {
         values.put(DateiMemoDbHelper.COLUMN_PUNKTX, dateiMemo.getPunktX());
         values.put(DateiMemoDbHelper.COLUMN_PUNKTY, dateiMemo.getPunktY());
         values.put(DateiMemoDbHelper.COLUMN_IP, dateiMemo.getIP());
-        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, peerDbSource.getPeersCount());
+        values.put(DateiMemoDbHelper.COLUMN_COUNTPEERS, dateiMemo.getCountPeers());
 
         //
         //insert row
@@ -825,9 +825,9 @@ public class DateiMemoDbSource {
 
         Cursor cursor = database.rawQuery(query, null);
 
-        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
-        int intValueChecked = cursor.getInt(idChecked);
-        boolean isChecked = (intValueChecked != 0);
+//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int intValueChecked = cursor.getInt(idChecked);
+//        boolean isChecked = (intValueChecked != 0);
 
 
         //3. Durchführen Zeile und füge in List hinzu
@@ -836,7 +836,7 @@ public class DateiMemoDbSource {
             do {
                 dateiMemo = new DateiMemo();
                 dateiMemo.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_UID)));
-                dateiMemo.setChecked(isChecked);
+                //dateiMemo.setChecked(isChecked);
                 dateiMemo.setCornerTopLeftX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPLEFTX)));
                 dateiMemo.setCornerTopLeftY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPLEFTY)));
                 dateiMemo.setCornerTopRightX(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_CORNERTOPRIGHTX)));
