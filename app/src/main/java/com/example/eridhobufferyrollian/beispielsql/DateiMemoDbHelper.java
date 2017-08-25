@@ -22,7 +22,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
     //######################    neue Database   #######################################
     public static final String DB_NAME = "p2p.db";
-    public static final int DB_VERSION = 8;
+    public static final int DB_VERSION = 4;
     //##################################################################################
 
 
@@ -99,8 +99,8 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
     public static final String SQL_CREATE_TABLE_PEERS =
             "CREATE TABLE " + TABLE_PEER_LIST +
-                    "(" + COLUMN_PEERIP + " TEXT PRIMARY KEY AUTOINCREMENT," +
-                    COLUMN_PEERID + " INTEGER NOT NULL," +
+                    "(" + COLUMN_PEERIP + " TEXT NOT NULL" +
+                    COLUMN_PEERID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "FOREIGN KEY ("+ COLUMN_PID +") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "))";
 
     public static final String SQL_CREATE_TABLE_NEIGBHORS =

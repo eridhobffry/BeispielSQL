@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // double cornerBottomLeftX und Y, double punktX, double punktY, double IP, int countPeers
         DateiMemo dateiMemo = new DateiMemo();
         dateiMemo.setUid(1);
-        dateiMemo.setChecked(true);
+        //dateiMemo.setChecked(true);
         dateiMemo.setCornerTopRightX(0.5);
         dateiMemo.setCornerTopRightY(0.6);
         dateiMemo.setCornerTopLeftX(0.2);
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private String foreignIp;
         ForeignData foreignData = new ForeignData();
         foreignData.setUid(1);
-        foreignData.setChecked(true);
+        //foreignData.setChecked(true);
         foreignData.setFotoId(2);
         foreignData.setPunktX(0.5);
         foreignData.setPunktY(0.5);
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private long uid;
         NeighborMemo neighborMemo = new NeighborMemo();
         neighborMemo.setUid(1);
-        neighborMemo.setChecked(true);
+        //neighborMemo.setChecked(true);
         neighborMemo.setCornerTopRightX(0.5);
         neighborMemo.setCornerTopRightY(0.6);
         neighborMemo.setCornerTopLeftX(0.2);
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    public int fileId
         OwnDataMemo ownDataMemo = new OwnDataMemo();
         ownDataMemo.setUid(1);
-        ownDataMemo.setChecked(true);
+        //ownDataMemo.setChecked(true);
         ownDataMemo.setFileId(3);
         ownDataDbSource.createOwnData(ownDataMemo);
 
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         PeerMemo peerMemo = new PeerMemo();
         peerMemo.setUid(1);
         peerMemo.setPeerId(1);
-        peerMemo.setChecked(true);
+        //peerMemo.setChecked(true);
         peerMemo.setPeerIp("277.0.0.1");
         peerDbSource.createPeerMemo(peerMemo);
 
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         for (int j = 0; j < dateiMemoList.size(); j++){
             String output = "ID: "+ dateiMemoList.get(j).getUid() +
-                    "\n Status: "+ dateiMemoList.get(j).isChecked() +
+                    //"\n Status: "+ dateiMemoList.get(j).isChecked() +
                     "\n Corner Top Right X: "+ dateiMemoList.get(j).getCornerTopRightX() +
                     "\n Corner Top Right Y: "+ dateiMemoList.get(j).getCornerTopRightY() +
                     "\n Corner Top Left X: "+ dateiMemoList.get(j).getCornerTopLeftX() +
@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         for (int i= 0; i < foreignDataList.size(); i++){
             String output = "ID: "+ foreignDataList.get(i).getUid() +
-                    "\n Status: "+ foreignDataList.get(i).isChecked() +
+                    //"\n Status: "+ foreignDataList.get(i).isChecked() +
                     "\n Foto ID: "+ foreignDataList.get(i).getFotoId() +
                     "\n Punkt X: "+ foreignDataList.get(i).getPunktX() +
                     "\n Punkt Y: "+ foreignDataList.get(i).getPunktY() +
@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         for (int i= 0; i < neighborMemoList.size(); i++) {
             String output = "ID: "+ neighborMemoList.get(i).getUid() +
-                    "\n Status: "+ neighborMemoList.get(i).isChecked() +
+                    //"\n Status: "+ neighborMemoList.get(i).isChecked() +
                     "\n Corner Top Right X: "+ neighborMemoList.get(i).getCornerTopRightX() +
                     "\n Corner Top Right Y: "+ neighborMemoList.get(i).getCornerTopRightY() +
                     "\n Corner Top Left X: "+ neighborMemoList.get(i).getCornerTopLeftX() +
@@ -325,8 +325,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         for (int i = 0; i < ownDataMemoList.size(); i++){
             String output = "ID: "+ ownDataMemoList.get(i).getUid() +
-                    "\n Status: "+ ownDataMemoList.get(i).isChecked() +
-                    "File ID: "+ ownDataMemoList.get(i).getFileId();
+                    //"\n Status: "+ ownDataMemoList.get(i).isChecked() +
+                    "\n File ID: "+ ownDataMemoList.get(i).getFileId();
 
             Log.d(LOG_TAG, output);
         }
