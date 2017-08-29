@@ -340,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         for(int i= 0; i < peerMemoList.size(); i++){
             String output = "ID: "+ peerMemoList.get(i).getUid() +
-                    "\n Status: "+ peerMemoList.get(i).isChecked() +
+                    //"\n Status: "+ peerMemoList.get(i).isChecked() +
                     "Peer ID: "+ peerMemoList.get(i).getPeerId() +
                     "\n IP: "+ peerMemoList.get(i).getPeerIp();
 
