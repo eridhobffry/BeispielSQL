@@ -8,7 +8,7 @@ public class OwnDataMemo {
     DateiMemo dateiMemo;
 
     public long uid;
-    public boolean checked;
+    //public boolean checked;
     public int fileId;
 
 
@@ -27,13 +27,13 @@ public class OwnDataMemo {
         this.uid = uid;
     }
 
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
+//    public boolean isChecked() {
+//        return checked;
+//    }
+//
+//    public void setChecked(boolean checked) {
+//        this.checked = checked;
+//    }
 
     public int getFileId() {
         return fileId;

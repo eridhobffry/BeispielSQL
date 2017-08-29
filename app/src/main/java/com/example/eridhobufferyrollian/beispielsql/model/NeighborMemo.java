@@ -17,7 +17,7 @@ public class NeighborMemo {
     private double punktY;
     private String UIP;
     private double RTT;
-    private boolean checked;
+    //private boolean checked;
     private long uid;
 
 //    public NeighborMemo(long uid, boolean checked,
@@ -168,13 +168,13 @@ public class NeighborMemo {
         this.RTT = RTT;
     }
 
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
+//    public boolean isChecked() {
+//        return checked;
+//    }
+//
+//    public void setChecked(boolean checked) {
+//        this.checked = checked;
+//    }
 
     public long getUid() {
         return uid;

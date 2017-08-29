@@ -9,7 +9,7 @@ public class ForeignData {
     DateiMemo dateiMemo;
 
     private long uid;
-    private boolean checked;
+    //private boolean checked;
     private int fotoId;
     private double punktX;
     private double punktY;
@@ -32,13 +32,13 @@ public class ForeignData {
         this.uid = uid;
     }
 
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
+//    public boolean isChecked() {
+//        return checked;
+//    }
+//
+//    public void setChecked(boolean checked) {
+//        this.checked = checked;
+//    }
 
     public int getFotoId() {
         return fotoId;

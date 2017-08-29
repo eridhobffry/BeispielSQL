@@ -23,7 +23,7 @@ public class DateiMemo {
     private double punktY;
     private String IP;
     private int countPeers;
-    private boolean checked;
+    //private boolean checked;
 
 //    public DateiMemo(long uid, boolean checked,
 //                     double cornerTopRightX, double cornerTopRightY, double cornerTopLeftX, double cornerTopLeftY,
@@ -138,13 +138,13 @@ public class DateiMemo {
     }
 
 
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked (boolean checked) {
-        this.checked = checked;
-    }
+//    public boolean isChecked() {
+//        return checked;
+//    }
+//
+//    public void setChecked (boolean checked) {
+//        this.checked = checked;
+//    }
 
 //    public double getCornerTopRight() {
 //        return cornerTopRight;
