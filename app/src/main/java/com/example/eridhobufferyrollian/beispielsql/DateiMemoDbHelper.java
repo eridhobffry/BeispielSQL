@@ -22,7 +22,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
     //######################    neue Database   #######################################
     public static final String DB_NAME = "p2p.db";
-    public static final int DB_VERSION = 4;
+    public static final int DB_VERSION = 8;
     //##################################################################################
 
 
