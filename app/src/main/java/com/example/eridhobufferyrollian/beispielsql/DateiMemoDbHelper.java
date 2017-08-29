@@ -147,6 +147,15 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
         super(App.getContext(), DB_NAME, null, DB_VERSION);
     }
 
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        if (!db.isReadOnly()) {
+            // Enable foreign key constraints
+            db.execSQL("PRAGMA foreign_keys=ON;");
+        }
+    }
+
     // Die onCreate-Methode wird nur aufgerufen, falls die Datenbank noch nicht existiert
     @Override
     public void onCreate(SQLiteDatabase db) {
