@@ -122,13 +122,13 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     public static final String SQL_CREATE_TABLE_OWNDATAS =
             "CREATE TABLE " + TABLE_OWNDATA_LIST +
                     "(" + COLUMN_FILEID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    COLUMN_PUNKTX + " REAL NOT NULL," +
-                    COLUMN_PUNKTY + " REAL NOT NULL," +
                     "FOREIGN KEY ("+ COLUMN_OID + ") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "))" ;
 
     public static final String SQL_CREATE_TABLE_FOREIGNDATAS =
             "CREATE TABLE " + TABLE_FOREIGNDATA_LIST +
                     "(" + COLUMN_FOTOID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    COLUMN_PUNKTX + " REAL NOT NULL," +
+                    COLUMN_PUNKTY + " REAL NOT NULL," +
                     COLUMN_IP + "TEXT NOT NULL," +
                     "FOREIGN KEY ("+ COLUMN_FID +") REFERENCES "+ TABLE_DATEI_LIST +"("+ COLUMN_UID + "))" ;
 
