@@ -143,7 +143,7 @@ public class OwnDataDbSource {
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_OID, ownDataMemo.getUid());
         //values.put(DateiMemoDbHelper.COLUMN_CHECKED, ownDataMemo.isChecked());
-        values.put(DateiMemoDbHelper.COLUMN_FOTOID, ownDataMemo.getFileId());
+        values.put(DateiMemoDbHelper.COLUMN_FILEID, ownDataMemo.getFileId());
 
         //
         //insert row

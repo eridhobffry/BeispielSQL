@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // double cornerTopRightX und Y, double cornerTopLeftx und Y, double cornerBottomRightX und Y,
         // double cornerBottomLeftX und Y, double punktX, double punktY, double IP, int countPeers
         DateiMemo dateiMemo = new DateiMemo();
-        dateiMemo.setUid(73872);
+        dateiMemo.setUid(7872);
         //dateiMemo.setChecked(true);
         dateiMemo.setCornerTopRightX(0.5);
         dateiMemo.setCornerTopRightY(0.6);
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private double punktY;
         //private String foreignIp;
         ForeignData foreignData = new ForeignData();
-        foreignData.setUid(dateiMemo.getUid());
+        foreignData.setUid(7127);
         //foreignData.setChecked(true);
         foreignData.setFotoId(2);
         foreignData.setPunktX(0.5);
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private boolean checked;
         //private long uid;
         NeighborMemo neighborMemo = new NeighborMemo();
-        neighborMemo.setUid(dateiMemo.getUid());
+        neighborMemo.setUid(1098);
         //neighborMemo.setChecked(true);
         neighborMemo.setCornerTopRightX(0.5);
         neighborMemo.setCornerTopRightY(0.6);
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         neighborMemo.setCornerBottomLeftX(0.4);
         neighborMemo.setCornerBottomLeftY(0.6);
         neighborMemo.setCornerBottomRightX(0.5);
-        neighborMemo.setCornerBottomRightY(1);
+        neighborMemo.setCornerBottomRightY(0.8);
         neighborMemo.setPunktX(0.2);
         neighborMemo.setPunktY(0.4);
         neighborMemo.setUIP("277.0.0.0/8");
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    public boolean checked;
         //    public int fileId
         OwnDataMemo ownDataMemo = new OwnDataMemo();
-        ownDataMemo.setUid(dateiMemo.getUid());
+        ownDataMemo.setUid(1982);
         //ownDataMemo.setChecked(true);
         ownDataMemo.setFileId(3);
         ownDataDbSource.createOwnData(ownDataMemo);
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    public double peerIp;
         //    private boolean checked;
         PeerMemo peerMemo = new PeerMemo();
-        peerMemo.setUid(dateiMemo.getUid());
+        peerMemo.setUid(1937);
         peerMemo.setPeerId(1);
         //peerMemo.setChecked(true);
         peerMemo.setPeerIp("277.0.0.1");
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(LOG_TAG,"=============================================================");
 
         for (int j = 0; j < dateiMemoList.size(); j++){
-            String output = "ID: "+ dateiMemoList.get(j).getUid() +
+            String output = "Node_ID: "+ dateiMemoList.get(j).getUid() +
                     //"\n Status: "+ dateiMemoList.get(j).isChecked() +
                     "\n Corner Top Right X: "+ dateiMemoList.get(j).getCornerTopRightX() +
                     "\n Corner Top Right Y: "+ dateiMemoList.get(j).getCornerTopRightY() +
@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(LOG_TAG,"=============================================================");
 
         for (int i= 0; i < foreignDataList.size(); i++){
-            String output = "ID: "+ foreignDataList.get(i).getUid() +
+            String output = "Foreign_ID: "+ foreignDataList.get(i).getUid() +
                     //"\n Status: "+ foreignDataList.get(i).isChecked() +
                     "\n Foto ID: "+ foreignDataList.get(i).getFotoId() +
                     "\n Punkt X: "+ foreignDataList.get(i).getPunktX() +
@@ -298,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(LOG_TAG,"=============================================================");
 
         for (int i= 0; i < neighborMemoList.size(); i++) {
-            String output = "ID: "+ neighborMemoList.get(i).getUid() +
+            String output = "Neighbor_ID: "+ neighborMemoList.get(i).getUid() +
                     //"\n Status: "+ neighborMemoList.get(i).isChecked() +
                     "\n Corner Top Right X: "+ neighborMemoList.get(i).getCornerTopRightX() +
                     "\n Corner Top Right Y: "+ neighborMemoList.get(i).getCornerTopRightY() +
@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     "\n Corner Bottom Right X: "+ neighborMemoList.get(i).getCornerBottomRightX() +
                     "\n Corner Bottom Right Y: "+ neighborMemoList.get(i).getCornerBottomRightY() +
                     "\n Corner Bottom Left X: "+ neighborMemoList.get(i).getCornerBottomLeftX() +
-                    "\n Corner Bottom Left Y: "+ neighborMemoList.get(i).getCornerTopLeftY() +
+                    "\n Corner Bottom Left Y: "+ neighborMemoList.get(i).getCornerBottomLeftY() +
                     "\n Punkt X: "+ neighborMemoList.get(i).getPunktX() +
                     "\n Punkt Y: "+ neighborMemoList.get(i).getPunktY() +
                     "\n IP: "+ neighborMemoList.get(i).getUIP() +
@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(LOG_TAG,"=============================================================");
 
         for (int i = 0; i < ownDataMemoList.size(); i++){
-            String output = "ID: "+ ownDataMemoList.get(i).getUid() +
+            String output = "OwnData_ID: "+ ownDataMemoList.get(i).getUid() +
                     //"\n Status: "+ ownDataMemoList.get(i).isChecked() +
                     "\n File ID: "+ ownDataMemoList.get(i).getFileId();
 
@@ -339,9 +339,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(LOG_TAG,"=============================================================");
 
         for(int i= 0; i < peerMemoList.size(); i++){
-            String output = "ID: "+ peerMemoList.get(i).getUid() +
+            String output = "Node_Peer_ID: "+ peerMemoList.get(i).getUid() +
                     //"\n Status: "+ peerMemoList.get(i).isChecked() +
-                    "Peer ID: "+ peerMemoList.get(i).getPeerId() +
+                    "\nPeer ID: "+ peerMemoList.get(i).getPeerId() +
                     "\n IP: "+ peerMemoList.get(i).getPeerIp();
 
             Log.d(LOG_TAG, output);
