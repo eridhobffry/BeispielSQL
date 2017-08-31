@@ -51,7 +51,7 @@ import com.example.eridhobufferyrollian.beispielsql.source.PeerDbSource;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnData, btnOwnData, btnForeignData, btnNeighbor, btnPeer;
+    Button btnData, btnOwnData, btnForeignData, btnNeighbor, btnPeer, btnIpNode;
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -92,6 +92,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnPeer= (Button) findViewById(R.id.btnPeer);
         btnPeer.setOnClickListener(this);
+
+        btnIpNode= (Button)findViewById(R.id.btnIpNode);
+        btnIpNode.setOnClickListener(this);
 
         insertSampleData();
 
@@ -346,6 +349,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             Log.d(LOG_TAG, output);
         }
+        Log.d(LOG_TAG,"=============================================================");
+    }
+
+    private void IP_Node () {
+        String value = dateiMemoDbSource.getIp(dateiMemoDbSource.getUid());
+        Log.d(LOG_TAG,"=============================================================");
+        String output = "Value = " + value;
+        Log.d(LOG_TAG, output);
         Log.d(LOG_TAG,"=============================================================");
     }
 
@@ -674,6 +685,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ListNeighborData();
         }else if (view ==findViewById(R.id.btnPeer)) {
             ListPeer();
+        }else if (view ==findViewById(R.id.btnIpNode)) {
+            IP_Node();
         }
     }
 }
