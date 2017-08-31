@@ -145,11 +145,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ownDataDbSource = new OwnDataDbSource();
         peerDbSource = new PeerDbSource();
 
-        dateiMemoDbSource.deleteDateiMemo();
-        neighborDbSource.deleteNeighbormemo();
-        ownDataDbSource.deleteOwnData();
-        peerDbSource.deletePeerMemo();
-        foreignDataDbSource.deleteForeignData();
+//        dateiMemoDbSource.deleteDateiMemo();
+//        neighborDbSource.deleteNeighbormemo();
+//        ownDataDbSource.deleteOwnData();
+//        peerDbSource.deletePeerMemo();
+//        foreignDataDbSource.deleteForeignData();
 
 
 
