@@ -145,11 +145,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ownDataDbSource = new OwnDataDbSource();
         peerDbSource = new PeerDbSource();
 
-//        dateiMemoDbSource.deleteDateiMemo();
-//        neighborDbSource.deleteNeighbormemo();
-//        ownDataDbSource.deleteOwnData();
-//        peerDbSource.deletePeerMemo();
-//        foreignDataDbSource.deleteForeignData();
+        dateiMemoDbSource.deleteDateiMemo();
+        neighborDbSource.deleteNeighbormemo();
+        ownDataDbSource.deleteOwnData();
+        peerDbSource.deletePeerMemo();
+        foreignDataDbSource.deleteForeignData();
 
 
 
@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // double cornerTopRightX und Y, double cornerTopLeftx und Y, double cornerBottomRightX und Y,
         // double cornerBottomLeftX und Y, double punktX, double punktY, double IP, int countPeers
         DateiMemo dateiMemo = new DateiMemo();
-        dateiMemo.setUid(1);
+        dateiMemo.setUid(73872);
         //dateiMemo.setChecked(true);
         dateiMemo.setCornerTopRightX(0.5);
         dateiMemo.setCornerTopRightY(0.6);
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private double punktY;
         //private String foreignIp;
         ForeignData foreignData = new ForeignData();
-        foreignData.setUid(1);
+        foreignData.setUid(dateiMemo.getUid());
         //foreignData.setChecked(true);
         foreignData.setFotoId(2);
         foreignData.setPunktX(0.5);
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private boolean checked;
         //private long uid;
         NeighborMemo neighborMemo = new NeighborMemo();
-        neighborMemo.setUid(1);
+        neighborMemo.setUid(dateiMemo.getUid());
         //neighborMemo.setChecked(true);
         neighborMemo.setCornerTopRightX(0.5);
         neighborMemo.setCornerTopRightY(0.6);
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    public boolean checked;
         //    public int fileId
         OwnDataMemo ownDataMemo = new OwnDataMemo();
-        ownDataMemo.setUid(1);
+        ownDataMemo.setUid(dateiMemo.getUid());
         //ownDataMemo.setChecked(true);
         ownDataMemo.setFileId(3);
         ownDataDbSource.createOwnData(ownDataMemo);
@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    public double peerIp;
         //    private boolean checked;
         PeerMemo peerMemo = new PeerMemo();
-        peerMemo.setUid(1);
+        peerMemo.setUid(dateiMemo.getUid());
         peerMemo.setPeerId(1);
         //peerMemo.setChecked(true);
         peerMemo.setPeerIp("277.0.0.1");

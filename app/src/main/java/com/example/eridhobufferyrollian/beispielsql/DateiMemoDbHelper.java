@@ -159,25 +159,22 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
     // Die onCreate-Methode wird nur aufgerufen, falls die Datenbank noch nicht existiert
     @Override
     public void onCreate(SQLiteDatabase db) {
-        try {
+            //1. Info
             Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_TABLE_DATEI + SQL_CREATE_TABLE_PEERS
                     + SQL_CREATE_TABLE_NEIGBHORS + SQL_CREATE_TABLE_OWNDATAS + SQL_CREATE_TABLE_FOREIGNDATAS + " angelegt.");
 
+            //2. Enable foreign key
             if (!db.isReadOnly()) {
                 // Enable foreign key constraints
                 db.execSQL("PRAGMA foreign_keys=ON;");
             }
 
-            //Erstellung eine Datenbank mit String "SQL_CREATE" als Parameter
+            //3. Erstellung eine Datenbank mit String "SQL_CREATE" als Parameter
             db.execSQL(SQL_CREATE_TABLE_DATEI);
             db.execSQL(SQL_CREATE_TABLE_PEERS);
             db.execSQL(SQL_CREATE_TABLE_NEIGBHORS);
             db.execSQL(SQL_CREATE_TABLE_OWNDATAS);
             db.execSQL(SQL_CREATE_TABLE_FOREIGNDATAS);
-        }
-        catch (Exception ex) {
-            Log.e(LOG_TAG, "Fehler beim Anlegen der Tabelle: " + ex.getMessage());
-        }
     }
 
     //wird zur Aktualisierung einer bereits bestehenden Datenbank benutzt
