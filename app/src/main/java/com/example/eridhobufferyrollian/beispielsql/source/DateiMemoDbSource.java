@@ -283,8 +283,8 @@ public class DateiMemoDbSource {
         //3. Update Database
         database.update(DateiMemoDbHelper.TABLE_DATEI_LIST, //UPDATE which TABLE
                 values, // SET query
-                null, //should be WHERE query
-                null  //should be Array
+                null, // should be WHERE query
+                null  // should be Array
                 );
 
         //4. Schliess Database
@@ -292,25 +292,23 @@ public class DateiMemoDbSource {
 
     }
 
-    public double updateCornerTopLeftY(double newCornerTopLeftY) {
+    public void updateCornerTopLeftY(double newCornerTopLeftY) {
+        //1. Öffne Database
         database = DatabaseManager.getInstance().openDatabase();
+
+        //2. Erstell neue Wert
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY, newCornerTopLeftY);
 
-        database.update(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                values,
-                DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY + "=" + newCornerTopLeftY,
-                null);
+        //3. Update Database
+        database.update(DateiMemoDbHelper.TABLE_DATEI_LIST, //UPDATE which TABLE
+                values, // SET query
+                null, // should be WHERE query
+                null  // should be Array
+        );
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                columns, DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY + "=" + newCornerTopLeftY,
-                null, null, null, null);
-
-        cursor.moveToFirst();
-        double cornerTopLeftY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY));
-        cursor.close();
+        //4. Schliess Database
         DatabaseManager.getInstance().closeDatabase();
-        return cornerTopLeftY;
     }
     //
     // ================================================================================================================================
