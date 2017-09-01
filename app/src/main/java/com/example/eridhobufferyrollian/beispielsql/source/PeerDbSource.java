@@ -237,12 +237,13 @@ public class PeerDbSource {
     *
     * */
     public int getPeersCount() {
+        database = DatabaseManager.getInstance().openDatabase();
         String countQuery = "SELECT * FROM " + DateiMemoDbHelper.TABLE_PEER_LIST;
         Cursor cursor = database.rawQuery(countQuery, null);
 
         int count = cursor.getCount();
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         // return count
         return count;
     }
@@ -305,6 +306,8 @@ public class PeerDbSource {
     *
     * */
     public double getUidPeer() {
+        database = DatabaseManager.getInstance().openDatabase();
+        DatabaseManager.getInstance().closeDatabase();
         return dateiMemoDbSource.getUid();
     }
 

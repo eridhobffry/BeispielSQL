@@ -239,7 +239,7 @@ public class ForeignDataDbSource {
     *
     * */
      public double getPunktXForeign(long uid) {
-
+         database = DatabaseManager.getInstance().openDatabase();
          String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_PUNKTX +" FROM " + DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST + " WHERE "
                  + DateiMemoDbHelper.COLUMN_FID + " = " + uid;
 
@@ -251,7 +251,7 @@ public class ForeignDataDbSource {
              c.moveToFirst();
          double punktX;
          punktX = c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX));
-
+         DatabaseManager.getInstance().closeDatabase();
          return punktX;
      }
     //
@@ -269,7 +269,7 @@ public class ForeignDataDbSource {
     *
     * */
     public double getPunktYForeign(long uid) {
-
+        database = DatabaseManager.getInstance().openDatabase();
         String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_PUNKTY +" FROM " + DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST + " WHERE "
                 + DateiMemoDbHelper.COLUMN_UID + " = " + uid;
 
@@ -281,7 +281,7 @@ public class ForeignDataDbSource {
             c.moveToFirst();
         double punktY;
         punktY = c.getDouble(c.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY));
-
+        DatabaseManager.getInstance().closeDatabase();
         return punktY;
     }
     //
@@ -296,6 +296,7 @@ public class ForeignDataDbSource {
     *
     * */
     public int getFotoId(long uid) {
+        database = DatabaseManager.getInstance().openDatabase();
         //List<long> UidList = new ArrayList<>();
         String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_FOTOID + " FROM " + DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST+ " WHERE "
                 + DateiMemoDbHelper.COLUMN_UID + " = " + uid;
@@ -307,7 +308,7 @@ public class ForeignDataDbSource {
         fotoId = cursor.getInt(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FOTOID));
 
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         return fotoId;
     }
     //
@@ -320,7 +321,10 @@ public class ForeignDataDbSource {
     *
     * */
     public double getUidForeign() {
+        database = DatabaseManager.getInstance().openDatabase();
+        DatabaseManager.getInstance().closeDatabase();
         return dateiMemoDbSource.getUid();
+
     }
     //
     // ================================================================================================================================
@@ -335,7 +339,7 @@ public class ForeignDataDbSource {
     *
     * */
     public String getforeignIp(long uid) {
-
+        database = DatabaseManager.getInstance().openDatabase();
         String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_IP +" FROM " + DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST + " WHERE "
                 + DateiMemoDbHelper.COLUMN_UID + " = " + uid;
 
@@ -347,7 +351,7 @@ public class ForeignDataDbSource {
             c.moveToFirst();
         String foreignIp;
         foreignIp = c.getString(c.getColumnIndex(DateiMemoDbHelper.COLUMN_IP));
-
+        DatabaseManager.getInstance().closeDatabase();
         return foreignIp;
     }
     //
@@ -355,6 +359,7 @@ public class ForeignDataDbSource {
     //
 
     public List<ForeignData> getAllForeignData() {
+
         List<ForeignData> ForeignDataList = new LinkedList<ForeignData>();
 
         //1. query

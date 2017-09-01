@@ -233,6 +233,7 @@ public class NeighborDbSource {
     *
     * */
     public double updateCornerTopRightXNeighbor(double newCornerTopRightX) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX, newCornerTopRightX);
 
@@ -248,11 +249,12 @@ public class NeighborDbSource {
         cursor.moveToFirst();
         double cornerTopRightX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX));
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         return cornerTopRightX;
     }
 
     public double updateCornerTopRightYNeighbor(double newCornerTopRightY) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY, newCornerTopRightY);
 
@@ -268,7 +270,7 @@ public class NeighborDbSource {
         cursor.moveToFirst();
         double cornerTopRightY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY));
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         return cornerTopRightY;
     }
     //
@@ -285,6 +287,7 @@ public class NeighborDbSource {
     *
     * */
     public double updateCornerTopLeftXNeighbor(double newCornerTopLeftX) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX, newCornerTopLeftX);
 
@@ -300,11 +303,12 @@ public class NeighborDbSource {
         cursor.moveToFirst();
         double cornerTopLeftX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX));
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         return cornerTopLeftX;
     }
 
     public double updateCornerTopLeftYNeighbor(double newCornerTopLeftY) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY, newCornerTopLeftY);
 
@@ -320,7 +324,7 @@ public class NeighborDbSource {
         cursor.moveToFirst();
         double cornerTopLeftY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY));
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         return cornerTopLeftY;
     }
     //
@@ -337,6 +341,7 @@ public class NeighborDbSource {
    *
    * */
     public double updateCornerBottomRightXNeighbor(double newCornerBottomRightX) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX, newCornerBottomRightX);
 
@@ -352,11 +357,12 @@ public class NeighborDbSource {
         cursor.moveToFirst();
         double cornerBottomRightX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX));
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         return cornerBottomRightX;
     }
 
     public double updateCornerBottomRightYNeighbor(double newCornerBottomRightY) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY, newCornerBottomRightY);
 
@@ -372,7 +378,7 @@ public class NeighborDbSource {
         cursor.moveToFirst();
         double cornerBottomRightY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY));
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         return cornerBottomRightY;
     }
     //
@@ -389,6 +395,7 @@ public class NeighborDbSource {
   *
   * */
     public double updateCornerBottomLeftXNeighbor(double newCornerBottomLeftX) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX, newCornerBottomLeftX);
 
@@ -404,11 +411,12 @@ public class NeighborDbSource {
         cursor.moveToFirst();
         double cornerBottomLeftX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX));
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         return cornerBottomLeftX;
     }
 
     public double updateCornerBottomLeftYNeighbor(double newCornerBottomLeftY) {
+        database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY, newCornerBottomLeftY);
 
@@ -424,7 +432,7 @@ public class NeighborDbSource {
         cursor.moveToFirst();
         double cornerBottomLeftY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY));
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         return cornerBottomLeftY;
     }
     /*
@@ -441,6 +449,7 @@ public class NeighborDbSource {
     *
     * */
         public double udpateRTT(double newRTT) {
+            database = DatabaseManager.getInstance().openDatabase();
             ContentValues values = new ContentValues();
             values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX, newRTT);
 
@@ -456,7 +465,7 @@ public class NeighborDbSource {
             cursor.moveToFirst();
             double RTT = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_RTT));
             cursor.close();
-
+            DatabaseManager.getInstance().closeDatabase();
             return RTT;
         }
     /*

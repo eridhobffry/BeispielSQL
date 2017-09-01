@@ -220,6 +220,7 @@ public class OwnDataDbSource {
    *
    * */
     public int getFileId(long uid) {
+        database = DatabaseManager.getInstance().openDatabase();
         //List<long> UidList = new ArrayList<>();
         String selectQuery = "SELECT "+ DateiMemoDbHelper.COLUMN_FILEID + " FROM " + DateiMemoDbHelper.TABLE_OWNDATA_LIST+ " WHERE "
                 + DateiMemoDbHelper.COLUMN_UID + " = " + uid;
@@ -231,7 +232,7 @@ public class OwnDataDbSource {
         fileId = cursor.getInt(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FILEID));
 
         cursor.close();
-
+        DatabaseManager.getInstance().closeDatabase();
         return fileId;
     }
     //
@@ -244,6 +245,8 @@ public class OwnDataDbSource {
     *
     * */
     public double getUidOwn() {
+        database = DatabaseManager.getInstance().openDatabase();
+        DatabaseManager.getInstance().closeDatabase();
         return dateiMemoDbSource.getUid();
     }
 
