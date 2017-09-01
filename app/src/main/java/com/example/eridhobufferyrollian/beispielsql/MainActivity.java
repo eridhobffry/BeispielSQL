@@ -367,7 +367,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(LOG_TAG,"=============================================================");
         String alteWert = "Alte Wert = " + dateiMemoDbSource.getCornerTopLeftX();
         Log.d(LOG_TAG, alteWert);
-        dateiMemoDbSource.updateCornerTopLeftX(dateiMemoDbSource.getUid(), 0.87);
+        dateiMemoDbSource.updateCornerTopLeftX(0.3);
         String neuWert = "Neue Wert = " + dateiMemoDbSource.getCornerTopLeftX();
         Log.d(LOG_TAG, neuWert);
         Log.d(LOG_TAG,"=============================================================");

@@ -271,29 +271,25 @@ public class DateiMemoDbSource {
    *
    *
    * */
-    public void updateCornerTopLeftX(long uid, double newCornerTopLeftX) {
+    public void updateCornerTopLeftX(double newCornerTopLeftX) {
+
+        //1. Öffne Database
         database = DatabaseManager.getInstance().openDatabase();
-//        String query = "UPDATE "+ DateiMemoDbHelper.TABLE_DATEI_LIST +
-//                " SET " + DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX + " = " + newCornerTopLeftX ;
-//        Log.e(LOG_TAG, query);
-//        database.rawQuery(query, null);
+
+        //2. Erstell neue Wert
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX, newCornerTopLeftX);
 
-        database.update(DateiMemoDbHelper.TABLE_DATEI_LIST,
-                values,
-                dbHelper.COLUMN_UID + " = '"+ uid + "'",
-                null);
+        //3. Update Database
+        database.update(DateiMemoDbHelper.TABLE_DATEI_LIST, //UPDATE which TABLE
+                values, // SET query
+                null, //should be WHERE query
+                null  //should be Array
+                );
+
+        //4. Schliess Database
         DatabaseManager.getInstance().closeDatabase();
-//        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_DATEI_LIST,
-//                columns, DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX + "=" + newCornerTopLeftX,
-//                null, null, null, null);
-//
-//        cursor.moveToFirst();
-//        double cornerTopLeftX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX));
-//        cursor.close();
-//        DatabaseManager.getInstance().closeDatabase();
-//        return cornerTopLeftX;
+
     }
 
     public double updateCornerTopLeftY(double newCornerTopLeftY) {
