@@ -51,7 +51,7 @@ import com.example.eridhobufferyrollian.beispielsql.source.PeerDbSource;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnData, btnOwnData, btnForeignData, btnNeighbor, btnPeer, btnIpNode;
+    Button btnData, btnOwnData, btnForeignData, btnNeighbor, btnPeer, btnIpNode, btnUpdate;
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -95,6 +95,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnIpNode= (Button)findViewById(R.id.btnIpNode);
         btnIpNode.setOnClickListener(this);
+
+        btnUpdate= (Button)findViewById(R.id.btnUpdate);
+        btnUpdate.setOnClickListener(this);
 
         insertSampleData();
 
@@ -148,11 +151,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ownDataDbSource = new OwnDataDbSource();
         peerDbSource = new PeerDbSource();
 
-        dateiMemoDbSource.deleteDateiMemo();
-        neighborDbSource.deleteNeighbormemo();
-        ownDataDbSource.deleteOwnData();
-        peerDbSource.deletePeerMemo();
-        foreignDataDbSource.deleteForeignData();
+//        dateiMemoDbSource.deleteDateiMemo();
+//        neighborDbSource.deleteNeighbormemo();
+//        ownDataDbSource.deleteOwnData();
+//        peerDbSource.deletePeerMemo();
+//        foreignDataDbSource.deleteForeignData();
 
 
 
@@ -357,6 +360,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(LOG_TAG,"=============================================================");
         String output = "Value = " + value;
         Log.d(LOG_TAG, output);
+        Log.d(LOG_TAG,"=============================================================");
+    }
+
+    private void UpdateCornerTopLeftX_Node (){
+        Log.d(LOG_TAG,"=============================================================");
+        String alteWert = "Alte Wert = " + dateiMemoDbSource.getCornerTopLeftX();
+        Log.d(LOG_TAG, alteWert);
+        dateiMemoDbSource.updateCornerTopLeftX(0.3);
+        String neuWert = "Neue Wert = " + dateiMemoDbSource.getCornerTopLeftX();
+        Log.d(LOG_TAG, neuWert);
         Log.d(LOG_TAG,"=============================================================");
     }
 
@@ -687,6 +700,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ListPeer();
         }else if (view ==findViewById(R.id.btnIpNode)) {
             IP_Node();
+        }else if (view ==findViewById(R.id.btnUpdate)) {
+            UpdateCornerTopLeftX_Node();
         }
     }
 }

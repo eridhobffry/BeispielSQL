@@ -232,46 +232,42 @@ public class NeighborDbSource {
     *
     *
     * */
-    public double updateCornerTopRightXNeighbor(double newCornerTopRightX) {
+    public void updateCornerTopRightXNeighbor(double newCornerTopRightX) {
+        //1. Öffne Database
         database = DatabaseManager.getInstance().openDatabase();
+
+        //2. Erstell neue Wert
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX, newCornerTopRightX);
 
-        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                values,
-                DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX + "=" + newCornerTopRightX,
-                null);
+        //3. Update Database
+        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, //UPDATE which TABLE
+                values, // SET query
+                null, // should be WHERE query
+                null  // should be Array
+        );
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX + "=" + newCornerTopRightX,
-                null, null, null, null);
-
-        cursor.moveToFirst();
-        double cornerTopRightX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTX));
-        cursor.close();
+        //4. Schliess Database
         DatabaseManager.getInstance().closeDatabase();
-        return cornerTopRightX;
     }
 
-    public double updateCornerTopRightYNeighbor(double newCornerTopRightY) {
+    public void updateCornerTopRightYNeighbor(double newCornerTopRightY) {
+        //1. Öffne Database
         database = DatabaseManager.getInstance().openDatabase();
+
+        //2. Erstell neue Wert
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY, newCornerTopRightY);
 
-        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                values,
-                DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY + "=" + newCornerTopRightY,
-                null);
+        //3. Update Database
+        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, //UPDATE which TABLE
+                values, // SET query
+                null, // should be WHERE query
+                null  // should be Array
+        );
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY + "=" + newCornerTopRightY,
-                null, null, null, null);
-
-        cursor.moveToFirst();
-        double cornerTopRightY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPRIGHTY));
-        cursor.close();
+        //4. Schliess Database
         DatabaseManager.getInstance().closeDatabase();
-        return cornerTopRightY;
     }
     //
     // ================================================================================================================================
@@ -286,46 +282,42 @@ public class NeighborDbSource {
     *
     *
     * */
-    public double updateCornerTopLeftXNeighbor(double newCornerTopLeftX) {
+    public void updateCornerTopLeftXNeighbor(double newCornerTopLeftX) {
+        //1. Öffne Database
         database = DatabaseManager.getInstance().openDatabase();
+
+        //2. Erstell neue Wert
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX, newCornerTopLeftX);
 
-        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                values,
-                DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX + "=" + newCornerTopLeftX,
-                null);
+        //3. Update Database
+        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, //UPDATE which TABLE
+                values, // SET query
+                null, // should be WHERE query
+                null  // should be Array
+        );
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX + "=" + newCornerTopLeftX,
-                null, null, null, null);
-
-        cursor.moveToFirst();
-        double cornerTopLeftX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTX));
-        cursor.close();
+        //4. Schliess Database
         DatabaseManager.getInstance().closeDatabase();
-        return cornerTopLeftX;
     }
 
-    public double updateCornerTopLeftYNeighbor(double newCornerTopLeftY) {
+    public void updateCornerTopLeftYNeighbor(double newCornerTopLeftY) {
+        //1. Öffne Database
         database = DatabaseManager.getInstance().openDatabase();
+
+        //2. Erstell neue Wert
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY, newCornerTopLeftY);
 
-        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                values,
-                DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY + "=" + newCornerTopLeftY,
-                null);
+        //3. Update Database
+        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, //UPDATE which TABLE
+                values, // SET query
+                null, // should be WHERE query
+                null  // should be Array
+        );
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY + "=" + newCornerTopLeftY,
-                null, null, null, null);
-
-        cursor.moveToFirst();
-        double cornerTopLeftY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERTOPLEFTY));
-        cursor.close();
+        //4. Schliess Database
         DatabaseManager.getInstance().closeDatabase();
-        return cornerTopLeftY;
     }
     //
     // ================================================================================================================================
@@ -340,46 +332,42 @@ public class NeighborDbSource {
    *
    *
    * */
-    public double updateCornerBottomRightXNeighbor(double newCornerBottomRightX) {
+    public void updateCornerBottomRightXNeighbor(double newCornerBottomRightX) {
+        //1. Öffne Database
         database = DatabaseManager.getInstance().openDatabase();
+
+        //2. Erstell neue Wert
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX, newCornerBottomRightX);
 
-        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                values,
-                DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX + "=" + newCornerBottomRightX,
-                null);
+        //3. Update Database
+        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, //UPDATE which TABLE
+                values, // SET query
+                null, // should be WHERE query
+                null  // should be Array
+        );
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX + "=" + newCornerBottomRightX,
-                null, null, null, null);
-
-        cursor.moveToFirst();
-        double cornerBottomRightX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTX));
-        cursor.close();
+        //4. Schliess Database
         DatabaseManager.getInstance().closeDatabase();
-        return cornerBottomRightX;
     }
 
-    public double updateCornerBottomRightYNeighbor(double newCornerBottomRightY) {
+    public void updateCornerBottomRightYNeighbor(double newCornerBottomRightY) {
+        //1. Öffne Database
         database = DatabaseManager.getInstance().openDatabase();
+
+        //2. Erstell neue Wert
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY, newCornerBottomRightY);
 
-        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                values,
-                DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY + "=" + newCornerBottomRightY,
-                null);
+        //3. Update Database
+        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, //UPDATE which TABLE
+                values, // SET query
+                null, // should be WHERE query
+                null  // should be Array
+        );
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY + "=" + newCornerBottomRightY,
-                null, null, null, null);
-
-        cursor.moveToFirst();
-        double cornerBottomRightY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMRIGHTY));
-        cursor.close();
+        //4. Schliess Database
         DatabaseManager.getInstance().closeDatabase();
-        return cornerBottomRightY;
     }
     //
     // ================================================================================================================================
@@ -394,46 +382,42 @@ public class NeighborDbSource {
   *
   *
   * */
-    public double updateCornerBottomLeftXNeighbor(double newCornerBottomLeftX) {
+    public void updateCornerBottomLeftXNeighbor(double newCornerBottomLeftX) {
+        //1. Öffne Database
         database = DatabaseManager.getInstance().openDatabase();
+
+        //2. Erstell neue Wert
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX, newCornerBottomLeftX);
 
-        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                values,
-                DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX + "=" + newCornerBottomLeftX,
-                null);
+        //3. Update Database
+        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, //UPDATE which TABLE
+                values, // SET query
+                null, // should be WHERE query
+                null  // should be Array
+        );
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX + "=" + newCornerBottomLeftX,
-                null, null, null, null);
-
-        cursor.moveToFirst();
-        double cornerBottomLeftX = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX));
-        cursor.close();
+        //4. Schliess Database
         DatabaseManager.getInstance().closeDatabase();
-        return cornerBottomLeftX;
     }
 
-    public double updateCornerBottomLeftYNeighbor(double newCornerBottomLeftY) {
+    public void updateCornerBottomLeftYNeighbor(double newCornerBottomLeftY) {
+        //1. Öffne Database
         database = DatabaseManager.getInstance().openDatabase();
+
+        //2. Erstell neue Wert
         ContentValues values = new ContentValues();
         values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY, newCornerBottomLeftY);
 
-        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                values,
-                DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY + "=" + newCornerBottomLeftY,
-                null);
+        //3. Update Database
+        database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, //UPDATE which TABLE
+                values, // SET query
+                null, // should be WHERE query
+                null  // should be Array
+        );
 
-        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                columns_Neighbor, DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY + "=" + newCornerBottomLeftY,
-                null, null, null, null);
-
-        cursor.moveToFirst();
-        double cornerBottomLeftY = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTY));
-        cursor.close();
+        //4. Schliess Database
         DatabaseManager.getInstance().closeDatabase();
-        return cornerBottomLeftY;
     }
     /*
     *  ================================================================================================================================
@@ -448,25 +432,23 @@ public class NeighborDbSource {
     *
     *
     * */
-        public double udpateRTT(double newRTT) {
+        public void udpateRTT(double newRTT) {
+            //1. Öffne Database
             database = DatabaseManager.getInstance().openDatabase();
+
+            //2. Erstell neue Wert
             ContentValues values = new ContentValues();
-            values.put(DateiMemoDbHelper.COLUMN_CORNERBOTTOMLEFTX, newRTT);
+            values.put(DateiMemoDbHelper.COLUMN_RTT, newRTT);
 
-            database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                    values,
-                    DateiMemoDbHelper.COLUMN_RTT + "=" + newRTT,
-                    null);
+            //3. Update Database
+            database.update(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST, //UPDATE which TABLE
+                    values, // SET query
+                    null, // should be WHERE query
+                    null  // should be Array
+            );
 
-            Cursor cursor = database.query(DateiMemoDbHelper.TABLE_NEIGHBOR_LIST,
-                    columns_Neighbor, DateiMemoDbHelper.COLUMN_RTT + "=" + newRTT,
-                    null, null, null, null);
-
-            cursor.moveToFirst();
-            double RTT = cursor.getDouble(cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_RTT));
-            cursor.close();
+            //4. Schliess Database
             DatabaseManager.getInstance().closeDatabase();
-            return RTT;
         }
     /*
     *  ================================================================================================================================
