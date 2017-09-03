@@ -226,7 +226,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         neighborMemo.setPunktY(0.4);
         neighborMemo.setUIP("277.0.0.0/8");
         neighborMemo.setRTT(25.89);
+        //neighborMemo.setNeighbour_id(2);
         neighborDbSource.createNeighborMemo(neighborMemo);
+
+
+//        neighborMemo.setUid(dateiMemo.getUid());
+//        //neighborMemo.setChecked(true);
+//        neighborMemo.setCornerTopRightX(0.3);
+//        neighborMemo.setCornerTopRightY(0.5);
+//        neighborMemo.setCornerTopLeftX(0.6);
+//        neighborMemo.setCornerTopLeftY(0.12);
+//        neighborMemo.setCornerBottomLeftX(0.7);
+//        neighborMemo.setCornerBottomLeftY(0.78);
+//        neighborMemo.setCornerBottomRightX(0.8);
+//        neighborMemo.setCornerBottomRightY(0.23);
+//        neighborMemo.setPunktX(0.4);
+//        neighborMemo.setPunktY(0.5);
+//        neighborMemo.setUIP("277.0.0.0/8");
+//        neighborMemo.setRTT(25.983);
+//        neighborMemo.setNeighbour_id(neighborDbSource.createNeighborMemo(neighborMemo));
+//        neighborDbSource.createNeighborMemo(neighborMemo);
+
 
         //insert Own Data
         //    public long uid;
@@ -287,7 +307,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(LOG_TAG,"=============================================================");
 
         for (int i= 0; i < foreignDataList.size(); i++){
-            String output = "Foreign_ID: "+ foreignDataList.get(i).getUid() +
+            String output = "Foreign_ID_Node: "+ foreignDataList.get(i).getUid() +
                     //"\n Status: "+ foreignDataList.get(i).isChecked() +
                     "\n Foto ID: "+ foreignDataList.get(i).getFotoId() +
                     "\n Punkt X: "+ foreignDataList.get(i).getPunktX() +
@@ -304,7 +324,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(LOG_TAG,"=============================================================");
 
         for (int i= 0; i < neighborMemoList.size(); i++) {
-            String output = "Neighbor_ID: "+ neighborMemoList.get(i).getUid() +
+            String output = //"Neighbor_ID: "+ neighborMemoList.get(i).getNeighbour_id() +
+                    "\n Neighbor_ID_Foreign: "+ neighborMemoList.get(i).getUid() +
                     //"\n Status: "+ neighborMemoList.get(i).isChecked() +
                     "\n Corner Top Right X: "+ neighborMemoList.get(i).getCornerTopRightX() +
                     "\n Corner Top Right Y: "+ neighborMemoList.get(i).getCornerTopRightY() +
@@ -330,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(LOG_TAG,"=============================================================");
 
         for (int i = 0; i < ownDataMemoList.size(); i++){
-            String output = "OwnData_ID: "+ ownDataMemoList.get(i).getUid() +
+            String output = "OwnData_ID_Node: "+ ownDataMemoList.get(i).getUid() +
                     //"\n Status: "+ ownDataMemoList.get(i).isChecked() +
                     "\n File ID: "+ ownDataMemoList.get(i).getFileId();
 

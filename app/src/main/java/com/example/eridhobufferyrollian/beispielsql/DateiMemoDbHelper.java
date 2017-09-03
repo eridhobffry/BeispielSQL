@@ -37,17 +37,17 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
 
     public static final String COLUMN_UID = "_uid";
-    public static final String COLUMN_PID = "peer_id";
-    public static final String COLUMN_OID = "own_id";
-    public static final String COLUMN_FID = "foreign_id";
-    public static final String COLUMN_NID = "neighbor_id";
+    public static final String COLUMN_PID = "peer_id_foreign";
+    public static final String COLUMN_OID = "own_id_foreign";
+    public static final String COLUMN_FID = "foreign_id_foreign";
+    public static final String COLUMN_NID = "neighbour_id_foreign";
 //    public static final String COLUMN_USERNAME = "username";
 //    public static final String COLUMN_PASSWORD = "password";
     public static final String COLUMN_IP = "IP";
     public static final String COLUMN_COUNTPEERS = "CountPeers";
 
 
-
+    public static final String COLUMN_NEIGHBOUR_ID = "neighbour_id";
     public static final String COLUMN_PEERID = "peerId";
     public static final String COLUMN_PEERIP = "peerIp";
 
@@ -105,7 +105,8 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
     public static final String SQL_CREATE_TABLE_NEIGBHORS =
             "CREATE TABLE " + TABLE_NEIGHBOR_LIST +
-                    " ( " + COLUMN_UIP + " TEXT NOT NULL," +
+                    " ( " + //COLUMN_NEIGHBOUR_ID + " INTEGER PRIMARY KEY," +
+                    COLUMN_UIP + " TEXT NOT NULL," +
                     COLUMN_CORNERTOPRIGHTX + " REAL NOT NULL," +
                     COLUMN_CORNERTOPRIGHTY + " REAL NOT NULL," +
                     COLUMN_CORNERTOPLEFTX + " REAL NOT NULL," +

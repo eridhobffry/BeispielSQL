@@ -19,7 +19,7 @@ public class NeighborMemo {
     private double RTT;
     //private boolean checked;
     private long uid;
-    private long nid;
+    //private long neighbour_id;
 
 
     //    public NeighborMemo(long uid, boolean checked,
@@ -186,17 +186,17 @@ public class NeighborMemo {
         this.uid = uid;
     }
 
-    public long getNid() {
-        return nid;
-    }
-
-    public void setNid(long nid) {
-        this.nid = nid;
-    }
+//    public long getNeighbour_id() {
+//        return neighbour_id;
+//    }
+//
+//    public void setNeighbour_id(long neighbour_id) {
+//        this.neighbour_id = neighbour_id;
+//    }
 
     @Override
     public String toString() {
-        String output = uid + " -- " + UIP + " -- " + nid +
+        String output = uid + " -- " + UIP + " -- " + //neighbour_id +
                 "\nCorner top Left : x -> "+ cornerTopLeftX + " -- y -> "+ cornerTopLeftY +
                 "\nCorner top Right : x -> "+ cornerTopRightX + " -- y -> "+ cornerTopRightY +
                 "\nCorner Bottom Left : x -> "+ cornerBottomLeftX + " -- y -> "+ cornerBottomLeftY +
@@ -205,4 +205,6 @@ public class NeighborMemo {
                 "\n RTT : "+ RTT;
         return output;
     }
+
+
 }
