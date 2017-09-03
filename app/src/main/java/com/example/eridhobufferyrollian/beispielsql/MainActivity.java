@@ -226,26 +226,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         neighborMemo.setPunktY(0.4);
         neighborMemo.setUIP("277.0.0.0/8");
         neighborMemo.setRTT(25.89);
-        //neighborMemo.setNeighbour_id(2);
+        neighborMemo.setNeighbour_id(2);
         neighborDbSource.createNeighborMemo(neighborMemo);
 
 
-//        neighborMemo.setUid(dateiMemo.getUid());
-//        //neighborMemo.setChecked(true);
-//        neighborMemo.setCornerTopRightX(0.3);
-//        neighborMemo.setCornerTopRightY(0.5);
-//        neighborMemo.setCornerTopLeftX(0.6);
-//        neighborMemo.setCornerTopLeftY(0.12);
-//        neighborMemo.setCornerBottomLeftX(0.7);
-//        neighborMemo.setCornerBottomLeftY(0.78);
-//        neighborMemo.setCornerBottomRightX(0.8);
-//        neighborMemo.setCornerBottomRightY(0.23);
-//        neighborMemo.setPunktX(0.4);
-//        neighborMemo.setPunktY(0.5);
-//        neighborMemo.setUIP("277.0.0.0/8");
-//        neighborMemo.setRTT(25.983);
-//        neighborMemo.setNeighbour_id(neighborDbSource.createNeighborMemo(neighborMemo));
-//        neighborDbSource.createNeighborMemo(neighborMemo);
+        neighborMemo.setUid(dateiMemo.getUid());
+        //neighborMemo.setChecked(true);
+        neighborMemo.setCornerTopRightX(0.3);
+        neighborMemo.setCornerTopRightY(0.5);
+        neighborMemo.setCornerTopLeftX(0.6);
+        neighborMemo.setCornerTopLeftY(0.12);
+        neighborMemo.setCornerBottomLeftX(0.7);
+        neighborMemo.setCornerBottomLeftY(0.78);
+        neighborMemo.setCornerBottomRightX(0.8);
+        neighborMemo.setCornerBottomRightY(0.23);
+        neighborMemo.setPunktX(0.4);
+        neighborMemo.setPunktY(0.5);
+        neighborMemo.setUIP("277.0.0.0/8");
+        neighborMemo.setRTT(25.983);
+        neighborMemo.setNeighbour_id(3);
+        neighborDbSource.createNeighborMemo(neighborMemo);
 
 
         //insert Own Data
@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(LOG_TAG,"=============================================================");
 
         for (int i= 0; i < neighborMemoList.size(); i++) {
-            String output = //"Neighbor_ID: "+ neighborMemoList.get(i).getNeighbour_id() +
+            String output = "Neighbor_ID: "+ neighborMemoList.get(i).getNeighbour_id() +
                     "\n Neighbor_ID_Foreign: "+ neighborMemoList.get(i).getUid() +
                     //"\n Status: "+ neighborMemoList.get(i).isChecked() +
                     "\n Corner Top Right X: "+ neighborMemoList.get(i).getCornerTopRightX() +

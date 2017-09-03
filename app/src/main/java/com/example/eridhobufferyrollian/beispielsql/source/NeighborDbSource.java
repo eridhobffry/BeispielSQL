@@ -171,7 +171,7 @@ public class NeighborDbSource {
         values.put(DateiMemoDbHelper.COLUMN_PUNKTY, neighborMemo.getPunktY());
         values.put(DateiMemoDbHelper.COLUMN_UIP, neighborMemo.getUIP());
         values.put(DateiMemoDbHelper.COLUMN_RTT, neighborMemo.getRTT());
-        //values.put(DateiMemoDbHelper.COLUMN_NEIGHBOUR_ID, neighborMemo.getNeighbour_id());
+        values.put(DateiMemoDbHelper.COLUMN_NEIGHBOUR_ID, neighborMemo.getNeighbour_id());
 
 
 
@@ -943,6 +943,7 @@ public class NeighborDbSource {
                 neighborMemo.setPunktY(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_PUNKTY)));
                 neighborMemo.setUIP(cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_UIP)));
                 neighborMemo.setRTT(cursor.getDouble(cursor.getColumnIndex(dbHelper.COLUMN_RTT)));
+                neighborMemo.setNeighbour_id(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_NEIGHBOUR_ID)));
 
 
                 // Add book to books

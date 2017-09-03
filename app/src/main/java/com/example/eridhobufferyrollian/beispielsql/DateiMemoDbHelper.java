@@ -105,7 +105,7 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
     public static final String SQL_CREATE_TABLE_NEIGBHORS =
             "CREATE TABLE " + TABLE_NEIGHBOR_LIST +
-                    " ( " + //COLUMN_NEIGHBOUR_ID + " INTEGER PRIMARY KEY," +
+                    " ( " + COLUMN_NEIGHBOUR_ID + " INTEGER PRIMARY KEY," +
                     COLUMN_UIP + " TEXT NOT NULL," +
                     COLUMN_CORNERTOPRIGHTX + " REAL NOT NULL," +
                     COLUMN_CORNERTOPRIGHTY + " REAL NOT NULL," +
