@@ -146,10 +146,11 @@ public class PeerDbSource {
     *
     *
     * */
-    public int createPeerMemo(PeerMemo peerMemo) {
+    public void createPeerMemo(PeerMemo peerMemo) {
         database = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(DateiMemoDbHelper.COLUMN_PEERID, peerMemo.getPeerId());
+        //automatisch
+        //values.put(DateiMemoDbHelper.COLUMN_PEERID, peerMemo.getPeerId());
         values.put(DateiMemoDbHelper.COLUMN_PEERIP, peerMemo.getPeerIp());
         values.put(DateiMemoDbHelper.COLUMN_PID, peerMemo.getUid());
         //values.put(DateiMemoDbHelper.COLUMN_CHECKED, peerMemo.isChecked());
@@ -157,7 +158,7 @@ public class PeerDbSource {
         //
         //insert row
         //
-        int peer_Id = (int) database.insert(DateiMemoDbHelper.TABLE_PEER_LIST, null, values);
+        database.insert(DateiMemoDbHelper.TABLE_PEER_LIST, null, values);
         DatabaseManager.getInstance().closeDatabase();
         //
         //dataId
@@ -171,7 +172,7 @@ public class PeerDbSource {
 //        peerMemo = cursorToPeerMemo(cursor);
 //        cursor.close();
 
-        return peer_Id;
+        //return peer_Id;
     }
 
     /*
@@ -369,7 +370,7 @@ public class PeerDbSource {
                 peerMemo.setUid(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_PID)));
                 //peerMemo.setChecked(isChecked);
                 peerMemo.setPeerIp(cursor.getString(cursor.getColumnIndex(dbHelper.COLUMN_PEERIP)));
-                peerMemo.setPeerId(cursor.getInt(cursor.getColumnIndex(dbHelper.COLUMN_PEERID)));
+                peerMemo.setPeerId(cursor.getLong(cursor.getColumnIndex(dbHelper.COLUMN_PEERID)));
 
 
                 // Add book to books

@@ -34,7 +34,7 @@ public class ForeignDataDbSource {
     //Array
     private String[] columns_ForeignData = {
             DateiMemoDbHelper.COLUMN_FOTOID,
-            DateiMemoDbHelper.COLUMN_UID,
+            DateiMemoDbHelper.COLUMN_FID,
             DateiMemoDbHelper.COLUMN_PUNKTX,
             DateiMemoDbHelper.COLUMN_PUNKTY,
             //DateiMemoDbHelper.COLUMN_CHECKED,
@@ -153,18 +153,20 @@ public class ForeignDataDbSource {
         //insert muss long
         //
         int foreign_Id = (int)database.insert(DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST, null, values);
-        DatabaseManager.getInstance().closeDatabase();
+
         //
         //dataId
         //insert data in Array
         //
 //        Cursor cursor = database.query(DateiMemoDbHelper.TABLE_FOREIGNDATA_LIST,
-//                columns_ForeignData, DateiMemoDbHelper.COLUMN_UID + "=" + foreign_Id ,
+//                columns_ForeignData, DateiMemoDbHelper.COLUMN_FOTOID + "=" + foreign_Id ,
 //                null, null, null, null);
 //
 //        cursor.moveToFirst();
 //        foreignData = cursorToForeignData(cursor);
 //        cursor.close();
+
+        DatabaseManager.getInstance().closeDatabase();
 
         return foreign_Id;
     }
@@ -195,8 +197,8 @@ public class ForeignDataDbSource {
     *
     * */
 //    private ForeignData cursorToForeignData(Cursor cursor) {
-//        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_UID);
-//        int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
+//        int idIndex = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FID);
+//        //int idChecked = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_CHECKED);
 //        int idFotoId = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_FOTOID);
 //        int idPunktX = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTX);
 //        int idPunktY = cursor.getColumnIndex(DateiMemoDbHelper.COLUMN_PUNKTY);
@@ -206,8 +208,8 @@ public class ForeignDataDbSource {
 //
 //        long uid = cursor.getLong(idIndex);
 //
-//        int intValueChecked = cursor.getInt(idChecked);
-//        boolean isChecked = (intValueChecked != 0);
+//        //int intValueChecked = cursor.getInt(idChecked);
+//       // boolean isChecked = (intValueChecked != 0);
 //
 //        int fotoId = cursor.getInt(idFotoId);
 //        double punktX = cursor.getDouble(idPunktX);
@@ -216,7 +218,7 @@ public class ForeignDataDbSource {
 //
 //
 //
-//        ForeignData foreignData = new ForeignData(uid, isChecked, fotoId, punktX, punktY, foreignIp);
+//        ForeignData foreignData = new ForeignData();
 //
 //        return foreignData;
 //    }

@@ -55,19 +55,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private DateiMemoDbSource dateiMemoDbSource;
-    private ForeignDataDbSource foreignDataDbSource;
-    private NeighborDbSource neighborDbSource;
-    private OwnDataDbSource ownDataDbSource;
-    private PeerDbSource peerDbSource;
-
-    private DateiMemo dateiMemo;
-    private ForeignData foreignData;
-    private NeighborMemo neighborMemo;
-    private OwnDataMemo ownDataMemo;
-    private PeerMemo peerMemo;
-
-    private ListView mDateiMemosListView;
+//    private DateiMemoDbSource dateiMemoDbSource;
+//    private ForeignDataDbSource foreignDataDbSource;
+//    private NeighborDbSource neighborDbSource;
+//    private OwnDataDbSource ownDataDbSource;
+//    private PeerDbSource peerDbSource;
+//
+//    private DateiMemo dateiMemo;
+//    private ForeignData foreignData;
+//    private NeighborMemo neighborMemo;
+//    private OwnDataMemo ownDataMemo;
+//    private PeerMemo peerMemo;
+//
+//    private ListView mDateiMemosListView;
     //----------------  Man verbindet von hier zu der DBSource  -----------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,17 +145,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     *
     * */
     private void insertSampleData(){
-        dateiMemoDbSource = new DateiMemoDbSource();
-        foreignDataDbSource = new ForeignDataDbSource();
-        neighborDbSource = new NeighborDbSource();
-        ownDataDbSource = new OwnDataDbSource();
-        peerDbSource = new PeerDbSource();
+        DateiMemoDbSource dateiMemoDbSource = new DateiMemoDbSource();
+        ForeignDataDbSource foreignDataDbSource = new ForeignDataDbSource();
+        NeighborDbSource neighborDbSource = new NeighborDbSource();
+        OwnDataDbSource ownDataDbSource = new OwnDataDbSource();
+        PeerDbSource peerDbSource = new PeerDbSource();
 
-//        dateiMemoDbSource.deleteDateiMemo();
-//        neighborDbSource.deleteNeighbormemo();
-//        ownDataDbSource.deleteOwnData();
-//        peerDbSource.deletePeerMemo();
-//        foreignDataDbSource.deleteForeignData();
+        dateiMemoDbSource.deleteDateiMemo();
+        neighborDbSource.deleteNeighbormemo();
+        ownDataDbSource.deleteOwnData();
+        peerDbSource.deletePeerMemo();
+        foreignDataDbSource.deleteForeignData();
 
 
 
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         neighborMemo.setPunktY(0.4);
         neighborMemo.setUIP("277.0.0.0/8");
         neighborMemo.setRTT(25.89);
-        neighborMemo.setNeighbour_id(2);
+        //neighborMemo.setNeighbour_id(2);
         neighborDbSource.createNeighborMemo(neighborMemo);
 
 
@@ -244,7 +244,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         neighborMemo.setPunktY(0.5);
         neighborMemo.setUIP("277.0.0.0/8");
         neighborMemo.setRTT(25.983);
-        neighborMemo.setNeighbour_id(3);
+        //neighborMemo.setNeighbour_id(3);
+        neighborDbSource.createNeighborMemo(neighborMemo);
+
+        neighborMemo.setCornerTopRightX(0.3);
+        neighborMemo.setCornerTopRightY(0.5);
+        neighborMemo.setCornerTopLeftX(0.6);
+        neighborMemo.setCornerTopLeftY(0.12);
+        neighborMemo.setCornerBottomLeftX(0.7);
+        neighborMemo.setCornerBottomLeftY(0.78);
+        neighborMemo.setCornerBottomRightX(0.8);
+        neighborMemo.setCornerBottomRightY(0.23);
+        neighborMemo.setPunktX(0.4);
+        neighborMemo.setPunktY(0.5);
+        neighborMemo.setUIP("277.0.0.0/8");
+        neighborMemo.setRTT(25.983);
+        //neighborMemo.setNeighbour_id(3);
         neighborDbSource.createNeighborMemo(neighborMemo);
 
 
@@ -265,7 +280,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    private boolean checked;
         PeerMemo peerMemo = new PeerMemo();
         peerMemo.setUid(dateiMemo.getUid());
-        peerMemo.setPeerId(1);
+        //peerMemo.setPeerId(1);
+        //peerMemo.setChecked(true);
+        peerMemo.setPeerIp("277.0.0.1");
+        peerDbSource.createPeerMemo(peerMemo);
+
+        peerMemo.setUid(dateiMemo.getUid());
+        //peerMemo.setPeerId(1);
         //peerMemo.setChecked(true);
         peerMemo.setPeerIp("277.0.0.1");
         peerDbSource.createPeerMemo(peerMemo);
@@ -274,6 +295,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //Zeig Table Datei Memo
     private void ListDatei () {
+
+        DateiMemoDbSource dateiMemoDbSource = new DateiMemoDbSource();
+
         List<DateiMemo> dateiMemoList= dateiMemoDbSource.getAllDateiMemos();
         Log.d(LOG_TAG,"=============================================================");
 
@@ -303,6 +327,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //Zeig Table Foreign Datei
     private void ListForeignDatei () {
+
+        ForeignDataDbSource foreignDataDbSource = new ForeignDataDbSource();
+
         List<ForeignData> foreignDataList= foreignDataDbSource.getAllForeignData();
         Log.d(LOG_TAG,"=============================================================");
 
@@ -320,6 +347,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void ListNeighborData() {
+
+        NeighborDbSource neighborDbSource = new NeighborDbSource();
+
         List<NeighborMemo> neighborMemoList= neighborDbSource.getAllNeighborMemo();
         Log.d(LOG_TAG,"=============================================================");
 
@@ -347,6 +377,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void ListOwnData (){
+
+        OwnDataDbSource ownDataDbSource = new OwnDataDbSource();
+
         List<OwnDataMemo> ownDataMemoList= ownDataDbSource.getAllOwnData();
         Log.d(LOG_TAG,"=============================================================");
 
@@ -362,6 +395,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void ListPeer (){
+
+        PeerDbSource peerDbSource = new PeerDbSource();
+
         List<PeerMemo> peerMemoList= peerDbSource.getAllPeer();
         Log.d(LOG_TAG,"=============================================================");
 
@@ -377,6 +413,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void IP_Node () {
+
+        DateiMemoDbSource dateiMemoDbSource = new DateiMemoDbSource();
+
         String value = dateiMemoDbSource.getIp(dateiMemoDbSource.getUid());
         Log.d(LOG_TAG,"=============================================================");
         String output = "Value = " + value;
@@ -385,6 +424,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void UpdateCornerTopLeftX_Node (){
+
+        DateiMemoDbSource dateiMemoDbSource = new DateiMemoDbSource();
+
         Log.d(LOG_TAG,"=============================================================");
         String alteWert = "Alte Wert = " + dateiMemoDbSource.getCornerTopLeftX();
         Log.d(LOG_TAG, alteWert);
@@ -671,16 +713,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        setContentView(R.layout.activity_main);
 //    }
 
-
-    private void showAllListEntries () {
-        List<DateiMemo> DateiMemoList = dateiMemoDbSource.getAllDateiMemos();
-
-        ArrayAdapter<DateiMemo> adapter = (ArrayAdapter<DateiMemo>) mDateiMemosListView.getAdapter();
-
-        adapter.clear();
-        adapter.addAll(DateiMemoList);
-        adapter.notifyDataSetChanged();
-    }
+//
+//    private void showAllListEntries () {
+//
+//        DateiMemoDbSource dateiMemoDbSource = new DateiMemoDbSource();
+//
+//        List<DateiMemo> DateiMemoList = dateiMemoDbSource.getAllDateiMemos();
+//
+//        ArrayAdapter<DateiMemo> adapter = (ArrayAdapter<DateiMemo>) mDateiMemosListView.getAdapter();
+//
+//        adapter.clear();
+//        adapter.addAll(DateiMemoList);
+//        adapter.notifyDataSetChanged();
+//    }
 
 
 

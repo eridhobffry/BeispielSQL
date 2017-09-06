@@ -171,7 +171,8 @@ public class NeighborDbSource {
         values.put(DateiMemoDbHelper.COLUMN_PUNKTY, neighborMemo.getPunktY());
         values.put(DateiMemoDbHelper.COLUMN_UIP, neighborMemo.getUIP());
         values.put(DateiMemoDbHelper.COLUMN_RTT, neighborMemo.getRTT());
-        values.put(DateiMemoDbHelper.COLUMN_NEIGHBOUR_ID, neighborMemo.getNeighbour_id());
+        //automatisch
+        //values.put(DateiMemoDbHelper.COLUMN_NEIGHBOUR_ID, neighborMemo.getNeighbour_id());
 
 
 

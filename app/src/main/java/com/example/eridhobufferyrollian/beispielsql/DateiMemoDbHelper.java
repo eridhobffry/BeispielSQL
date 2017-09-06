@@ -99,13 +99,13 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
 
     public static final String SQL_CREATE_TABLE_PEERS =
             "CREATE TABLE " + TABLE_PEER_LIST +
-                    " ( " + COLUMN_PEERID + " INTEGER PRIMARY KEY," +
+                    " ( " + COLUMN_PEERID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COLUMN_PEERIP + " TEXT NOT NULL," +
                     COLUMN_PID + " INTEGER NOT NULL );";
 
     public static final String SQL_CREATE_TABLE_NEIGBHORS =
             "CREATE TABLE " + TABLE_NEIGHBOR_LIST +
-                    " ( " + COLUMN_NEIGHBOUR_ID + " INTEGER PRIMARY KEY," +
+                    " ( " + COLUMN_NEIGHBOUR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COLUMN_UIP + " TEXT NOT NULL," +
                     COLUMN_CORNERTOPRIGHTX + " REAL NOT NULL," +
                     COLUMN_CORNERTOPRIGHTY + " REAL NOT NULL," +
@@ -166,13 +166,9 @@ public class DateiMemoDbHelper extends SQLiteOpenHelper{
             Log.d(LOG_TAG, "Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_TABLE_DATEI + SQL_CREATE_TABLE_PEERS
                     + SQL_CREATE_TABLE_NEIGBHORS + SQL_CREATE_TABLE_OWNDATAS + SQL_CREATE_TABLE_FOREIGNDATAS + " angelegt.");
 
-            //2. Enable foreign key
-            if (!db.isReadOnly()) {
-                // Enable foreign key constraints
-                db.execSQL("PRAGMA foreign_keys=ON;");
-            }
 
-            //3. Erstellung eine Datenbank mit String "SQL_CREATE" als Parameter
+
+            //2. Erstellung eine Datenbank mit String "SQL_CREATE" als Parameter
             db.execSQL(SQL_CREATE_TABLE_DATEI);
             db.execSQL(SQL_CREATE_TABLE_PEERS);
             db.execSQL(SQL_CREATE_TABLE_NEIGBHORS);
