@@ -188,7 +188,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private double punktY;
         //private String foreignIp;
         ForeignData foreignData = new ForeignData();
+
+        //foreign key
         foreignData.setUid(dateiMemo.getUid());
+
         //foreignData.setChecked(true);
         foreignData.setFotoId(2);
         foreignData.setPunktX(0.5);
@@ -212,7 +215,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //private boolean checked;
         //private long uid;
         NeighborMemo neighborMemo = new NeighborMemo();
+
+        //foreign key
         neighborMemo.setUid(dateiMemo.getUid());
+
         //neighborMemo.setChecked(true);
         neighborMemo.setCornerTopRightX(0.5);
         neighborMemo.setCornerTopRightY(0.6);
@@ -229,8 +235,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //neighborMemo.setNeighbour_id(2);
         neighborDbSource.createNeighborMemo(neighborMemo);
 
-
+        //foreign key
         neighborMemo.setUid(dateiMemo.getUid());
+
         //neighborMemo.setChecked(true);
         neighborMemo.setCornerTopRightX(0.3);
         neighborMemo.setCornerTopRightY(0.5);
@@ -246,6 +253,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         neighborMemo.setRTT(25.983);
         //neighborMemo.setNeighbour_id(3);
         neighborDbSource.createNeighborMemo(neighborMemo);
+
+        //foreign key
+        neighborMemo.setUid(dateiMemo.getUid());
 
         neighborMemo.setCornerTopRightX(0.3);
         neighborMemo.setCornerTopRightY(0.5);
@@ -268,7 +278,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    public boolean checked;
         //    public int fileId
         OwnDataMemo ownDataMemo = new OwnDataMemo();
+
+        //foreign key
         ownDataMemo.setUid(dateiMemo.getUid());
+
         //ownDataMemo.setChecked(true);
         ownDataMemo.setFileId(3);
         ownDataDbSource.createOwnData(ownDataMemo);
@@ -279,13 +292,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    public double peerIp;
         //    private boolean checked;
         PeerMemo peerMemo = new PeerMemo();
+
+        //foreign key
         peerMemo.setUid(dateiMemoDbSource.getUid());
+
         //peerMemo.setPeerId(1);
         //peerMemo.setChecked(true);
         peerMemo.setPeerIp("277.0.0.1");
         peerDbSource.createPeerMemo(peerMemo);
 
+        //foreign key
         peerMemo.setUid(dateiMemoDbSource.getUid());
+
         //peerMemo.setPeerId(1);
         //peerMemo.setChecked(true);
         peerMemo.setPeerIp("277.0.0.8");
