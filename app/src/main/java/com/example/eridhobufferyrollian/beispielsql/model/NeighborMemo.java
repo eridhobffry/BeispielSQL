@@ -196,7 +196,7 @@ public class NeighborMemo {
 
     @Override
     public String toString() {
-        String output = uid + " -- " + UIP + " -- " + //neighbour_id +
+        String output = uid + " -- " + UIP + " -- " + neighbour_id +
                 "\nCorner top Left : x -> "+ cornerTopLeftX + " -- y -> "+ cornerTopLeftY +
                 "\nCorner top Right : x -> "+ cornerTopRightX + " -- y -> "+ cornerTopRightY +
                 "\nCorner Bottom Left : x -> "+ cornerBottomLeftX + " -- y -> "+ cornerBottomLeftY +

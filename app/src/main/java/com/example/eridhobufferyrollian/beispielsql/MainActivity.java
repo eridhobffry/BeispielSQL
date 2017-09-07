@@ -279,16 +279,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //    public double peerIp;
         //    private boolean checked;
         PeerMemo peerMemo = new PeerMemo();
-        peerMemo.setUid(dateiMemo.getUid());
+        peerMemo.setUid(dateiMemoDbSource.getUid());
         //peerMemo.setPeerId(1);
         //peerMemo.setChecked(true);
         peerMemo.setPeerIp("277.0.0.1");
         peerDbSource.createPeerMemo(peerMemo);
 
-        peerMemo.setUid(dateiMemo.getUid());
+        peerMemo.setUid(dateiMemoDbSource.getUid());
         //peerMemo.setPeerId(1);
         //peerMemo.setChecked(true);
-        peerMemo.setPeerIp("277.0.0.1");
+        peerMemo.setPeerIp("277.0.0.8");
         peerDbSource.createPeerMemo(peerMemo);
 
     }
