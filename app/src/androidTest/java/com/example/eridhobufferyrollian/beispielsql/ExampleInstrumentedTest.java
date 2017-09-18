@@ -37,10 +37,10 @@ public class ExampleInstrumentedTest {
         dateiMemo.setCornerTopRightY(0.9);
         dateiMemo.setCornerBottomLeftX(0.2);
         dateiMemo.setCornerBottomLeftY(0.3);
-        dateiMemo.setCornerTopLeftX(dateiMemoDbSource.getCornerBottomLeftX());
-        dateiMemo.setCornerTopLeftY(dateiMemoDbSource.getCornerTopRightY());
-        dateiMemo.setCornerBottomRightX(dateiMemoDbSource.getCornerBottomRightX());
-        dateiMemo.setCornerBottomRightY(dateiMemoDbSource.getCornerBottomLeftY());
+        dateiMemo.setCornerTopLeftX(0.1);
+        dateiMemo.setCornerTopLeftY(0.7);
+        dateiMemo.setCornerBottomRightX(0.9);
+        dateiMemo.setCornerBottomRightY(0.3);
         dateiMemo.setPunktX(0.3);
         dateiMemo.setPunktY(0.4);
         dateiMemo.setIP("277.0.0.0/8");
@@ -53,10 +53,10 @@ public class ExampleInstrumentedTest {
         dateiMemoDbSource.updateCornerBottomRightY(0.4);
         dateiMemoDbSource.updateCornerTopLeftX(0.2);
         dateiMemoDbSource.updateCornerTopLeftY(0.5);
-        dateiMemoDbSource.updateCornerTopRightX(0.9);
+        dateiMemoDbSource.updateCornerTopRightX(0.8);
         dateiMemoDbSource.updateCornerTopRightY(0.1);
         assertEquals(0.1,dateiMemoDbSource.getCornerTopRightY(),0);
-        assertEquals(0.9,dateiMemoDbSource.getCornerTopRightX(),0);
+        assertEquals(0.8,dateiMemoDbSource.getCornerTopRightX(),0);
         assertEquals(0.5,dateiMemoDbSource.getCornerTopLeftY(),0);
         assertEquals(0.2,dateiMemoDbSource.getCornerTopLeftX(),0);
         assertEquals(0.4,dateiMemoDbSource.getCornerBottomRightY(),0);

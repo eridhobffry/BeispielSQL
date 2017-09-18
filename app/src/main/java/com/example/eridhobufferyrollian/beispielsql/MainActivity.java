@@ -295,7 +295,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //foreign key
         peerMemo.setUid(dateiMemoDbSource.getUid());
-
         //peerMemo.setPeerId(1);
         //peerMemo.setChecked(true);
         peerMemo.setPeerIp("277.0.0.1");
